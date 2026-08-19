@@ -1,4 +1,4 @@
-def main()->None:
+def main() -> None:
     while True:
         command = input("종료하려면 exit 입력: ")
 
@@ -13,8 +13,4 @@ class Renderer:
 
 class delegate:
     tmp = ""
-
-
-if __name__ == "__main__":
-    main()
 
