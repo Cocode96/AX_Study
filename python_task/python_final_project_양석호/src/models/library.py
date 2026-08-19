@@ -1,10 +1,13 @@
+from .base_book import Book
 from .specialized_books import Specialized_books
-#books = {} # 도서 자체는 튜플을 사용할 듯 
+import datetime as dt
+
+#books = {} # 도서 자체는 딕셔너리를 사용할 듯 
 #rental_history = [(),()] # 리스트 튜플로 저장할듯 # 언제 대여했고(when) 무슨책이고(book) 대여인지 반납인지
 class Library:
 
     def __init__(self):
-        self.__books = {}
+        self.__books : dict[str, Book] = {}
         self.__rental_history = []
         pass
 
@@ -28,8 +31,13 @@ class Library:
 
     # 도서 대여 처리
     def rent_book(self, isbn):
+        self.__rental_history.append((dt.now(), self.__books[isbn].get_name() ,isbn)) # 시간 책이름 isbn까쥐
         pass
 
     # 도서 반납 처리
-    def return_book(self, isbn):
+    def return_book(self, isbn): # 여기도 똑같이 history control
+        pass
+
+    # 렌탈 히스토리!
+    def rental_history(self):
         pass
