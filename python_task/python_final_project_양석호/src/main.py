@@ -1,16 +1,36 @@
+from models.library import Library
+from utils import helpers
+
+library_manager = Library()
+
 def main() -> None:
     while True:
-        command = input("종료하려면 exit 입력: ")
+        print('='*30)
+        print("1. 도서 등록")
+        print("2. 전체 도서 조회")
+        print("3. 도서 검색")
+        print("4. 대여/반납 처리")
+        print("5. 종료")
+        print('='*30)
 
-        if command == "exit":
-            print("종료")
-            break
+        try:
+            main_command = int(input("입력 :"))
+        except ValueError as e:
+            print("숫자를 입력해주세요!")
+        else:
+            # 해당 문은 함수화나 객체화 시킬 것
+            if main_command == 1: # 도서 등록
+                library_manager.add_book()
+                pass
+            elif main_command == 2: # 전체 도서 조회
+                pass
+            elif main_command == 3: # 도서 검색
+                pass
+            elif main_command == 4: # 대여/반납 처리
+                pass
+            elif main_command == 5:
+                print("종료")
+                break
 
-
-class Renderer:
-    tmp = ""
-
-
-class delegate:
-    tmp = ""
-
+if __name__ == "__main__":
+    main()
