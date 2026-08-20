@@ -19,23 +19,24 @@ class Library:
 
     # 도서 등록
     def add_book(self, book):
-        pass
+        self.__books["Book의 isbn 키값으로"] = "book의 나머지는 튜플형태로 이름 저자"
 
     # 전체 도서 조회
     def show_all_books(self):
-        pass
+        print(self.__books.items())
 
     # 도서 검색
     def search_book(self, isbn):
+        print(self.__books[isbn])
         pass
 
     # 도서 대여 처리
     def rent_book(self, isbn):
-        self.__rental_history.append((dt.now(), self.__books[isbn].get_name() ,isbn)) # 시간 책이름 isbn까쥐
+        self.__rental_history.append((dt.now(), self.__books[isbn].get_name() ,isbn)) # 시간 책이름 isbn까쥐 불변 튜플
         pass
 
     # 도서 반납 처리
-    def return_book(self, isbn): # 여기도 똑같이 history control
+    def return_book(self, isbn): # history control append
         pass
 
     # 렌탈 히스토리!
