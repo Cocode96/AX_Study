@@ -1,67 +1,73 @@
-from .base_book import Book
-from .specialized_books import Specialized_books
 import datetime as dt
+from collections import Counter
 
-#books = {} # 도서 자체는 딕셔너리를 사용할 듯 
-#rental_history = [(),()] # 리스트 튜플로 저장할듯 # 언제 대여했고(when) 무슨책이고(book) 대여인지 반납인지
+from .base_book import Book
+
+
 class Library:
-
     def __init__(self):
-        self.__books : dict[str : Book] = {}
-        self.__rental_history = []
+        # 딕셔너리는 ISBN으로 도서를 바로 찾기 위해 사용한다.
+        self.__books: dict[str, Book] = {}
+        # 집합은 ISBN 중복과 대여 상태를 빠르게 검사하기 위해 사용한다.
+        self.__isbn_set: set[str] = set()
+        self.__rented_isbns: set[str] = set()
+        # 이력 한 건은 변경되면 안 되므로 튜플로 만들고 순서를 위해 리스트에 저장한다.
+        self.__rental_history: list[tuple[dt.datetime, str, str, str]] = []
 
-    def __str__(self):
-        return f"{self.__books}, {self.__rental_history}"
+    def __str__(self) -> str:
+        return f"등록 도서: {len(self.__books)}권, 대여 중: {len(self.__rented_isbns)}권"
 
-    def __repr__(self):
-        return (f"Library(books={self.__books!r}, rental_history={self.__rental_history!r})")
+    def __repr__(self) -> str:
+        return (
+            f"Library(books={self.__books!r}, "
+            f"rented_isbns={self.__rented_isbns!r}, "
+            f"rental_history={self.__rental_history!r})"
+        )
 
-    # 도서 등록
-    def add_book(self): # 예외 처리해야함
-        print("도서 정보를 입력해주세요.")
-        try:
-            book_name = input("도서명 : ")
-            book_writer = input("저자 : ")
-            isbn = input("ISBN : ")
-        except Exception as error:
-            print("정보를 잘못 입력하셨습니다!", error)
-
-        book = Book(book_name, book_writer, isbn)
-
+    def add_book(self, book: Book) -> None:
+        isbn = book.get_isbn()
+        if isbn in self.__isbn_set:
+            raise ValueError("이미 등록된 ISBN입니다.")
         self.__books[isbn] = book
+        self.__isbn_set.add(isbn)
 
-    # 전체 도서 조회
-    def show_all_books(self):
-        print("전체 도서 조회")
-        print(self.__books.items())
+    def get_all_books(self) -> list[Book]:
+        return list(self.__books.values())
 
-    # 도서 검색
-    def search_book(self):
-        try:
-            isbn = input("검색할 도서의 ISBN을 입력해주세요 : ")
-        except Exception as error:
-            print("잘못입력하셨습니다!", error)
+    def search_book(self, isbn: str) -> Book:
+        if isbn not in self.__books:
+            raise KeyError("등록되지 않은 ISBN입니다.")
+        return self.__books[isbn]
 
-        print(self.__books[isbn])
+    def rent_book(self, isbn: str) -> None:
+        book = self.search_book(isbn)
+        if isbn in self.__rented_isbns:
+            raise ValueError("이미 대여 중인 도서입니다.")
+        self.__rented_isbns.add(isbn)
+        self.__record_history(book, "대여")
 
-    # 도서 대여 처리
-    def rent_book(self):
-        try:
-            isbn = input("대여할 도서의 ISBN을 입력해주세요 : ")
-        except Exception as error:
-            print("잘못입력하셨습니다!", error)
+    def return_book(self, isbn: str) -> None:
+        book = self.search_book(isbn)
+        if isbn not in self.__rented_isbns:
+            raise ValueError("대여 중인 도서가 아닙니다.")
+        self.__rented_isbns.remove(isbn)
+        self.__record_history(book, "반납")
 
-        self.__rental_history.append((dt.datetime.now(), self.__books[isbn].get_name() ,isbn)) # 시간 책이름 isbn까쥐 불변 튜플
+    def is_rented(self, isbn: str) -> bool:
+        return isbn in self.__rented_isbns
 
-    # 도서 반납 처리
-    def return_book(self): # history control append
-        try:
-            isbn = input("반납할 도서의 ISBN을 입력해주세요 : ")
-        except Exception as error:
-            print("잘못입력하셨습니다!", error)
+    def get_rental_history(self) -> list[tuple[dt.datetime, str, str, str]]:
+        return list(self.__rental_history)
 
-        self.__rental_history.append((dt.datetime.now(), self.__books[isbn].get_name() ,isbn)) # 시간 책이름 isbn까쥐 불변 튜플
+    def get_rental_statistics(self) -> list[tuple[str, int]]:
+        rental_counts = Counter(
+            book_name
+            for _, book_name, _, action in self.__rental_history
+            if action == "대여"
+        )
+        return rental_counts.most_common()
 
-    # 렌탈 히스토리!
-    def show_rental_history(self):
-        print(*self.__rental_history)
+    def __record_history(self, book: Book, action: str) -> None:
+        self.__rental_history.append(
+            (dt.datetime.now(), book.get_book_name(), book.get_isbn(), action)
+        )

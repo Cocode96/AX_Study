@@ -1,14 +1,17 @@
 from .base_book import Book
 
-class Specialized_books(Book):
 
-    def __init__(self, name, writer, isbn, book_type):
+class SpecializedBook(Book):
+    def __init__(self, name: str, writer: str, isbn: str, book_type: str):
         super().__init__(name, writer, isbn)
         self.__book_type = book_type
 
-    def __str__(self):
-        return super().__str__()
+    def get_details(self) -> str:
+        return f"{super().get_details()}, 유형: {self.__book_type}"
 
-    def __repr__(self):
-        return super().__repr__()
-    
+    def __repr__(self) -> str:
+        return (
+            f"SpecializedBook(name={self.get_book_name()!r}, "
+            f"writer={self.get_book_writer()!r}, isbn={self.get_isbn()!r}, "
+            f"book_type={self.__book_type!r})"
+        )
