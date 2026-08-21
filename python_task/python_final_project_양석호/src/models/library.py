@@ -63,5 +63,5 @@ class Library:
         self.__rental_history.append((dt.datetime.now(), self.__books[isbn].get_name() ,isbn)) # 시간 책이름 isbn까쥐 불변 튜플
 
     # 렌탈 히스토리!
-    def rental_history(self):
+    def show_rental_history(self):
         print(*self.__rental_history)
