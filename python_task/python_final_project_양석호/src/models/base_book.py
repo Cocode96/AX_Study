@@ -10,3 +10,13 @@ class Book:
 
     def __repr__(self):
         return (f"Book(name={self.__book_name!r}, writer={self.__book_writer!r}, isbn={self.__isbn!r})")
+
+    def get_book_name(self):
+        return self.__book_name
+
+    def get_book_writer(self):
+        return self.__book_writer
+    
+
+    def get_isbn(self):
+        return self.__isbn
