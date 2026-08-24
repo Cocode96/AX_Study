@@ -1,6 +1,6 @@
 from models.library import Library
 from models.specialized_books import SpecializedBook
-from utils.helpers import input_menu, input_non_empty
+from utils.helpers import input_menu, input_non_empty, input_book_type
 
 
 library_manager = Library()
@@ -11,7 +11,7 @@ def add_book() -> None:
     name = input_non_empty("도서명: ")
     writer = input_non_empty("저자: ")
     isbn = input_non_empty("ISBN: ")
-    book_type = input_non_empty("도서 유형(단행본/전자도서 등): ")
+    book_type = input_book_type("도서 유형(단행본/전자도서 등): ")
 
     try:
         library_manager.add_book(SpecializedBook(name, writer, isbn, book_type))
@@ -79,7 +79,7 @@ def show_rental_history() -> None:
         return
     print("\n대여/반납 이력")
     for timestamp, book_name, isbn, action in history:
-        print(f"- {timestamp:%Y-%m-%d %H:%M:%S} | {action} | {book_name} | {isbn}")
+        print(f"- {timestamp: %H:%M:%S} | {action} | {book_name} | {isbn}")
 
 
 def show_rental_statistics() -> None:
@@ -92,6 +92,7 @@ def show_rental_statistics() -> None:
         print(f"- {book_name}: {count}회")
 
 
+# main 입니당
 def main() -> None:
     while True:
         print("\n" + "=" * 30)
