@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS 애니메이션 곡선 실험</title>
+  <style>
+    /* 숫자로 등록하면 브라우저가 0과 360 사이의 중간값을 계산한다. */
+    @property --hue {
+      syntax: "<number>";
+      inherits: false;
+      initial-value: 0;
+    }
+
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 32px 20px; background: #101624; color: #edf2ff; font-family: system-ui, sans-serif; line-height: 1.6; }
+    main { max-width: 880px; margin: auto; }
+    h1 { margin-bottom: 8px; font-size: clamp(24px, 5vw, 36px); }
+    p { color: #bdc9df; }
+    .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 24px 0; }
+    button, select { padding: 8px 14px; border: 1px solid #647693; border-radius: 8px; background: #22314a; color: white; font: inherit; cursor: pointer; }
+    .row { padding: 16px 20px; margin: 12px 0; border: 1px solid #35445e; border-radius: 12px; background: #182235; }
+    .label { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; margin-bottom: 12px; }
+    .label span { color: #bdc9df; font-size: 14px; }
+    .track { height: 42px; background: #0c1220; border-radius: 24px; }
+
+    /* 같은 거리와 시간으로 움직이고, 진행 속도의 곡선만 바꾼다. */
+    .ball {
+      width: 42px;
+      height: 42px;
+      position: relative;
+      border-radius: 50%;
+      background: hsl(var(--hue) 90% 60%);
+      animation-name: travel;
+      animation-duration: var(--duration, 3s);
+      animation-timing-function: var(--curve);
+      animation-iteration-count: infinite;
+      animation-direction: alternate;
+    }
+
+    /* left의 100%는 트랙 너비이므로 공의 너비를 빼서 끝에 맞춘다. */
+    @keyframes travel {
+      from { left: 0; --hue: 0; }
+      to { left: calc(100% - 42px); --hue: 360; }
+    }
+    .paused .ball { animation-play-state: paused; }
+    pre { overflow-x: auto; padding: 18px; border-radius: 12px; background: #080e19; color: #bfe8ff; }
+    code { font-family: Consolas, monospace; }
+    @media (prefers-reduced-motion: reduce) {
+      /* 동작 줄이기 설정에서는 멈춘 상태로 시작한다. 재생 버튼으로 실행 가능. */
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>CSS에도 Animation Curve가 있다!</h1>
+    <p>모든 공이 같은 거리를 같은 시간에 이동합니다. <code>animation-timing-function</code>만 달라서 중간 속도가 달라집니다. 색상의 H 값도 같은 곡선으로 0 → 360까지 변합니다.</p>
+    <div class="controls">
+      <button id="pause" type="button">일시정지</button>
+      <button id="restart" type="button">처음부터</button>
+      <label>편도 시간
+        <select id="duration">
+          <option value="1s">1초</option>
+          <option value="3s" selected>3초</option>
+          <option value="6s">6초</option>
+        </select>
+      </label>
+    </div>
+
+    <section id="demo" aria-label="애니메이션 속도 비교">
+      <div class="row" style="--curve: linear"><div class="label"><strong>linear</strong><span>처음부터 끝까지 일정한 속도</span></div><div class="track"><div class="ball"></div></div></div>
+      <div class="row" style="--curve: ease"><div class="label"><strong>ease</strong><span>느리게 시작 → 빨라짐 → 느리게 도착</span></div><div class="track"><div class="ball"></div></div></div>
+      <div class="row" style="--curve: ease-in"><div class="label"><strong>ease-in</strong><span>천천히 출발해서 가속</span></div><div class="track"><div class="ball"></div></div></div>
+      <div class="row" style="--curve: ease-out"><div class="label"><strong>ease-out</strong><span>빠르게 출발해서 감속</span></div><div class="track"><div class="ball"></div></div></div>
+      <div class="row" style="--curve: ease-in-out"><div class="label"><strong>ease-in-out</strong><span>출발과 도착을 모두 부드럽게</span></div><div class="track"><div class="ball"></div></div></div>
+      <div class="row" style="--curve: cubic-bezier(0.9, 0, 0.1, 1)"><div class="label"><strong>cubic-bezier(0.9, 0, 0.1, 1)</strong><span>직접 지정한 곡선: 중간에 급격히 이동</span></div><div class="track"><div class="ball"></div></div></div>
+      <div class="row" style="--curve: steps(6, end)"><div class="label"><strong>steps(6, end)</strong><span>6단계로 뚝뚝 끊어서 이동</span></div><div class="track"><div class="ball"></div></div></div>
+    </section>
+
+    <h2>직접 바꿔볼 핵심 CSS</h2>
+    <pre><code>/* @keyframes = 무엇이 변하는가 */
+@keyframes travel {
+  from { left: 0; --hue: 0; }
+  to   { left: calc(100% - 42px); --hue: 360; }
+}
+
+/* timing-function = 시간에 따라 얼마나 진행하는가 */
+animation-timing-function: cubic-bezier(0.9, 0, 0.1, 1);
+animation-duration: 3s;
+animation-direction: alternate; /* 도착하면 역방향으로 재생 */</code></pre>
+    <p>설명은 왼쪽 → 오른쪽 진행 기준입니다. 돌아올 때는 곡선도 반대로 재생됩니다. 이동과 색 변화는 CSS가 처리하고, 아래 JavaScript는 버튼과 시간 선택만 처리합니다.</p>
+  </main>
+  <script>
+    const demo = document.querySelector('#demo');
+    const pause = document.querySelector('#pause');
+
+    function updateButton() {
+      pause.textContent = demo.classList.contains('paused') ? '재생' : '일시정지';
+    }
+
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      demo.classList.add('paused');
+      updateButton();
+    }
+
+    pause.addEventListener('click', () => {
+      demo.classList.toggle('paused');
+      updateButton();
+    });
+
+    function restart() {
+      demo.getAnimations({ subtree: true }).forEach(animation => {
+        animation.currentTime = 0;
+      });
+    }
+
+    document.querySelector('#restart').addEventListener('click', restart);
+    document.querySelector('#duration').addEventListener('change', event => {
+      demo.style.setProperty('--duration', event.target.value);
+      restart();
+    });
+  </script>
+</body>
+</html>
