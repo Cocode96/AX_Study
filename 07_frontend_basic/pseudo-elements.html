@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS :: 가상 요소 예제</title>
+    <style>
+        /* 공통 화면 스타일. 아래 번호별 CSS를 HTML과 함께 가져다 쓰면 된다. */
+        * { box-sizing: border-box; }
+        body { max-width: 860px; margin: 40px auto; padding: 0 20px; font-family: sans-serif; line-height: 1.7; color: #203047; background: #f3f6fb; }
+        section { margin: 22px 0; padding: 24px; border: 1px solid #d9e2ef; border-radius: 12px; background: white; }
+        h2 { margin-top: 0; font-size: 20px; }
+        code { color: #254fa4; }
+        button, input { font: inherit; }
+        button { cursor: pointer; }
+        a { color: #2456b8; }
+        input[type="text"] { max-width: 100%; padding: 8px; border: 1px solid #8292a9; border-radius: 6px; }
+        .hint { color: #526176; font-size: 14px; }
+
+        /* 1. ::after는 요소 내용의 뒤에 생긴다. HTML에 화살표를 적지 않아도 된다. */
+        .external-link::after {
+            content: " ↗";
+            color: #2456b8;
+            font-weight: bold;
+        }
+
+        /* 2. 필수 표시 장식. 실제 필수 입력 기능은 input의 required가 담당한다.
+           input 자체보다 label에 가상 요소를 붙이는 것이 적절하다. */
+        .required-label::after {
+            content: " *";
+            color: #c52a3d;
+        }
+
+        /* 3. content: ""도 가상 요소를 생성한다. 내용 없이 크기와 배경으로 선을 만든다.
+           block으로 만들어 width/height를 적용하고 다음 줄에 배치한다. */
+        .divider-title::after {
+            content: "";
+            display: block;
+            width: 70px;
+            height: 4px;
+            margin-top: 10px;
+            background: #3675df;
+            border-radius: 2px;
+        }
+
+        /* 4. relative가 꼬리의 위치 기준이다.
+           absolute는 일반 배치에서 빠져나와 기준 요소에 붙는다. */
+        .bubble {
+            position: relative;
+            width: fit-content;
+            max-width: 100%;
+            margin-bottom: 24px;
+            padding: 14px 20px;
+            border-radius: 12px;
+            background: #e1edff;
+        }
+        .bubble::after {
+            content: "";
+            position: absolute;
+            left: 24px;
+            bottom: -16px;
+            /* 너비와 높이가 0인 상자의 테두리는 삼각형 형태로 만난다.
+               나머지는 투명하게 두고 위쪽 테두리만 칠하면 아래를 향한 꼬리가 된다. */
+            width: 0;
+            height: 0;
+            border: 8px solid transparent;
+            border-top-color: #e1edff;
+        }
+
+        /* 5. 빈 가상 요소를 밑줄로 만든 뒤, 가로 크기를 0 -> 1로 확대한다. */
+        .underline-button {
+            position: relative;
+            padding: 10px 0;
+            border: 0;
+            background: transparent;
+            color: #2456b8;
+        }
+        .underline-button::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 3px;
+            background: currentColor; /* 버튼의 color 값을 사용한다. */
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.2s;
+        }
+        /* 상태(:hover, :focus-visible)와 부분(::after)을 조합할 수 있다. */
+        .underline-button:hover::after,
+        .underline-button:focus-visible::after { transform: scaleX(1); }
+
+        /* 6. 라디오 버튼이 실제 선택 상태를 관리한다. 같은 name 중 하나만 선택된다.
+           +는 바로 다음 형제 label만 선택한다. JS 없이 메뉴 표시가 바뀐다. */
+        .menu { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+        .menu label { padding: 8px 14px; border: 1px solid #b6c5d9; border-radius: 8px; cursor: pointer; }
+        .menu input:checked + label { color: #16499e; background: #e1edff; }
+        .menu input:checked + label::before {
+            content: "";
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            margin-right: 8px;
+            border-radius: 50%; /* 정사각형을 원으로 만든다. */
+            background: #2456b8;
+        }
+        .menu input:checked + label::after { content: " ✓"; }
+
+        /* 7. 글자 없이 크기와 배경만 가진 장식용 상자. */
+        .decoration::before {
+            content: "";
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            margin-right: 12px;
+            vertical-align: middle;
+            border-radius: 8px;
+            background: #3675df;
+            transform: rotate(12deg);
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .underline-button::after { transition: none; }
+        }
+    </style>
+</head>
+<body>
+    <h1>CSS :: 가상 요소</h1>
+    <p>HTML에 장식용 태그를 추가하지 않고 앞뒤에 글자나 도형을 만든다.</p>
+    <a href="pseudo-classes.html">: 가상 클래스 예제 보기 →</a>
+    <section>
+        <h2>1. 링크 뒤에 아이콘</h2>
+        <a class="external-link" href="https://www.naver.com" target="_blank" rel="noopener noreferrer">네이버 (새 탭)</a>
+        <p class="hint"><code>::after { content: " ↗"; }</code></p>
+    </section>
+    <section>
+        <h2>2. 필수 입력 표시</h2>
+        <label class="required-label" for="nickname">닉네임 (필수)</label>
+        <input id="nickname" type="text" required placeholder="까마귀">
+        <p class="hint">별표는 장식이다. 입력 필수 여부는 HTML의 <code>required</code>로 지정한다.</p>
+    </section>
+    <section>
+        <h2 class="divider-title">3. 제목 아래 구분선</h2>
+        <p>빈 <code>::after</code>에 너비, 높이, 배경색을 주면 선이 된다.</p>
+    </section>
+    <section>
+        <h2>4. 말풍선 꼬리</h2>
+        <p class="bubble">안녕 나는 까마귀. 아래 꼬리는 ::after야!</p>
+        <p class="hint">본문은 HTML에 있고, 꼬리만 CSS가 그린다.</p>
+    </section>
+    <section>
+        <h2>5. 마우스를 올리면 나타나는 밑줄</h2>
+        <button class="underline-button" type="button">여기에 마우스를 올려 봐</button>
+        <p class="hint">Tab 키로 버튼에 포커스를 옮겨도 밑줄이 나타난다. 클릭 기능 없이 효과를 보여 주는 버튼이다.</p>
+    </section>
+    <section>
+        <h2>6. 선택한 메뉴에 점과 체크</h2>
+        <div class="menu" role="group" aria-label="메뉴 선택 예제">
+            <input id="home" type="radio" name="menu" checked><label for="home">홈</label>
+            <input id="inventory" type="radio" name="menu"><label for="inventory">인벤토리</label>
+            <input id="settings" type="radio" name="menu"><label for="settings">설정</label>
+        </div>
+        <p class="hint">라디오나 메뉴 이름을 클릭해 봐. 실제 페이지 이동 없이 선택 표시만 바뀐다.</p>
+    </section>
+    <section>
+        <h2>7. content: ""로 만든 상자</h2>
+        <p class="decoration">왼쪽 파란 상자는 별도 HTML 태그가 없다.</p>
+        <p class="hint"><code>content: ""</code>는 빈 가상 요소를 만든다. <code>content: none</code>은 만들지 않는다.</p>
+    </section>
+</body>
+</html>
