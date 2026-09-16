@@ -68,7 +68,7 @@
     .demos { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }
     .demo { min-width:0; padding:22px; }
     .demo p { font-size:14px; }
-    .image-window { overflow:hidden; border-radius:12px; background:#edf1f6; aspect-ratio:4/3; margin:18px 0; }
+    .image-window { position:relative; overflow:hidden; border-radius:12px; background:#edf1f6; aspect-ratio:4/3; margin:18px 0; }
     .effect-image { display:block; width:100%; height:100%; object-fit:cover; }
     .fade-image { transition:opacity 800ms ease; }
     #fade-in-image { opacity:0; }
@@ -83,6 +83,17 @@
     .demo input { accent-color:var(--blue); width:17px; height:17px; vertical-align:middle; }
     .demo label { display:inline-block; padding:6px 7px; cursor:pointer; font-size:13px; font-weight:700; }
     .demo input:checked + label { color:var(--blue); background:#edf3ff; border-radius:6px; }
+    /* 라디오는 키보드로 선택할 수 있도록 유지하고 화면에서만 숨긴다. */
+    .demo .slide-choice { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; border:0; }
+    .image-controls { position:absolute; bottom:15px; left:50%; transform:translateX(-50%); z-index:1; display:flex; gap:8px; }
+    .image-controls label { padding:6px 12px; border:1px solid #ffffff70; border-radius:20px; background:rgba(0,0,0,.6); color:white; white-space:nowrap; }
+    .image-controls label:hover { background:rgba(0,0,0,.85); }
+    #slide-1:checked ~ .image-window label[for="slide-1"],
+    #slide-2:checked ~ .image-window label[for="slide-2"],
+    #slide-3:checked ~ .image-window label[for="slide-3"] { background:white; color:#182b40; border-color:white; }
+    #slide-1:focus-visible ~ .image-window label[for="slide-1"],
+    #slide-2:focus-visible ~ .image-window label[for="slide-2"],
+    #slide-3:focus-visible ~ .image-window label[for="slide-3"] { outline:3px solid #e78f18; outline-offset:3px; }
     input:focus-visible,summary:focus-visible { outline:3px solid #e78f18; outline-offset:3px; }
     details { margin-top:18px; border-top:1px solid var(--line); padding-top:12px; }
     summary { cursor:pointer; font-size:13px; font-weight:700; }
@@ -246,32 +257,57 @@ img {
       </section>
       <section class="card demo" aria-label="풍경 이미지 슬라이드">
         <h3>03 / 이미지 슬라이드</h3>
-        <p>아침, 저녁, 밤을 선택해 이동한다.<br><code>translateX(0% → -100%)</code></p>
-        <input type="radio" name="scene" id="slide-1" checked><label for="slide-1">아침</label>
-        <input type="radio" name="scene" id="slide-2"><label for="slide-2">저녁</label>
-        <input type="radio" name="scene" id="slide-3"><label for="slide-3">밤</label>
+        <p>이미지 위의 버튼을 눌러 이동한다.<br><code>translateX(0% → -100%)</code></p>
+        <input class="slide-choice" type="radio" name="scene" id="slide-1" checked>
+        <input class="slide-choice" type="radio" name="scene" id="slide-2">
+        <input class="slide-choice" type="radio" name="scene" id="slide-3">
         <div class="image-window">
           <div class="track">
             <img src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20480%20360%22%3E%3Crect%20width%3D%22480%22%20height%3D%22360%22%20fill%3D%22%23ffe4bd%22%2F%3E%3Ccircle%20cx%3D%22355%22%20cy%3D%2283%22%20r%3D%2235%22%20fill%3D%22%23ffd17e%22%2F%3E%3Cpath%20d%3D%22M0%20230L110%2090L218%20214L310%20133L480%20243V360H0Z%22%20fill%3D%22%2391b6af%22%2F%3E%3Cpath%20d%3D%22M0%20263L130%20172L235%20264L394%20164L480%20248V360H0Z%22%20fill%3D%22%23437b82%22%2F%3E%3Cpath%20d%3D%22M0%20278Q115%20253%20240%20279T480%20278V360H0Z%22%20fill%3D%22%23b6d8d4%22%2F%3E%3Cpath%20d%3D%22M105%20314H263M204%20335H371M298%20300H407%22%20stroke%3D%22%23ffe4bd%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.65%22%2F%3E%3C%2Fsvg%3E" alt="해가 떠오르는 산과 호수">
             <img src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20480%20360%22%3E%3Crect%20width%3D%22480%22%20height%3D%22360%22%20fill%3D%22%23d8c9ee%22%2F%3E%3Ccircle%20cx%3D%22355%22%20cy%3D%2283%22%20r%3D%2235%22%20fill%3D%22%23ffcaab%22%2F%3E%3Cpath%20d%3D%22M0%20230L110%2090L218%20214L310%20133L480%20243V360H0Z%22%20fill%3D%22%23948bb9%22%2F%3E%3Cpath%20d%3D%22M0%20263L130%20172L235%20264L394%20164L480%20248V360H0Z%22%20fill%3D%22%23595c94%22%2F%3E%3Cpath%20d%3D%22M0%20278Q115%20253%20240%20279T480%20278V360H0Z%22%20fill%3D%22%23a3acd2%22%2F%3E%3Cpath%20d%3D%22M105%20314H263M204%20335H371M298%20300H407%22%20stroke%3D%22%23d8c9ee%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.65%22%2F%3E%3C%2Fsvg%3E" alt="보랏빛 저녁의 산과 호수">
             <img src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20480%20360%22%3E%3Crect%20width%3D%22480%22%20height%3D%22360%22%20fill%3D%22%23192e50%22%2F%3E%3Ccircle%20cx%3D%22355%22%20cy%3D%2283%22%20r%3D%2235%22%20fill%3D%22%23e7edcf%22%2F%3E%3Cpath%20d%3D%22M0%20230L110%2090L218%20214L310%20133L480%20243V360H0Z%22%20fill%3D%22%23385271%22%2F%3E%3Cpath%20d%3D%22M0%20263L130%20172L235%20264L394%20164L480%20248V360H0Z%22%20fill%3D%22%23243d5b%22%2F%3E%3Cpath%20d%3D%22M0%20278Q115%20253%20240%20279T480%20278V360H0Z%22%20fill%3D%22%234d7290%22%2F%3E%3Cpath%20d%3D%22M105%20314H263M204%20335H371M298%20300H407%22%20stroke%3D%22%23192e50%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.65%22%2F%3E%3C%2Fsvg%3E" alt="달이 떠 있는 밤의 산과 호수">
           </div>
+          <div class="image-controls">
+            <label for="slide-1">아침</label>
+            <label for="slide-2">저녁</label>
+            <label for="slide-3">밤</label>
+          </div>
         </div>
-        <p class="tip">같은 name의 라디오 버튼은 한 번에 하나만 선택된다.</p>
+        <p class="tip">이미지 하단의 버튼으로 선택한다. 키보드는 Tab으로 선택 영역에 들어간 뒤 방향키로 이동한다.</p>
+        <p class="tip"><code>relative</code>로 이미지 창을 배치 기준으로 만들고, 버튼 영역을 <code>absolute</code>로 겹친다. 버튼은 움직이는 트랙 밖에 있어 이미지가 넘어가도 제자리에 남는다.</p>
         <details><summary>HTML + CSS 보기</summary><pre class="mini-code"><code>&lt;input type="radio" name="slide"
        id="s1" checked&gt;
-&lt;label for="s1"&gt;1번&lt;/label&gt;
 &lt;input type="radio" name="slide"
        id="s2"&gt;
-&lt;label for="s2"&gt;2번&lt;/label&gt;
 &lt;div class="window"&gt;
   &lt;div class="track"&gt;
     &lt;img src="a.jpg" alt="아침"&gt;
     &lt;img src="b.jpg" alt="저녁"&gt;
   &lt;/div&gt;
+  &lt;div class="image-controls"&gt;
+    &lt;label for="s1"&gt;1번&lt;/label&gt;
+    &lt;label for="s2"&gt;2번&lt;/label&gt;
+  &lt;/div&gt;
 &lt;/div&gt;
 
-.window { overflow: hidden; }
+.window { position: relative;
+  overflow: hidden; }
+.image-controls {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  display: flex;
+  gap: 8px;
+}
+.image-controls label {
+  padding: 6px 12px;
+  background: rgba(0, 0, 0, .6);
+  color: white;
+  border-radius: 20px;
+  cursor: pointer;
+}
 .track { display: flex;
   transition: transform 0.6s ease; }
 .track img { flex: 0 0 100%;
