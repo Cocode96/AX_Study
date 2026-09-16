@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CSS 박스 모델과 이미지 효과</title>
+  <style>
+    :root { color-scheme: light; --ink:#182b40; --muted:#53677d; --line:#dce4ec; --blue:#174fdb; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:#f4f7fa; color:var(--ink); font-family:"Malgun Gothic",system-ui,sans-serif; line-height:1.75; }
+    main { max-width:1080px; margin:auto; padding:54px 28px 40px; }
+    .eyebrow { color:var(--blue); font-size:12px; font-weight:800; letter-spacing:.15em; }
+    h1 { margin:10px 0 14px; font-size:clamp(28px,5vw,44px); letter-spacing:-.06em; line-height:1.3; }
+    h2 { margin:0 0 20px; font-size:23px; letter-spacing:-.04em; }
+    h3 { margin:0 0 8px; font-size:17px; }
+    p { margin:0 0 12px; }
+    .intro { color:var(--muted); max-width:740px; }
+    .hero { display:grid; grid-template-columns:1fr 1.1fr; gap:24px; margin:32px 0 24px; }
+    .card { border:1px solid var(--line); border-radius:20px; background:white; padding:28px; }
+    .code-card { color:#e9f0ff; background:#13263d; border-color:#13263d; }
+    .code-card h2 { color:white; }
+    pre { margin:0; white-space:pre-wrap; overflow-wrap:anywhere; font-size:14px; line-height:1.9; tab-size:4; }
+    code { font-family:Consolas,"Courier New",monospace; }
+    :not(pre)>code { color:#164fba; background:#edf3ff; padding:2px 5px; border-radius:4px; }
+    .comment { color:#aac0d6; }
+    .code-note { font-size:13px; color:#c6d6e9; margin:22px 0 0; }
+    .diagram-scroll { overflow-x:auto; padding-bottom:8px; }
+    .diagram { width:320px; height:220px; margin:0 auto; position:relative; background:#fff0d4; outline:1px dashed #c8872a; outline-offset:-1px; display:flow-root; }
+    /* 예제만 기본 content-box를 사용한다. 위의 페이지 레이아웃 설정과 분리한다. */
+    .box {
+      box-sizing:content-box;
+      width:150px;
+      height:50px;
+      margin:50px;
+      padding:30px;
+      border:5px solid blue;
+      background:#d9eee3;
+    }
+    .content { width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:#bcdcff; color:#163b6b; font:700 13px Consolas,monospace; }
+    .diagram-label { position:absolute; font:12px Consolas,monospace; }
+    .margin-label { top:13px; left:112px; color:#885919; }
+    .padding-label { top:59px; left:116px; color:#245b43; }
+    .dimension { text-align:center; margin:16px 0 0; color:var(--muted); font-size:13px; }
+    .legend { display:flex; justify-content:center; flex-wrap:wrap; gap:8px 15px; margin:18px 0 0; font-size:12px; }
+    .legend span::before { content:""; display:inline-block; width:10px; height:10px; background:var(--swatch); margin-right:5px; border:1px solid #0002; }
+    .section { margin-top:24px; }
+    .table-wrap { overflow-x:auto; }
+    table { width:100%; border-collapse:collapse; text-align:left; font-size:14px; }
+    th { background:#f4f7fb; color:var(--muted); font-size:12px; }
+    th,td { padding:13px 14px; border-bottom:1px solid var(--line); vertical-align:top; }
+    td:first-child { white-space:nowrap; }
+    tr:last-child td { border-bottom:0; }
+    .calculations { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+    .calc { padding:22px; border-radius:14px; background:#eff5ff; }
+    .calc.outer { background:#fff5e5; }
+    .calc-label { color:var(--muted); font-size:13px; }
+    .result { font-size:28px; font-weight:800; letter-spacing:-.04em; margin:3px 0 12px; }
+    .formula { font:13px/1.9 Consolas,"Malgun Gothic",monospace; }
+    .note { border-left:3px solid #8aa4c3; padding:4px 0 4px 14px; margin:20px 0 0; color:var(--muted); font-size:13px; }
+    .two-col { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+    .mini-code { padding:16px; border-radius:10px; background:#f3f6fa; margin:14px 0; font-size:13px; }
+    .tip { margin:14px 0 0; font-size:13px; color:var(--muted); }
+    .sequence { display:flex; flex-wrap:wrap; align-items:center; gap:10px; font-weight:700; font-size:14px; margin:16px 0 0; }
+    .sequence span { padding:5px 10px; border-radius:6px; background:#f0f4f8; }
+    footer { color:var(--muted); font-size:12px; text-align:center; padding-top:28px; }
+    .chapter { margin:54px 0 24px; }
+    .chapter h2 { margin:8px 0 12px; font-size:30px; }
+    .demos { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }
+    .demo { min-width:0; padding:22px; }
+    .demo p { font-size:14px; }
+    .image-window { overflow:hidden; border-radius:12px; background:#edf1f6; aspect-ratio:4/3; margin:18px 0; }
+    .effect-image { display:block; width:100%; height:100%; object-fit:cover; }
+    .fade-image { transition:opacity 800ms ease; }
+    #fade-in-image { opacity:0; }
+    #fade-in-toggle:checked ~ .image-window img { opacity:1; }
+    #fade-out-image { opacity:1; }
+    #fade-out-toggle:checked ~ .image-window img { opacity:0; }
+    .track { display:flex; height:100%; transition:transform 600ms ease; }
+    .track img { flex:0 0 100%; width:100%; min-width:0; height:100%; object-fit:cover; }
+    #slide-1:checked ~ .image-window .track { transform:translateX(0%); }
+    #slide-2:checked ~ .image-window .track { transform:translateX(-100%); }
+    #slide-3:checked ~ .image-window .track { transform:translateX(-200%); }
+    .demo input { accent-color:var(--blue); width:17px; height:17px; vertical-align:middle; }
+    .demo label { display:inline-block; padding:6px 7px; cursor:pointer; font-size:13px; font-weight:700; }
+    .demo input:checked + label { color:var(--blue); background:#edf3ff; border-radius:6px; }
+    input:focus-visible,summary:focus-visible { outline:3px solid #e78f18; outline-offset:3px; }
+    details { margin-top:18px; border-top:1px solid var(--line); padding-top:12px; }
+    summary { cursor:pointer; font-size:13px; font-weight:700; }
+    details pre { font-size:12px; }
+    .steps { padding-left:22px; font-size:14px; }
+    .steps li { margin:7px 0; }
+    @media(max-width:940px) { .demos { grid-template-columns:1fr; } .demo .image-window { max-width:460px; } }
+    @media(prefers-reduced-motion:reduce) { .fade-image,.track { transition:none; } }
+    @media(max-width:760px) { main { padding:30px 16px; } .hero,.two-col,.calculations { grid-template-columns:1fr; } .card { padding:22px 18px; } }
+    @media print { body { background:white; } main { padding:0; } .card { break-inside:avoid; } .hero { grid-template-columns:1fr 1fr; } * { print-color-adjust:exact; -webkit-print-color-adjust:exact; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="eyebrow">CSS NOTES / 01</div>
+      <h1>150 × 50인데,<br>왜 박스는 더 커질까?</h1>
+      <p class="intro">기본값인 <code>box-sizing: content-box</code>에서 <code>width</code>와 <code>height</code>는 <strong>내용 영역의 크기</strong>다. 여기에 안쪽 여백과 테두리가 더해져 화면에 보이는 박스 크기가 정해진다.</p>
+    </header>
+
+    <div class="hero">
+      <section class="card code-card" aria-labelledby="source-title">
+        <h2 id="source-title">입력한 CSS</h2>
+        <pre><code>.box {
+    width: 150px;          <span class="comment">/* 내용의 너비 */</span>
+    height: 50px;          <span class="comment">/* 내용의 높이 */</span>
+    margin: 50px;          <span class="comment">/* 바깥 여백 */</span>
+    padding: 30px;         <span class="comment">/* 안쪽 여백 */</span>
+    border: 5px solid blue;<span class="comment">/* 테두리 */</span>
+}</code></pre>
+        <p class="code-note">별도 box-sizing 설정이 없는 일반적인 블록 요소를 기준으로 설명한다. margin과 padding에 값 하나를 쓰면 위, 오른쪽, 아래, 왼쪽 모두에 적용된다.</p>
+      </section>
+      <section class="card" aria-labelledby="diagram-title">
+        <h2 id="diagram-title">브라우저에서 그려지는 구조</h2>
+        <div class="diagram-scroll">
+          <div class="diagram" role="img" aria-label="내용 150 곱하기 50픽셀, 사방 padding 30픽셀, 파란 border 5픽셀, 사방 margin 50픽셀. 테두리까지 220 곱하기 120픽셀.">
+            <span class="diagram-label margin-label">margin 50px</span>
+            <span class="diagram-label padding-label">padding 30px</span>
+            <div class="box"><div class="content">150 × 50</div></div>
+          </div>
+        </div>
+        <div class="legend">
+          <span style="--swatch:#bcdcff">내용</span><span style="--swatch:#d9eee3">padding</span><span style="--swatch:blue">border</span><span style="--swatch:#fff0d4">margin</span>
+        </div>
+        <p class="dimension">실제 CSS 크기로 표시한 예제 / 단위: CSS px</p>
+        <p class="tip">내용, padding, margin의 배경색은 설명을 위해 추가했다. 원본 CSS는 파란 테두리만 지정하며, margin 자체에는 배경색이 칠해지지 않는다.</p>
+      </section>
+    </div>
+
+    <section class="card section">
+      <h2>각 속성은 어디에 적용될까?</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">속성</th><th scope="col">역할</th><th scope="col">이 코드에서의 의미</th></tr></thead>
+          <tbody>
+            <tr><td><code>width</code></td><td>내용 영역의 가로 크기</td><td>150px. padding, border, margin은 포함하지 않는다.</td></tr>
+            <tr><td><code>height</code></td><td>내용 영역의 세로 크기</td><td>50px. padding, border, margin은 포함하지 않는다.</td></tr>
+            <tr><td><code>padding</code></td><td>내용과 테두리 사이의 안쪽 여백</td><td>사방 30px. 요소의 배경은 기본적으로 padding 영역에도 이어진다.</td></tr>
+            <tr><td><code>border</code></td><td>padding 바깥을 감싸는 테두리</td><td>사방 두께 5px, 실선(solid), 파란색(blue).</td></tr>
+            <tr><td><code>margin</code></td><td>테두리 바깥의 여백</td><td>사방 50px. 주변 요소와의 간격에 관여한다.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="sequence" aria-label="안쪽에서 바깥쪽 순서"><span>내용</span> → <span>padding</span> → <span>border</span> → <span>margin</span></div>
+    </section>
+
+    <section class="card section">
+      <h2>실제 크기 계산</h2>
+      <div class="calculations">
+        <div class="calc">
+          <div class="calc-label">테두리까지의 박스 크기</div>
+          <div class="result">220 × 120px</div>
+          <div class="formula">가로: 150 + 30 × 2 + 5 × 2 = 220px<br>세로: 50 + 30 × 2 + 5 × 2 = 120px</div>
+        </div>
+        <div class="calc outer">
+          <div class="calc-label">사방 margin을 단순히 더한 범위</div>
+          <div class="result">320 × 220px</div>
+          <div class="formula">가로: 220 + 50 × 2 = 320px<br>세로: 120 + 50 × 2 = 220px</div>
+        </div>
+      </div>
+      <p class="note"><strong>margin은 요소 자체의 크기에 포함되지 않는다.</strong> 또한 일반 블록 배치에서는 위아래 margin이 겹치는 ‘마진 상쇄’가 생길 수 있다. 따라서 실제 주변 간격이나 부모 높이가 언제나 위 단순 합과 같지는 않다.</p>
+    </section>
+
+    <div class="two-col section">
+      <section class="card">
+        <h2>여백 단축 표기 읽기</h2>
+        <p><code>margin</code>과 <code>padding</code>은 같은 순서로 읽는다.</p>
+        <pre class="mini-code"><code>margin: 50px;
+<span class="comment" style="color:#52687b">/* 위, 오른쪽, 아래, 왼쪽: 모두 50px */</span>
+
+margin: 10px 20px;
+<span class="comment" style="color:#52687b">/* 위아래 10px / 좌우 20px */</span>
+
+margin: 10px 20px 30px;
+<span class="comment" style="color:#52687b">/* 위 10px / 좌우 20px / 아래 30px */</span>
+
+margin: 10px 20px 30px 40px;
+<span class="comment" style="color:#52687b">/* 위 → 오른쪽 → 아래 → 왼쪽 */</span></code></pre>
+        <p class="tip">값이 4개라면 위에서 시작해 시계 방향으로 읽으면 된다.</p>
+      </section>
+      <section class="card">
+        <h2>border-box라면?</h2>
+        <p><code>box-sizing: border-box</code>를 사용하면 지정한 너비와 높이에 <strong>padding과 border가 포함</strong>된다. margin은 여전히 바깥이다.</p>
+        <pre class="mini-code"><code>.box {
+    box-sizing: border-box;
+    width: 220px;
+    height: 120px;
+    margin: 50px;
+    padding: 30px;
+    border: 5px solid blue;
+}</code></pre>
+        <p>위처럼 쓰면 원본과 동일하게 테두리까지 <strong>220 × 120px</strong>, 내용은 <strong>150 × 50px</strong>가 된다.</p>
+        <p class="tip">원본의 150 × 50px를 그대로 두고 border-box만 적용하면? 내용 너비는 80px가 된다. 세로는 padding과 border만으로 70px이므로, 내용 높이는 0px까지 줄고 실제 테두리까지의 높이는 최소 70px이 된다.</p>
+      </section>
+    </div>
+    <header class="chapter">
+      <div class="eyebrow">CSS NOTES / 02</div>
+      <h2>이미지에 움직임 주기</h2>
+      <p class="intro">페이드는 <code>opacity</code>로 투명도를 바꾸고, 슬라이드는 <code>transform</code>으로 위치를 바꾼다. <code>transition</code>이 두 상태 사이를 부드럽게 연결한다.</p>
+    </header>
+    <div class="demos">
+      <section class="card demo">
+        <h3>01 / 페이드인</h3>
+        <p>체크하면 이미지가 서서히 나타난다.<br><code>opacity: 0 → 1</code></p>
+        <input type="checkbox" id="fade-in-toggle"><label for="fade-in-toggle">이미지 나타내기</label>
+        <div class="image-window"><img id="fade-in-image" class="effect-image fade-image" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20480%20360%22%3E%3Crect%20width%3D%22480%22%20height%3D%22360%22%20fill%3D%22%23ffe4bd%22%2F%3E%3Ccircle%20cx%3D%22355%22%20cy%3D%2283%22%20r%3D%2235%22%20fill%3D%22%23ffd17e%22%2F%3E%3Cpath%20d%3D%22M0%20230L110%2090L218%20214L310%20133L480%20243V360H0Z%22%20fill%3D%22%2391b6af%22%2F%3E%3Cpath%20d%3D%22M0%20263L130%20172L235%20264L394%20164L480%20248V360H0Z%22%20fill%3D%22%23437b82%22%2F%3E%3Cpath%20d%3D%22M0%20278Q115%20253%20240%20279T480%20278V360H0Z%22%20fill%3D%22%23b6d8d4%22%2F%3E%3Cpath%20d%3D%22M105%20314H263M204%20335H371M298%20300H407%22%20stroke%3D%22%23ffe4bd%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.65%22%2F%3E%3C%2Fsvg%3E" alt="해가 떠오르는 산과 호수 일러스트"></div>
+        <p class="tip">체크를 해제하면 다시 서서히 사라진다.</p>
+        <details><summary>HTML + CSS 보기</summary><pre class="mini-code"><code>&lt;input type="checkbox" id="show"&gt;
+&lt;label for="show"&gt;나타내기&lt;/label&gt;
+&lt;img src="photo.jpg" alt="풍경"&gt;
+
+/* 처음에는 투명 */
+img {
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+/* 체크된 input 뒤의 형제 img */
+#show:checked ~ img {
+  opacity: 1;
+}</code></pre></details>
+      </section>
+      <section class="card demo">
+        <h3>02 / 페이드아웃</h3>
+        <p>체크하면 이미지가 서서히 사라진다.<br><code>opacity: 1 → 0</code></p>
+        <input type="checkbox" id="fade-out-toggle"><label for="fade-out-toggle">이미지 숨기기</label>
+        <div class="image-window"><img id="fade-out-image" class="effect-image fade-image" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20480%20360%22%3E%3Crect%20width%3D%22480%22%20height%3D%22360%22%20fill%3D%22%23d8c9ee%22%2F%3E%3Ccircle%20cx%3D%22355%22%20cy%3D%2283%22%20r%3D%2235%22%20fill%3D%22%23ffcaab%22%2F%3E%3Cpath%20d%3D%22M0%20230L110%2090L218%20214L310%20133L480%20243V360H0Z%22%20fill%3D%22%23948bb9%22%2F%3E%3Cpath%20d%3D%22M0%20263L130%20172L235%20264L394%20164L480%20248V360H0Z%22%20fill%3D%22%23595c94%22%2F%3E%3Cpath%20d%3D%22M0%20278Q115%20253%20240%20279T480%20278V360H0Z%22%20fill%3D%22%23a3acd2%22%2F%3E%3Cpath%20d%3D%22M105%20314H263M204%20335H371M298%20300H407%22%20stroke%3D%22%23d8c9ee%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.65%22%2F%3E%3C%2Fsvg%3E" alt="보랏빛 저녁의 산과 호수 일러스트"></div>
+        <p class="tip">체크를 해제하면 다시 서서히 나타난다.</p>
+        <details><summary>HTML + CSS 보기</summary><pre class="mini-code"><code>&lt;input type="checkbox" id="hide"&gt;
+&lt;label for="hide"&gt;숨기기&lt;/label&gt;
+&lt;img src="photo.jpg" alt="풍경"&gt;
+
+/* 처음에는 보임 */
+img {
+  opacity: 1;
+  transition: opacity 0.8s ease;
+}
+/* 체크하면 투명 */
+#hide:checked ~ img {
+  opacity: 0;
+}</code></pre></details>
+      </section>
+      <section class="card demo" aria-label="풍경 이미지 슬라이드">
+        <h3>03 / 이미지 슬라이드</h3>
+        <p>아침, 저녁, 밤을 선택해 이동한다.<br><code>translateX(0% → -100%)</code></p>
+        <input type="radio" name="scene" id="slide-1" checked><label for="slide-1">아침</label>
+        <input type="radio" name="scene" id="slide-2"><label for="slide-2">저녁</label>
+        <input type="radio" name="scene" id="slide-3"><label for="slide-3">밤</label>
+        <div class="image-window">
+          <div class="track">
+            <img src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20480%20360%22%3E%3Crect%20width%3D%22480%22%20height%3D%22360%22%20fill%3D%22%23ffe4bd%22%2F%3E%3Ccircle%20cx%3D%22355%22%20cy%3D%2283%22%20r%3D%2235%22%20fill%3D%22%23ffd17e%22%2F%3E%3Cpath%20d%3D%22M0%20230L110%2090L218%20214L310%20133L480%20243V360H0Z%22%20fill%3D%22%2391b6af%22%2F%3E%3Cpath%20d%3D%22M0%20263L130%20172L235%20264L394%20164L480%20248V360H0Z%22%20fill%3D%22%23437b82%22%2F%3E%3Cpath%20d%3D%22M0%20278Q115%20253%20240%20279T480%20278V360H0Z%22%20fill%3D%22%23b6d8d4%22%2F%3E%3Cpath%20d%3D%22M105%20314H263M204%20335H371M298%20300H407%22%20stroke%3D%22%23ffe4bd%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.65%22%2F%3E%3C%2Fsvg%3E" alt="해가 떠오르는 산과 호수">
+            <img src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20480%20360%22%3E%3Crect%20width%3D%22480%22%20height%3D%22360%22%20fill%3D%22%23d8c9ee%22%2F%3E%3Ccircle%20cx%3D%22355%22%20cy%3D%2283%22%20r%3D%2235%22%20fill%3D%22%23ffcaab%22%2F%3E%3Cpath%20d%3D%22M0%20230L110%2090L218%20214L310%20133L480%20243V360H0Z%22%20fill%3D%22%23948bb9%22%2F%3E%3Cpath%20d%3D%22M0%20263L130%20172L235%20264L394%20164L480%20248V360H0Z%22%20fill%3D%22%23595c94%22%2F%3E%3Cpath%20d%3D%22M0%20278Q115%20253%20240%20279T480%20278V360H0Z%22%20fill%3D%22%23a3acd2%22%2F%3E%3Cpath%20d%3D%22M105%20314H263M204%20335H371M298%20300H407%22%20stroke%3D%22%23d8c9ee%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.65%22%2F%3E%3C%2Fsvg%3E" alt="보랏빛 저녁의 산과 호수">
+            <img src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20480%20360%22%3E%3Crect%20width%3D%22480%22%20height%3D%22360%22%20fill%3D%22%23192e50%22%2F%3E%3Ccircle%20cx%3D%22355%22%20cy%3D%2283%22%20r%3D%2235%22%20fill%3D%22%23e7edcf%22%2F%3E%3Cpath%20d%3D%22M0%20230L110%2090L218%20214L310%20133L480%20243V360H0Z%22%20fill%3D%22%23385271%22%2F%3E%3Cpath%20d%3D%22M0%20263L130%20172L235%20264L394%20164L480%20248V360H0Z%22%20fill%3D%22%23243d5b%22%2F%3E%3Cpath%20d%3D%22M0%20278Q115%20253%20240%20279T480%20278V360H0Z%22%20fill%3D%22%234d7290%22%2F%3E%3Cpath%20d%3D%22M105%20314H263M204%20335H371M298%20300H407%22%20stroke%3D%22%23192e50%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.65%22%2F%3E%3C%2Fsvg%3E" alt="달이 떠 있는 밤의 산과 호수">
+          </div>
+        </div>
+        <p class="tip">같은 name의 라디오 버튼은 한 번에 하나만 선택된다.</p>
+        <details><summary>HTML + CSS 보기</summary><pre class="mini-code"><code>&lt;input type="radio" name="slide"
+       id="s1" checked&gt;
+&lt;label for="s1"&gt;1번&lt;/label&gt;
+&lt;input type="radio" name="slide"
+       id="s2"&gt;
+&lt;label for="s2"&gt;2번&lt;/label&gt;
+&lt;div class="window"&gt;
+  &lt;div class="track"&gt;
+    &lt;img src="a.jpg" alt="아침"&gt;
+    &lt;img src="b.jpg" alt="저녁"&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+.window { overflow: hidden; }
+.track { display: flex;
+  transition: transform 0.6s ease; }
+.track img { flex: 0 0 100%;
+  width: 100%; min-width: 0; }
+#s1:checked ~ .window .track {
+  transform: translateX(0%);
+}
+#s2:checked ~ .window .track {
+  transform: translateX(-100%);
+}</code></pre></details>
+      </section>
+    </div>
+    <section class="card section">
+      <h2>HTML과 CSS만으로 동작하는 원리</h2>
+      <ol class="steps">
+        <li><strong>HTML</strong>에서 체크박스 또는 라디오 버튼과 이미지를 만든다. <code>label</code>의 <code>for</code>를 입력 요소의 <code>id</code>와 맞추면 글자를 눌러도 선택된다.</li>
+        <li><strong>:checked</strong>는 선택된 입력 요소를 찾는다. <code>~</code>는 같은 부모 안에서 그 요소 뒤에 있는 형제 요소를 선택한다.</li>
+        <li><strong>CSS</strong>에서 선택 전후의 <code>opacity</code> 또는 <code>transform</code> 값을 다르게 지정한다.</li>
+        <li><strong>transition</strong>이 중간 상태를 이어 준다. <code>0.8s</code>는 0.8초이며, <code>ease</code>는 시작과 끝이 완만한 속도 변화다.</li>
+      </ol>
+      <p class="tip">펼친 코드에서는 핵심 구조만 보여준다. 페이드 예제의 이미지를 div로 감싸면 <code>#show:checked ~ .image-window img</code>처럼 선택자를 맞춰야 한다. 실제 사진은 <code>src="images/photo.jpg"</code>처럼 연결하면 된다.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th scope="col">핵심 속성</th><th scope="col">기억할 점</th></tr></thead>
+        <tbody>
+          <tr><td><code>opacity</code></td><td>0은 완전 투명, 1은 완전 불투명. 투명해져도 원래 공간과 접근성 정보는 남고, 클릭 가능 여부도 자동으로 바뀌지 않는다.</td></tr>
+          <tr><td><code>transition</code></td><td>값이 바뀔 때 동작한다. 체크를 켜고 끄면 양방향으로 전환되며, 이미 선택된 라디오 버튼을 또 누르면 값이 그대로라 다시 움직이지 않는다.</td></tr>
+          <tr><td><code>transform</code></td><td>이미지를 담은 트랙의 표시 위치를 이동한다. 여기서 -100%는 트랙 자신의 너비만큼 왼쪽으로 이동한다는 뜻이다.</td></tr>
+          <tr><td><code>overflow: hidden</code></td><td>슬라이드 창 밖으로 나간 이미지를 잘라서 보이지 않게 한다.</td></tr>
+          <tr><td><code>display: none</code></td><td>요소를 배치에서 제거한다. 이 예제의 opacity 전환과 동시에 적용하면 사라지는 과정을 볼 수 없다.</td></tr>
+        </tbody>
+      </table></div>
+      <p class="note">스크립트와 외부 라이브러리 없이 실행된다. 그림도 HTML에 내장되어 있다. 운영체제에서 동작 줄이기를 켰다면 효과가 즉시 전환된다.</p>
+    </section>
+    <footer>CSS 박스 모델과 이미지 효과 / HTML + CSS만 사용하는 학습 예제</footer>
+  </main>
+</body>
+</html>
