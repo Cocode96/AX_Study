@@ -9,12 +9,12 @@
     * { box-sizing: border-box; }
     body { margin: 0; background: #f4f7fa; color: #182b40; font: 16px/1.75 "Malgun Gothic", sans-serif; }
     main { max-width: 980px; margin: auto; padding: 36px 20px; }
-    nav { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+    nav, .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
     a { color: #174fba; }
     h1 { font-size: clamp(28px, 5vw, 42px); line-height: 1.3; }
     h2 { margin-top: 0; font-size: 22px; }
     section { margin: 24px 0; padding: 24px; background: white; border: 1px solid #dce4ec; border-radius: 16px; }
-    button { font: inherit; padding: 8px 12px; border: 1px solid #8295af; border-radius: 8px; background: white; color: inherit; }
+    button, select { font: inherit; padding: 8px 12px; border: 1px solid #8295af; border-radius: 8px; background: white; color: inherit; }
     button { cursor: pointer; }
     :focus-visible { outline: 3px solid #a85d00; outline-offset: 4px; }
     .note { color: #52677e; font-size: 14px; }
@@ -38,19 +38,9 @@
 
     /* 2. animation: keyframes에 정한 장면들을 시간에 따라 재생한다.
        트랙에 공 너비만큼 오른쪽 padding을 두면 이동 끝에서도 공이 밖으로 나가지 않는다. */
-    /* 트랙 밖으로 이동한 runner의 빈 영역이 페이지 가로 스크롤을 만들지 않게 자른다. */
+    /* 이동한 runner의 빈 영역 때문에 페이지에 가로 스크롤이 생기지 않게 자른다. */
     .track { overflow:hidden; margin: 22px 0; padding-right: 44px; border-radius: 24px; background: #eaf0f8; }
-
-    /* 재생 체크 전에는 animation-name:none이므로 아직 시작하지 않는다.
-       모든 input과 .track이 같은 form의 직계 자식이어야 ~ 선택자가 연결된다. */
-    .runner { animation: none 3s ease-in-out infinite alternate; }
-    #play:checked ~ .track .runner { animation-name:travel; }
-    #pause:checked ~ .track .runner { animation-play-state:paused; }
-    #time-1:checked ~ .track .runner { animation-duration:1s; }
-    #time-6:checked ~ .track .runner { animation-duration:6s; }
-    #curve-linear:checked ~ .track .runner { animation-timing-function:linear; }
-    #curve-steps:checked ~ .track .runner { animation-timing-function:steps(5,end); }
-    /* 시간을 바꾸면 진행 위치가 달라질 수 있다. 초기화 후 재생하면 처음부터 비교할 수 있다. */
+    .runner { animation: travel 3s ease-in-out infinite alternate; }
     .ball { width: 44px; height: 44px; border-radius: 50%; background: #1756cf; }
     /* .runner는 트랙 내용 너비를 채우는 블록이다.
        translateX(100%)는 공 너비가 아닌, 움직이는 .runner 자신의 너비를 사용한다. */
@@ -65,27 +55,18 @@
        animation 속성을 제거하면 원래 스타일로 돌아온다. 무한 반복에는 종료 시점이 없다. */
     .arrival-stage { padding: 20px; background: #f1f5fa; border-radius: 12px; }
     .arrival-card { max-width: 280px; padding: 20px; background: #d7efdf; border-radius: 10px; opacity: 0; transform: translateY(20px); }
-
-    .arrival-card { visibility:hidden; }
-    /* 체크를 해제하면 animation이 사라져 초기 상태가 된다. 다시 체크하면 재실행된다. */
-    #enter:checked ~ .arrival-stage .arrival-card { visibility:visible; animation:arrive 900ms ease-out forwards; }
+    .arrival-card.is-entering { animation: arrive 900ms ease-out forwards; }
     @keyframes arrive {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    /* 자동 재생하지 않는다. 사용자가 재생을 체크할 때 시작한다. */
+    /* 동작 줄이기 사용자는 정지 상태로 시작한다. JS에서도 초기 재생 상태를 맞춘다. */
     @media (prefers-reduced-motion: reduce) {
+      .runner { animation-play-state: paused; }
       .transition-button { transition: none; }
-      #enter:checked ~ .arrival-stage .arrival-card { animation-duration: 1ms; }
+      .arrival-card.is-entering { animation-duration: 1ms; }
     }
     @media (max-width: 600px) { section { padding: 18px; } }
-
-    /* 체크 상태는 HTML 입력 요소가 기억하고 CSS :checked가 읽는다.
-       input 바로 뒤 label을 강조한다. 키보드 Tab/방향키/Space도 사용할 수 있다. */
-    form > label { display:inline-block; padding:5px 8px; margin:3px 8px 3px 0; cursor:pointer; }
-    form > input { accent-color:#1756cf; }
-    form > input:checked + label { color:#164596; background:#e3edff; border-radius:6px; font-weight:bold; }
-    .control-title { margin:16px 0 4px; font-weight:bold; }
   </style>
 </head>
 <body>
@@ -94,6 +75,7 @@
       <a href="css-box-model.html">박스 모델</a>
       <a href="css-flexbox.html">플렉스박스</a>
       <a href="css-paint-palette.html">그림물감 팔레트</a>
+      <a href="chapter01/animation-curves.html">기존 속도 곡선 비교</a>
     </nav>
     <h1>CSS 애니메이션</h1>
     <p>무엇을 바꿀지, 몇 초 동안 바꿀지, 어떻게 반복할지를 나누어 읽는다.</p>
@@ -113,38 +95,23 @@
     </section>
     <section>
       <h2>2. animation: 정해 둔 장면을 재생한다</h2>
-
-      <!-- form의 reset 버튼은 입력을 HTML에 선언한 초기 상태로 되돌린다. -->
-      <form aria-label="애니메이션 설정">
-        <input type="checkbox" id="play"><label for="play">재생</label>
-        <input type="checkbox" id="pause"><label for="pause">일시정지</label>
-        <button type="reset">초기화</button>
-        <p class="control-title">편도 시간</p>
-        <input type="radio" name="time" id="time-1"><label for="time-1">1초</label>
-        <input type="radio" name="time" id="time-3" checked><label for="time-3">3초</label>
-        <input type="radio" name="time" id="time-6"><label for="time-6">6초</label>
-        <p class="control-title">속도 곡선</p>
-        <input type="radio" name="curve" id="curve-ease" checked><label for="curve-ease">ease-in-out</label>
-        <input type="radio" name="curve" id="curve-linear"><label for="curve-linear">linear</label>
-        <input type="radio" name="curve" id="curve-steps"><label for="curve-steps">steps(5, end)</label>
-        <div class="track" aria-hidden="true"><div class="runner"><div class="ball"></div></div></div>
-      </form>
-      <p class="note">재생을 체크하면 시작한다. 일시정지를 해제하면 이어서 움직인다. 초기화를 누른 뒤 재생을 다시 체크하면 처음부터 시작한다.</p>
+      <div class="controls">
+        <button type="button" id="pause">일시정지</button>
+        <button type="button" id="restart">처음부터</button>
+        <label for="duration">편도 시간</label>
+        <select id="duration"><option value="1">1초</option><option value="3" selected>3초</option><option value="6">6초</option></select>
+        <label for="curve">속도 곡선</label>
+        <select id="curve"><option>linear</option><option selected>ease-in-out</option><option>ease-in</option><option>ease-out</option><option>steps(5, end)</option></select>
+      </div>
+      <div class="track" aria-hidden="true"><div class="runner" id="runner"><div class="ball"></div></div></div>
+      <p id="motion-status" class="note" aria-live="polite"></p>
       <div class="keyframes">
         <div><strong>0% / from</strong><br>시작 위치</div>
         <div><strong>중간 시간</strong><br>브라우저가 진행률 계산</div>
         <div><strong>100% / to</strong><br>도착 위치</div>
       </div>
-      <pre><code>/* input과 .track은 같은 부모 안에 있으며 input이 먼저 나온다. */
-.runner { animation: none 3s ease-in-out infinite alternate; }
-#play:checked ~ .track .runner { animation-name: travel; }
-#pause:checked ~ .track .runner { animation-play-state: paused; }
-#time-1:checked ~ .track .runner { animation-duration: 1s; }
-@keyframes travel {
-  from { transform: translateX(0%); }
-  to   { transform: translateX(100%); }
-}</code></pre>
-      <p class="note">HTML이 선택 상태를 보관하고 CSS가 해당 상태에 맞는 애니메이션을 적용한다. alternate는 도착 후 역방향으로 재생하므로 왕복은 편도 시간의 두 배다.</p>
+      <pre><code id="live-code"></code></pre>
+      <p class="note">JavaScript는 선택한 설정과 재생 버튼을 연결한다. 실제 이동은 CSS가 처리한다. alternate는 도착 후 역방향으로 재생하므로 왕복은 편도 시간의 두 배다.</p>
       <div class="table-wrap"><table>
         <thead><tr><th>속성</th><th>역할</th><th>예</th></tr></thead>
         <tbody>
@@ -161,21 +128,70 @@
     </section>
     <section>
       <h2>3. 한 번 나타난 뒤 마지막 상태 유지</h2>
-      <p>체크하면 카드가 나타난다. <code>forwards</code> 덕분에 끝난 후에도 보인다.</p>
-
-      <form aria-label="카드 등장 설정">
-        <input type="checkbox" id="enter"><label for="enter">카드 등장</label>
-        <div class="arrival-stage"><div class="arrival-card">opacity: 0 → 1<br>translateY: 20px → 0</div></div>
-      </form>
-      <pre><code>#enter:checked ~ .arrival-stage .arrival-card {
+      <p>버튼을 누르면 카드가 나타난다. <code>forwards</code> 덕분에 끝난 후에도 보인다.</p>
+      <div class="controls"><button type="button" id="enter">카드 등장</button><button type="button" id="reset-card">초기화</button></div>
+      <div class="arrival-stage"><div class="arrival-card" id="arrival" aria-hidden="true">opacity: 0 → 1<br>translateY: 20px → 0</div></div>
+      <pre><code>.card.is-entering {
   animation: arrive 900ms ease-out forwards;
 }
 @keyframes arrive {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
 }</code></pre>
-      <p class="note">이동에는 transform, 페이드에는 opacity를 사용한다. opacity:0은 공간을 없애지 않으므로 체크를 해제해도 카드 자리의 높이는 남는다. 숨긴 카드의 내용은 visibility:hidden으로 접근성 트리에서도 제외한다.</p>
+      <p class="note">이동에는 transform, 페이드에는 opacity를 사용한다. opacity:0은 공간을 없애지 않으므로 초기화해도 카드 자리의 높이는 남는다.</p>
     </section>
   </main>
+  <script>
+    // 흐름: HTML 요소 찾기 → 이벤트 등록 → 입력값 읽기 → CSS 변경 → 화면 설명 갱신.
+    // script가 body 끝에 있으므로 위의 HTML 요소들이 만들어진 뒤 실행된다.
+    // querySelector('#runner')는 id="runner"인 HTML 요소를 찾아 반환한다.
+    const runner = document.querySelector('#runner');
+    const duration = document.querySelector('#duration');
+    const curve = document.querySelector('#curve');
+    const pause = document.querySelector('#pause');
+    // const는 변수의 재대입을 막는다. 참조하는 HTML 요소의 속성 변경은 가능하다.
+    // paused는 클릭할 때 true/false가 바뀌므로 let으로 선언한다.
+    let paused = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function updatePlayback() {
+      // 조건 ? 참일 때 값 : 거짓일 때 값. CSS animation-play-state는 JS에서 camelCase로 쓴다.
+      runner.style.animationPlayState = paused ? 'paused' : 'running';
+      pause.textContent = paused ? '재생' : '일시정지';
+      document.querySelector('#motion-status').textContent = `${paused ? '일시정지' : '재생 중'} / 편도 ${duration.value}초 / ${curve.value}`;
+    }
+    function restart() {
+      // 타임라인을 0으로 되돌린다. 정지 중이면 시작 위치에서 정지 상태를 유지한다.
+      runner.getAnimations().forEach(animation => { animation.currentTime = 0; });
+    }
+    function updateSettings() {
+      // select.value는 문자열이다. CSS 시간 단위 s를 붙여 animation-duration에 전달한다.
+      runner.style.animationDuration = `${duration.value}s`;
+      runner.style.animationTimingFunction = curve.value;
+      // textContent로 넣으면 CSS를 실행하지 않고 코드 글자로 보여 준다.
+      document.querySelector('#live-code').textContent = `.runner {\n  animation: travel ${duration.value}s ${curve.value} infinite alternate;\n}\n@keyframes travel {\n  from { transform: translateX(0%); }\n  to   { transform: translateX(100%); }\n}`;
+      restart();
+      updatePlayback();
+    }
+    // addEventListener는 함수를 지금 실행하지 않고, 해당 이벤트가 발생할 때 호출하도록 등록한다.
+    // () => { ... }는 이름 없이 작성한 함수다. !paused는 참과 거짓을 뒤집는다.
+    pause.addEventListener('click', () => { paused = !paused; updatePlayback(); });
+    document.querySelector('#restart').addEventListener('click', restart);
+    duration.addEventListener('change', updateSettings);
+    curve.addEventListener('change', updateSettings);
+
+    const arrival = document.querySelector('#arrival');
+    document.querySelector('#enter').addEventListener('click', () => {
+      arrival.classList.add('is-entering');
+      arrival.setAttribute('aria-hidden', 'false');
+      // 이미 등장한 카드도 버튼을 다시 누르면 처음부터 재생한다.
+      arrival.getAnimations().forEach(animation => { animation.currentTime = 0; });
+    });
+    document.querySelector('#reset-card').addEventListener('click', () => {
+      arrival.classList.remove('is-entering');
+      arrival.setAttribute('aria-hidden', 'true');
+    });
+    // 최초 한 번은 직접 호출해 기본 선택값과 화면 설명을 일치시킨다.
+    updateSettings();
+  </script>
 </body>
 </html>

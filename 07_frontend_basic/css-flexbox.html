@@ -13,8 +13,10 @@
     h1 { font-size: clamp(28px, 5vw, 42px); line-height: 1.3; }
     h2 { margin-top: 0; font-size: 22px; }
     section { margin: 24px 0; padding: 24px; background: white; border: 1px solid #dce4ec; border-radius: 16px; }
-    input, button { font: inherit; }
-    button { padding: 7px 10px; border: 1px solid #8295af; border-radius: 8px; background: white; color: inherit; }
+    .controls { display: flex; flex-wrap: wrap; gap: 14px; align-items: end; }
+    .controls label { display: flex; flex-direction: column; gap: 4px; font-size: 14px; }
+    select, input, button { font: inherit; }
+    select, button { padding: 7px 10px; border: 1px solid #8295af; border-radius: 8px; background: white; color: inherit; }
     button { cursor: pointer; }
     :focus-visible { outline: 3px solid #a85d00; outline-offset: 4px; }
     .note { color: #52677e; font-size: 14px; }
@@ -26,7 +28,7 @@
 
     /* 1. display:flex는 부모(컨테이너)에 설정한다.
        그 부모의 직계 자식만 flex item이 된다. 손자까지 자동으로 정렬하지 않는다.
-       라디오의 체크 상태에 따라 아래 속성이 바뀐다. 기본 방향은 row다. */
+       아래 속성은 드롭다운으로 변경되며, 기본 방향은 row다. */
     .playground {
       display: flex;
       flex-direction: row;
@@ -58,29 +60,9 @@
     .item:nth-child(3n) { background: #915422; }
     .item:nth-child(2) { min-height: 80px; }
     /* stretch를 관찰할 때 교차축의 고정 크기를 해제해야 늘어날 수 있다. */
-
-    /* input 뒤의 형제 .preview-scroll을 찾고 그 안의 .playground를 선택한다. */
-    #dir-column:checked ~ .preview-scroll .playground { flex-direction:column; height:460px; }
-    #dir-column-reverse:checked ~ .preview-scroll .playground { flex-direction:column-reverse; height:460px; }
-    #dir-row-reverse:checked ~ .preview-scroll .playground { flex-direction:row-reverse; }
-    #dir-column:checked ~ .preview-scroll .item,
-    #dir-column-reverse:checked ~ .preview-scroll .item { width:auto; }
-    #justify-center:checked ~ .preview-scroll .playground { justify-content:center; }
-    #justify-between:checked ~ .preview-scroll .playground { justify-content:space-between; }
-    #justify-end:checked ~ .preview-scroll .playground { justify-content:flex-end; }
-    #align-start:checked ~ .preview-scroll .playground { align-items:flex-start; }
-    #align-end:checked ~ .preview-scroll .playground { align-items:flex-end; }
-    #align-stretch:checked ~ .preview-scroll .playground { align-items:stretch; }
-    #wrap:checked ~ .preview-scroll .playground { flex-wrap:wrap; }
-    #gap-wide:checked ~ .preview-scroll .playground { gap:30px; }
-    /* 추가 상자는 미리 HTML에 둔다. display:none이면 배치에도 참여하지 않는다. */
-    .item.extra { display:none; }
-    #more:checked ~ .preview-scroll .item.extra { display:block; }
-    .axis .column-axis { display:none; }
-    #dir-column:checked ~ .axis .row-axis,
-    #dir-column-reverse:checked ~ .axis .row-axis { display:none; }
-    #dir-column:checked ~ .axis .column-axis,
-    #dir-column-reverse:checked ~ .axis .column-axis { display:inline; }
+    .playground.column .item { width: auto; }
+    .playground.column { height: 460px; }
+    .playground.row .item { height: auto; }
     .preview-scroll { overflow-x: auto; }
     .axis { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
     .axis span { padding: 8px 12px; border-radius: 8px; background: #e6efff; }
@@ -96,13 +78,6 @@
     .menu-demo { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 16px; background: #eef3fa; border-radius: 10px; }
     .menu-demo .login { margin-left: auto; }
     @media (max-width: 600px) { section { padding: 18px; } }
-
-    /* 체크 상태는 HTML 입력 요소가 기억하고 CSS :checked가 읽는다.
-       input 바로 뒤 label을 강조한다. 키보드 Tab/방향키/Space도 사용할 수 있다. */
-    form > label { display:inline-block; padding:5px 8px; margin:3px 8px 3px 0; cursor:pointer; }
-    form > input { accent-color:#1756cf; }
-    form > input:checked + label { color:#164596; background:#e3edff; border-radius:6px; font-weight:bold; }
-    .control-title { margin:16px 0 4px; font-weight:bold; }
   </style>
 </head>
 <body>
@@ -112,46 +87,20 @@
     <p>부모가 자식들을 어느 방향으로 놓고, 남는 공간을 어떻게 나눌지 정하는 배치 방식이다.</p>
     <section>
       <h2>1. 방향과 정렬을 바꿔 보기</h2>
-
-      <form aria-label="플렉스박스 설정">
-        <!-- name이 같으면 하나만 선택된다. 입력과 결과 창을 같은 부모에 둔다. -->
-        <p class="control-title">flex-direction / 주축 방향</p>
-        <input type="radio" name="direction" id="dir-row" checked><label for="dir-row">row</label>
-        <input type="radio" name="direction" id="dir-column"><label for="dir-column">column</label>
-        <input type="radio" name="direction" id="dir-row-reverse"><label for="dir-row-reverse">row-reverse</label>
-        <input type="radio" name="direction" id="dir-column-reverse"><label for="dir-column-reverse">column-reverse</label>
-        <p class="control-title">justify-content / 주축 정렬</p>
-        <input type="radio" name="justify" id="justify-start" checked><label for="justify-start">시작</label>
-        <input type="radio" name="justify" id="justify-center"><label for="justify-center">가운데</label>
-        <input type="radio" name="justify" id="justify-end"><label for="justify-end">끝</label>
-        <input type="radio" name="justify" id="justify-between"><label for="justify-between">사이 공간 배분</label>
-        <p class="control-title">align-items / 교차축 정렬</p>
-        <input type="radio" name="align" id="align-start"><label for="align-start">시작</label>
-        <input type="radio" name="align" id="align-center" checked><label for="align-center">가운데</label>
-        <input type="radio" name="align" id="align-end"><label for="align-end">끝</label>
-        <input type="radio" name="align" id="align-stretch"><label for="align-stretch">늘리기</label>
-        <p class="control-title">줄바꿈과 간격</p>
-        <input type="checkbox" id="wrap"><label for="wrap">줄바꿈 허용</label>
-        <input type="checkbox" id="gap-wide"><label for="gap-wide">간격 30px</label>
-        <input type="checkbox" id="more"><label for="more">상자 8개</label>
-        <button type="reset">초기화</button>
-        <div class="axis"><span class="row-axis">주축: 가로 / 교차축: 세로</span><span class="column-axis">주축: 세로 / 교차축: 가로</span></div>
-        <div class="preview-scroll"><div class="playground" aria-label="플렉스박스 배치 결과">
-          <div class="item">1</div><div class="item">2</div><div class="item">3</div><div class="item">4</div><div class="item">5</div>
-          <div class="item extra">6</div><div class="item extra">7</div><div class="item extra">8</div>
-        </div></div>
-      </form>
-      <p class="note">상자는 줄어들지 않도록 설정했다. 공간이 부족하면 넘치고, 줄바꿈을 허용하면 다음 줄로 이동한다. reverse는 주축의 시작과 끝을 뒤집는다. 예제는 왼쪽에서 오른쪽으로 읽는 가로쓰기 기준이다.</p>
-      <pre><code>/* 부모의 기본 배치 */
-.playground { display: flex; gap: 12px; align-items: center; }
-/* 선택된 라디오 뒤에 있는 창 안의 부모를 변경 */
-#dir-column:checked ~ .preview-scroll .playground {
-  flex-direction: column;
-}
-#wrap:checked ~ .preview-scroll .playground { flex-wrap: wrap; }
-/* 추가 아이템은 CSS로 표시 여부만 변경 */
-.extra { display: none; }
-#more:checked ~ .preview-scroll .extra { display: block; }</code></pre>
+      <div class="controls">
+        <label>flex-direction<select id="direction"><option>row</option><option>column</option><option>row-reverse</option><option>column-reverse</option></select></label>
+        <label>justify-content<select id="justify"><option>flex-start</option><option>center</option><option>flex-end</option><option>space-between</option><option>space-around</option><option>space-evenly</option></select></label>
+        <label>align-items<select id="align"><option>flex-start</option><option selected>center</option><option>flex-end</option><option>stretch</option></select></label>
+        <label>flex-wrap<select id="wrap"><option>nowrap</option><option>wrap</option></select></label>
+        <label>gap <output id="gap-value">12px</output><input id="gap" type="range" min="0" max="36" value="12"></label>
+        <label>상자 개수<select id="count"><option>3</option><option selected>5</option><option>8</option></select></label>
+        <button type="button" id="reset">초기화</button>
+      </div>
+      <div class="axis" aria-live="polite"><span id="main-axis"></span><span id="cross-axis"></span></div>
+      <!-- 자식이 넘칠 때 예제 창 안에서만 스크롤한다. 페이지 전체 너비는 늘리지 않는다. -->
+      <div class="preview-scroll"><div class="playground row" id="playground" aria-label="플렉스박스 배치 결과"></div></div>
+      <p class="note">기본 가로쓰기와 왼쪽에서 오른쪽으로 읽는 방향 기준이다. 상자가 줄어들지 않도록 설정했으므로 nowrap에서 공간이 부족하면 넘친다. 개수를 8개로 늘린 뒤 wrap으로 바꾸어 비교할 수 있다.</p>
+      <pre><code id="live-code"></code></pre>
     </section>
     <section>
       <h2>2. 부모에 쓰는 것과 자식에 쓰는 것</h2>
@@ -195,5 +144,52 @@
       <p class="note">내용과 테두리 사이에는 padding, 아이템 사이에는 gap, 특정 요소 바깥 간격에는 margin을 사용한다.</p>
     </section>
   </main>
+  <script>
+    // JavaScript는 폼 값을 CSS에 전달하고, 적용된 코드를 화면에 보여 주는 역할이다.
+    const playground = document.querySelector('#playground');
+    // id 목록을 [이름, HTML 요소] 쌍으로 만든 뒤 객체로 바꾼다.
+    // 예: controls.direction은 id="direction"인 select를 가리킨다.
+    const controls = Object.fromEntries(['direction', 'justify', 'align', 'wrap', 'gap', 'count'].map(id => [id, document.getElementById(id)]));
+    function update() {
+      // select.value로 현재 선택된 문자열을 읽는다.
+      const direction = controls.direction.value;
+      const column = direction.startsWith('column');
+      const reverse = direction.endsWith('reverse');
+      playground.className = `playground ${column ? 'column' : 'row'}`;
+      // style.flexDirection에 값을 대입하면 해당 요소의 CSS flex-direction이 바뀐다.
+      playground.style.flexDirection = direction;
+      playground.style.justifyContent = controls.justify.value;
+      playground.style.alignItems = controls.align.value;
+      playground.style.flexWrap = controls.wrap.value;
+      playground.style.gap = `${controls.gap.value}px`;
+
+      // value는 문자열이므로 Number로 변환해 현재 자식 개수와 비교한다.
+      // 개수가 달라졌을 때만 직계 자식을 다시 만든다.
+      if (playground.children.length !== Number(controls.count.value)) {
+        playground.replaceChildren();
+        for (let i = 1; i <= Number(controls.count.value); i++) {
+          // createElement로 만든 요소는 아직 화면에 없다. 아래 append로 부모에 붙인다.
+          const item = document.createElement('div');
+          item.className = 'item';
+          item.textContent = i;
+          playground.append(item);
+        }
+      }
+      document.querySelector('#gap-value').textContent = `${controls.gap.value}px`;
+      document.querySelector('#main-axis').textContent = `주축 ${column ? (reverse ? '↑ 아래에서 위' : '↓ 위에서 아래') : (reverse ? '← 오른쪽에서 왼쪽' : '→ 왼쪽에서 오른쪽')} / justify-content`;
+      document.querySelector('#cross-axis').textContent = `교차축 ${column ? '→ 가로' : '↓ 세로'} / align-items`;
+      document.querySelector('#live-code').textContent = `.parent {\n  display: flex;\n  flex-direction: ${direction};\n  justify-content: ${controls.justify.value};\n  align-items: ${controls.align.value};\n  flex-wrap: ${controls.wrap.value};\n  gap: ${controls.gap.value}px;\n  align-content: flex-start;\n}\n.child { flex: 0 0 auto; } /* 정렬 관찰용: 줄어들지 않는 상자 */`;
+    }
+    // 모든 입력에 같은 update 함수를 연결한다. input 이벤트는 값을 바꿀 때 발생한다.
+    // update()라고 쓰면 즉시 실행된다. 여기서는 함수 자체인 update를 전달한다.
+    Object.values(controls).forEach(control => control.addEventListener('input', update));
+    document.querySelector('#reset').addEventListener('click', () => {
+      const defaults = { direction: 'row', justify: 'flex-start', align: 'center', wrap: 'nowrap', gap: '12', count: '5' };
+      Object.entries(defaults).forEach(([id, value]) => { controls[id].value = value; });
+      update();
+    });
+    // 페이지를 처음 열었을 때도 기본 입력값으로 상자와 코드 설명을 만든다.
+    update();
+  </script>
 </body>
 </html>
