@@ -5,11 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CSS 박스 모델과 이미지 효과</title>
   <style>
+    /* 1. 페이지 공통 설정
+       :root의 --이름은 CSS 사용자 정의 속성이다. var(--ink)처럼 꺼내 쓴다.
+       border-box는 width/height 안에 padding과 border를 포함한다. margin은 제외한다. */
     :root { color-scheme: light; --ink:#182b40; --muted:#53677d; --line:#dce4ec; --blue:#174fdb; }
     * { box-sizing:border-box; }
     body { margin:0; background:#f4f7fa; color:var(--ink); font-family:"Malgun Gothic",system-ui,sans-serif; line-height:1.75; }
+    /* max-width는 너비의 상한선. 남는 가로 공간은 좌우 auto margin으로 나눈다.
+       padding 값 3개는 위 / 좌우 / 아래 순서다. */
     main { max-width:1080px; margin:auto; padding:54px 28px 40px; }
     .eyebrow { color:var(--blue); font-size:12px; font-weight:800; letter-spacing:.15em; }
+    /* clamp(최솟값, 선호값, 최댓값): 화면 너비의 5%를 쓰되 28~44px로 제한한다.
+       min-width/min-height는 크기의 하한선, min(a,b)는 두 값 중 작은 값을 고르는 함수다. */
     h1 { margin:10px 0 14px; font-size:clamp(28px,5vw,44px); letter-spacing:-.06em; line-height:1.3; }
     h2 { margin:0 0 20px; font-size:23px; letter-spacing:-.04em; }
     h3 { margin:0 0 8px; font-size:17px; }
@@ -25,23 +32,31 @@
     .comment { color:#aac0d6; }
     .code-note { font-size:13px; color:#c6d6e9; margin:22px 0 0; }
     .diagram-scroll { overflow-x:auto; padding-bottom:8px; }
+    /* 2. 박스 모델 그림
+       flow-root는 자식 .box의 위아래 margin이 부모 밖으로 상쇄되는 것을 막는다.
+       노란색은 부모 배경이다. margin 자체를 칠한 것이 아니다.
+       relative는 absolute 라벨의 기준, outline은 크기 계산에 포함되지 않는 표시선이다. */
     .diagram { width:320px; height:220px; margin:0 auto; position:relative; background:#fff0d4; outline:1px dashed #c8872a; outline-offset:-1px; display:flow-root; }
     /* 예제만 기본 content-box를 사용한다. 위의 페이지 레이아웃 설정과 분리한다. */
     .box {
       box-sizing:content-box;
-      width:150px;
-      height:50px;
-      margin:50px;
-      padding:30px;
-      border:5px solid blue;
+      width:150px;             /* content-box이므로 내용 영역의 너비 */
+      height:50px;             /* 내용 영역의 높이 */
+      margin:50px;             /* 테두리 바깥: 다른 요소와 간격을 둔다. */
+      padding:30px;            /* 테두리 안쪽: 내용이 가장자리에 붙지 않게 한다. */
+      border:5px solid blue;   /* 두께 / 선 종류 / 색상. 내용+padding의 경계를 감싼다. */
       background:#d9eee3;
     }
+    /* 부모 내용 영역을 채운다. flex의 기본 row 방향에서는
+       justify-content가 가로, align-items가 세로 정렬이므로 글자가 가운데 온다. */
     .content { width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:#bcdcff; color:#163b6b; font:700 13px Consolas,monospace; }
     .diagram-label { position:absolute; font:12px Consolas,monospace; }
     .margin-label { top:13px; left:112px; color:#885919; }
     .padding-label { top:59px; left:116px; color:#245b43; }
     .dimension { text-align:center; margin:16px 0 0; color:var(--muted); font-size:13px; }
     .legend { display:flex; justify-content:center; flex-wrap:wrap; gap:8px 15px; margin:18px 0 0; font-size:12px; }
+    /* HTML의 각 span에 지정한 --swatch를 읽어 작은 범례 사각형을 만든다.
+       ::before는 장식용 가상 요소이며, 빈 content도 있어야 만들어진다. */
     .legend span::before { content:""; display:inline-block; width:10px; height:10px; background:var(--swatch); margin-right:5px; border:1px solid #0002; }
     .section { margin-top:24px; }
     .table-wrap { overflow-x:auto; }
@@ -65,18 +80,31 @@
     footer { color:var(--muted); font-size:12px; text-align:center; padding-top:28px; }
     .chapter { margin:54px 0 24px; }
     .chapter h2 { margin:8px 0 12px; font-size:30px; }
+    /* 3. 이미지 전환 예제
+       minmax(0,1fr)은 Grid 열의 최소를 0으로 두어 긴 내용 때문에 열이 과도하게 커지는 것을 막는다.
+       min-width:0도 자식의 기본 최소 크기 제약을 풀어 좁은 화면에서 줄어들게 한다. */
     .demos { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }
     .demo { min-width:0; padding:22px; }
     .demo p { font-size:14px; }
+    /* 창 밖 그림은 숨기고 4:3 비율을 유지한다. object-fit:cover는 비율을 유지해
+       창을 가득 채우므로 이미지 가장자리가 잘릴 수 있다. */
     .image-window { position:relative; overflow:hidden; border-radius:12px; background:#edf1f6; aspect-ratio:4/3; margin:18px 0; }
     .effect-image { display:block; width:100%; height:100%; object-fit:cover; }
+    /* transition은 상태가 바뀔 때 중간값을 계산한다. 800ms = 0.8초.
+       기본 선택자에 두어 체크할 때와 해제할 때 모두 전환된다. */
     .fade-image { transition:opacity 800ms ease; }
     #fade-in-image { opacity:0; }
+    /* :checked인 input 뒤의 형제(~) .image-window를 찾고, 그 안의 img를 선택한다.
+       input과 창은 같은 부모여야 하고 창이 input보다 뒤에 있어야 한다. */
     #fade-in-toggle:checked ~ .image-window img { opacity:1; }
     #fade-out-image { opacity:1; }
     #fade-out-toggle:checked ~ .image-window img { opacity:0; }
+    /* 트랙에 이미지를 가로로 놓는다. flex:0 0 100%는 늘리지 않음 / 줄이지 않음 /
+       기준 너비 100%다. 각 이미지가 창 하나의 너비를 차지한다. */
     .track { display:flex; height:100%; transition:transform 600ms ease; }
     .track img { flex:0 0 100%; width:100%; min-width:0; height:100%; object-fit:cover; }
+    /* translateX의 %는 이동하는 트랙 자신의 너비 기준이다.
+       트랙 자체는 창 너비이고 이미지들이 넘쳐 있으므로 -100%마다 다음 그림이 온다. */
     #slide-1:checked ~ .image-window .track { transform:translateX(0%); }
     #slide-2:checked ~ .image-window .track { transform:translateX(-100%); }
     #slide-3:checked ~ .image-window .track { transform:translateX(-200%); }
@@ -85,6 +113,8 @@
     .demo input:checked + label { color:var(--blue); background:#edf3ff; border-radius:6px; }
     /* 라디오는 키보드로 선택할 수 있도록 유지하고 화면에서만 숨긴다. */
     .demo .slide-choice { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; border:0; }
+    /* 부모 창의 가로 50% 지점에 놓고, 버튼 묶음 자기 너비의 절반만큼 되돌려 중앙 정렬.
+       트랙의 자식이 아니므로 이미지가 움직여도 버튼은 창 안에 고정된다. */
     .image-controls { position:absolute; bottom:15px; left:50%; transform:translateX(-50%); z-index:1; display:flex; gap:8px; }
     .image-controls label { padding:6px 12px; border:1px solid #ffffff70; border-radius:20px; background:rgba(0,0,0,.6); color:white; white-space:nowrap; }
     .image-controls label:hover { background:rgba(0,0,0,.85); }
@@ -100,6 +130,7 @@
     details pre { font-size:12px; }
     .steps { padding-left:22px; font-size:14px; }
     .steps li { margin:7px 0; }
+    /* 4. 화면이 좁아지면 한 열로 배치한다. 동작 줄이기 설정에서는 전환을 즉시 적용한다. */
     @media(max-width:940px) { .demos { grid-template-columns:1fr; } .demo .image-window { max-width:460px; } }
     @media(prefers-reduced-motion:reduce) { .fade-image,.track { transition:none; } }
     @media(max-width:760px) { main { padding:30px 16px; } .hero,.two-col,.calculations { grid-template-columns:1fr; } .card { padding:22px 18px; } }
@@ -114,6 +145,8 @@
       <p class="intro">기본값인 <code>box-sizing: content-box</code>에서 <code>width</code>와 <code>height</code>는 <strong>내용 영역의 크기</strong>다. 여기에 안쪽 여백과 테두리가 더해져 화면에 보이는 박스 크기가 정해진다.</p>
     </header>
 
+    <!-- 코드와 실제 그림을 나란히 배치한다. 화면에 보이는 pre/code는 설명용이며,
+         실제 동작을 바꾸려면 위 style 안의 .box를 수정한다. -->
     <div class="hero">
       <section class="card code-card" aria-labelledby="source-title">
         <h2 id="source-title">입력한 CSS</h2>
@@ -218,6 +251,8 @@ margin: 10px 20px 30px 40px;
       <section class="card demo">
         <h3>01 / 페이드인</h3>
         <p>체크하면 이미지가 서서히 나타난다.<br><code>opacity: 0 → 1</code></p>
+        <!-- label의 for와 input의 id를 일치시키면 글자를 눌러도 체크된다.
+             아래 data:image 주소는 SVG 그림을 파일 대신 HTML에 직접 넣은 것이다. -->
         <input type="checkbox" id="fade-in-toggle"><label for="fade-in-toggle">이미지 나타내기</label>
         <div class="image-window"><img id="fade-in-image" class="effect-image fade-image" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20480%20360%22%3E%3Crect%20width%3D%22480%22%20height%3D%22360%22%20fill%3D%22%23ffe4bd%22%2F%3E%3Ccircle%20cx%3D%22355%22%20cy%3D%2283%22%20r%3D%2235%22%20fill%3D%22%23ffd17e%22%2F%3E%3Cpath%20d%3D%22M0%20230L110%2090L218%20214L310%20133L480%20243V360H0Z%22%20fill%3D%22%2391b6af%22%2F%3E%3Cpath%20d%3D%22M0%20263L130%20172L235%20264L394%20164L480%20248V360H0Z%22%20fill%3D%22%23437b82%22%2F%3E%3Cpath%20d%3D%22M0%20278Q115%20253%20240%20279T480%20278V360H0Z%22%20fill%3D%22%23b6d8d4%22%2F%3E%3Cpath%20d%3D%22M105%20314H263M204%20335H371M298%20300H407%22%20stroke%3D%22%23ffe4bd%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%20opacity%3D%22.65%22%2F%3E%3C%2Fsvg%3E" alt="해가 떠오르는 산과 호수 일러스트"></div>
         <p class="tip">체크를 해제하면 다시 서서히 사라진다.</p>
@@ -258,6 +293,8 @@ img {
       <section class="card demo" aria-label="풍경 이미지 슬라이드">
         <h3>03 / 이미지 슬라이드</h3>
         <p>이미지 위의 버튼을 눌러 이동한다.<br><code>translateX(0% → -100%)</code></p>
+        <!-- name이 같은 라디오는 하나만 선택된다. checked는 첫 화면의 기본 선택이다.
+             CSS의 ~ 선택자가 동작하도록 모든 라디오를 image-window 앞에 둔다. -->
         <input class="slide-choice" type="radio" name="scene" id="slide-1" checked>
         <input class="slide-choice" type="radio" name="scene" id="slide-2">
         <input class="slide-choice" type="radio" name="scene" id="slide-3">
