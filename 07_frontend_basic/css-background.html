@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CSS background 정리</title>
+  <style>
+    * { box-sizing:border-box; }
+    body { margin:0; background:#f3f6fa; color:#233247; font:16px/1.75 "Malgun Gothic",sans-serif; }
+    main { max-width:1020px; margin:auto; padding:36px 20px 100px; }
+    h1 { font-size:clamp(28px,5vw,40px); line-height:1.3; }
+    h2 { margin-top:0; font-size:22px; }
+    h3 { margin:0 0 12px; font-size:17px; }
+    section { margin:24px 0; padding:24px; border:1px solid #d3dce8; border-radius:14px; background:white; }
+    nav,.controls { display:flex; flex-wrap:wrap; align-items:center; gap:12px 18px; }
+    .controls label { display:flex; flex-direction:column; gap:4px; font-size:14px; }
+    select,button,input { font:inherit; }
+    select,button { padding:7px 10px; border:1px solid #8195af; border-radius:7px; background:white; color:inherit; }
+    button { cursor:pointer; }
+    a { color:#2357a4; }
+    code { font-family:Consolas,monospace; }
+    pre { white-space:pre-wrap; overflow-wrap:anywhere; padding:18px; border-radius:10px; background:#15283f; color:#eef4ff; }
+    .note { color:#526176; font-size:14px; }
+    .grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px; }
+    .table-wrap { overflow-x:auto; }
+    table { width:100%; border-collapse:collapse; }
+    th,td { padding:10px; text-align:left; vertical-align:top; border-bottom:1px solid #d3dce8; }
+    :focus-visible { outline:3px solid #b65b00; outline-offset:4px; }
+    @media(max-width:650px) { section { padding:18px; } .grid { grid-template-columns:1fr; } }
+
+    /* SVG를 data URL로 넣어 외부 이미지 파일 없이 실행한다.
+       실제 사진을 쓰려면 --picture 값을 url("images/photo.jpg")로 바꾸면 된다. */
+    :root { --picture:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22240%22%20height%3D%22140%22%20viewBox%3D%220%200%20240%20140%22%3E%3Crect%20width%3D%22240%22%20height%3D%22140%22%20fill%3D%22%23d4e8fb%22%2F%3E%3Cpath%20d%3D%22M0%20140%2074%2032%20140%20140%22%20fill%3D%22%2356848e%22%2F%3E%3Cpath%20d%3D%22M70%20140%20164%2047%20240%20140%22%20fill%3D%22%23315e78%22%2F%3E%3Ccircle%20cx%3D%22193%22%20cy%3D%2232%22%20r%3D%2219%22%20fill%3D%22%23ffc85c%22%2F%3E%3Crect%20x%3D%222%22%20y%3D%222%22%20width%3D%22236%22%20height%3D%22136%22%20fill%3D%22none%22%20stroke%3D%22%2321465f%22%20stroke-width%3D%224%22%2F%3E%3Cg%20fill%3D%22%23132d45%22%20font-family%3D%22sans-serif%22%20font-size%3D%2216%22%20font-weight%3D%22bold%22%3E%3Ctext%20x%3D%2210%22%20y%3D%2222%22%3EA%3C%2Ftext%3E%3Ctext%20x%3D%22222%22%20y%3D%2222%22%3EB%3C%2Ftext%3E%3Ctext%20x%3D%2210%22%20y%3D%22130%22%20fill%3D%22white%22%3EC%3C%2Ftext%3E%3Ctext%20x%3D%22222%22%20y%3D%22130%22%20fill%3D%22white%22%3ED%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fsvg%3E"); }
+    .background-demo {
+      height:280px; margin-top:20px; border:2px solid #8195af;
+      background-color:#fff1d6;
+      background-image:var(--picture);
+      background-size:contain;
+      background-position:center;
+      background-repeat:no-repeat;
+    }
+    /* 배경은 콘텐츠 뒤에 그린다. 배경 이미지가 요소의 높이를 만들어 주지는 않는다. */
+    .size-sample { height:190px; border:2px solid #8195af; background:#fff1d6 var(--picture) center / contain no-repeat; }
+    .cover { background-size:cover; }
+    .layer-demo { padding:50px 24px; color:white; font-weight:bold;
+      /* 먼저 적은 이미지가 위쪽 레이어다. 투명한 그라디언트로 사진 위를 어둡게 한다. */
+      background-image:linear-gradient(90deg,rgba(0,0,0,.75),rgba(0,0,0,.1)),var(--picture);
+      background-size:cover; background-position:center; border-radius:10px;
+    }
+    .clip-box { padding:24px; border:12px dashed #6688a9; background-color:#ffe1a6; min-height:140px; }
+    .clip-box.content { background-clip:content-box; }
+    .clip-box.padding { background-clip:padding-box; }
+    .clip-box.border { background-clip:border-box; }
+    .clip-box > span { display:block; border:1px dotted #7c582a; }
+    .scroll-box { height:210px; overflow:auto; border:2px solid #8195af; padding:12px; background-color:#eff4fa;
+      /* 빨간 선의 간격이 80px인 반복 배경. 내부를 스크롤해 차이를 비교한다. */
+      background-image:repeating-linear-gradient(to bottom,transparent 0 76px,#c74a4a 76px 80px);
+    }
+    .scroll-box.local { background-attachment:local; }
+    .scroll-box.scroll { background-attachment:scroll; }
+    .scroll-content { height:580px; padding:12px; }
+  </style>
+</head>
+<body><main>
+  <nav aria-label="CSS 학습 예제"><a href="css-position.html">position</a><a href="css-box-model.html">박스 모델</a></nav>
+  <h1>background / 요소 뒤에 배경 그리기</h1>
+  <p>색, 이미지, 크기, 반복, 위치를 따로 정하고 마지막에 단축 표기로 묶어 본다.</p>
+  <section>
+    <h2>1. 배경 이미지 설정 바꿔 보기</h2>
+    <div class="controls">
+      <label for="bg-size">background-size</label><select id="bg-size"><option selected>contain</option><option>cover</option><option>auto</option><option>120px 70px</option><option>100% 100%</option></select>
+      <label for="bg-position">background-position</label><select id="bg-position"><option selected>center</option><option>left top</option><option>right bottom</option><option>20px 30px</option></select>
+      <label for="bg-repeat">background-repeat</label><select id="bg-repeat"><option selected>no-repeat</option><option>repeat</option><option>repeat-x</option><option>repeat-y</option></select>
+      <button type="button" id="bg-reset">초기화</button>
+    </div>
+    <div class="background-demo" id="background-demo" role="img" aria-label="네 모서리에 A B C D가 표시된 산과 해 그림의 배경 배치 예제"></div>
+    <p class="note">반복은 120px 70px을 선택하면 잘 보인다. contain은 빈 공간, cover는 모서리 글자가 잘리는지 비교한다. 노란 부분은 이미지 밖의 background-color다.</p>
+    <pre><code id="background-code"></code></pre>
+    <p class="note">background-position은 배경 이미지 위치다. HTML 요소 자체를 움직이는 position과 다르다. center는 배경의 가운데를 맞추며, 20px 30px은 가로/세로 간격이다. % 위치는 남는 공간에 대한 비율이므로 이미지가 축을 꽉 채우면 그 축의 위치 변화가 보이지 않을 수 있다.</p>
+  </section>
+  <section>
+    <h2>2. contain / cover / 강제 크기</h2>
+    <div class="grid"><div><h3>contain: 이미지 전체 보이기</h3><div class="size-sample" role="img" aria-label="contain으로 전체 그림 표시"></div></div><div><h3>cover: 영역 빈틈없이 채우기</h3><div class="size-sample cover" role="img" aria-label="cover로 일부를 잘라 영역 채우기"></div></div></div>
+    <p>contain과 cover는 이미지 비율을 유지한다. <code>100% 100%</code>처럼 가로와 세로를 모두 강제로 지정하면 그림이 늘어날 수 있다.</p>
+    <pre><code>.hero {
+  height: 280px; /* 배경 자체는 높이를 만들지 않으므로 영역을 확보한다. */
+  background: #fff1d6 url("images/photo.jpg") center / cover no-repeat;
+  /* 색 / 이미지 / 위치 / 크기 / 반복 여부 */
+}</code></pre>
+    <p class="note">단축 표기의 /는 위치와 크기를 구분한다. background:blue처럼 다시 지정하면 생략한 이미지, 크기 등의 설정이 초기화된다. 색만 바꾸려면 background-color를 사용한다.</p>
+  </section>
+  <section>
+    <h2>3. 배경 레이어와 그라디언트</h2>
+    <div class="layer-demo">그림 위에 반투명 그라디언트를 올리면<br>글자가 더 잘 보인다.</div>
+    <pre><code>background-image:
+  linear-gradient(90deg, rgba(0,0,0,.75), rgba(0,0,0,.1)),
+  url("images/photo.jpg");
+/* 먼저 적은 그라디언트가 위, 사진이 아래다. 색은 이미지들 뒤에 놓인다. */</code></pre>
+    <p class="note">의미 있는 사진이나 상품 이미지는 alt를 제공할 수 있는 img가 적합하다. CSS 배경은 장식에 주로 사용한다.</p>
+  </section>
+  <section>
+    <h2>4. 어디까지 칠할까? background-clip</h2>
+    <div class="controls"><label for="clip">배경색을 칠하는 범위</label><select id="clip"><option>border-box</option><option>padding-box</option><option>content-box</option></select></div>
+    <div class="clip-box border" id="clip-box"><span>내용 영역 / 바깥에 padding 24px / 점선 테두리 12px</span></div>
+    <p class="note"><code>background-clip</code>은 그리기를 허용할 범위다. border-box는 테두리 아래까지, padding-box는 테두리 안쪽까지, content-box는 내용 영역만 칠한다.</p>
+    <p class="note"><code>background-origin</code>은 배경 이미지 위치와 크기를 계산할 기준 영역이다. 기본값은 padding-box다. clip의 기본값 border-box와 역할이 다르며 origin은 배경색에는 영향을 주지 않는다.</p>
+  </section>
+  <section>
+    <h2>5. 스크롤과 배경의 관계</h2>
+    <p>각 상자 안을 스크롤하면서 빨간 선을 비교한다. 상자를 Tab으로 선택한 후 방향키로도 스크롤할 수 있다.</p>
+    <div class="grid">
+      <div><h3>scroll: 요소의 배경으로 고정</h3><div class="scroll-box scroll" tabindex="0" role="region" aria-label="scroll 배경 실험"><div class="scroll-content">내부 콘텐츠가 움직여도<br>빨간 배경 선은 제자리다.<p>아래로 스크롤</p></div></div></div>
+      <div><h3>local: 내부 콘텐츠와 함께 이동</h3><div class="scroll-box local" tabindex="0" role="region" aria-label="local 배경 실험"><div class="scroll-content">내부 콘텐츠와 함께<br>빨간 배경 선도 움직인다.<p>아래로 스크롤</p></div></div></div>
+    </div>
+    <pre><code>background-attachment: scroll; /* 기본값, 요소 기준 */
+background-attachment: local;  /* 내부 스크롤 콘텐츠 기준 */
+background-attachment: fixed;  /* 뷰포트 기준으로 배경 고정 */</code></pre>
+    <p class="note">fixed는 요소 자체를 화면에 고정하는 position:fixed와 다르다. 배경 이미지의 기준이 바뀌며 요소는 원래 배치에 따라 움직인다.</p>
+  </section>
+  <p class="note">속성 참고: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/background">MDN background</a></p>
+</main>
+<script>
+  // 요소 찾기 → 이벤트 연결 → CSS 값 변경 → 코드 표시 순서로 읽는다.
+  const preview = document.querySelector('#background-demo');
+  const size = document.querySelector('#bg-size');
+  const position = document.querySelector('#bg-position');
+  const repeat = document.querySelector('#bg-repeat');
+  function updateBackground() {
+    // select.value는 현재 선택한 문자열. JS의 camelCase 이름으로 CSS 속성에 접근한다.
+    preview.style.backgroundSize = size.value;
+    preview.style.backgroundPosition = position.value;
+    preview.style.backgroundRepeat = repeat.value;
+    document.querySelector('#background-code').textContent = '.box {\n  background-color: #fff1d6;\n  background-image: url("images/photo.jpg");\n  background-size: ' + size.value + ';\n  background-position: ' + position.value + ';\n  background-repeat: ' + repeat.value + ';\n}';
+  }
+  [size, position, repeat].forEach(input => input.addEventListener('change', updateBackground));
+  document.querySelector('#bg-reset').addEventListener('click', () => {
+    size.value = 'contain'; position.value = 'center'; repeat.value = 'no-repeat';
+    updateBackground(); // 값만 바꾸면 change 이벤트가 자동 발생하지 않으므로 직접 갱신한다.
+  });
+  document.querySelector('#clip').addEventListener('change', event => {
+    document.querySelector('#clip-box').style.backgroundClip = event.target.value;
+  });
+  updateBackground(); // 최초 화면에도 기본 설정을 표시한다.
+</script>
+</body>
+</html>
