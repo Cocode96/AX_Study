@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CSS 플렉스박스 정리</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #f4f7fa; color: #182b40; font: 16px/1.75 "Malgun Gothic", sans-serif; }
+    main { max-width: 1040px; margin: auto; padding: 36px 20px; }
+    nav { display: flex; flex-wrap: wrap; gap: 16px; }
+    a { color: #174fba; }
+    h1 { font-size: clamp(28px, 5vw, 42px); line-height: 1.3; }
+    h2 { margin-top: 0; font-size: 22px; }
+    section { margin: 24px 0; padding: 24px; background: white; border: 1px solid #dce4ec; border-radius: 16px; }
+    .controls { display: flex; flex-wrap: wrap; gap: 14px; align-items: end; }
+    .controls label { display: flex; flex-direction: column; gap: 4px; font-size: 14px; }
+    select, input, button { font: inherit; }
+    select, button { padding: 7px 10px; border: 1px solid #8295af; border-radius: 8px; background: white; color: inherit; }
+    button { cursor: pointer; }
+    :focus-visible { outline: 3px solid #a85d00; outline-offset: 4px; }
+    .note { color: #52677e; font-size: 14px; }
+    pre { padding: 18px; background: #13263d; color: #e9f0ff; border-radius: 10px; white-space: pre-wrap; overflow-wrap: anywhere; }
+    code { font-family: Consolas, monospace; }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { text-align: left; padding: 10px; border-bottom: 1px solid #dce4ec; vertical-align: top; }
+
+    /* 1. display:flex는 부모(컨테이너)에 설정한다.
+       그 부모의 직계 자식만 flex item이 된다. 손자까지 자동으로 정렬하지 않는다.
+       아래 속성은 드롭다운으로 변경되며, 기본 방향은 row다. */
+    .playground {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      flex-wrap: nowrap;
+      gap: 12px;
+      min-height: 330px;
+      margin-top: 16px;
+      padding: 16px;
+      border: 2px dashed #8ca3c1;
+      background: #eef3fa;
+      /* 여러 줄이 생겼을 때 줄 묶음은 교차축 시작점에 모은다. */
+      align-content: flex-start;
+    }
+    .item {
+      /* grow 0 / shrink 0 / basis auto. 여기서는 정렬을 보기 위해 크기를 고정한다. */
+      flex: 0 0 auto;
+      width: 66px;
+      min-height: 52px;
+      padding: 12px 8px;
+      border-radius: 10px;
+      background: #1756bd;
+      color: white;
+      text-align: center;
+      font-weight: bold;
+    }
+    .item:nth-child(2n) { background: #287250; }
+    .item:nth-child(3n) { background: #915422; }
+    .item:nth-child(2) { min-height: 80px; }
+    /* stretch를 관찰할 때 교차축의 고정 크기를 해제해야 늘어날 수 있다. */
+    .playground.column .item { width: auto; }
+    .playground.column { height: 460px; }
+    .playground.row .item { height: auto; }
+    .preview-scroll { overflow-x: auto; }
+    .axis { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+    .axis span { padding: 8px 12px; border-radius: 8px; background: #e6efff; }
+
+    /* 2. flex-grow는 남는 공간을 나누는 비율이다.
+       basis:0, 같은 padding을 쓰는 이 예제에서 가운데 내용 너비가 다른 것의 두 배가 된다. */
+    .grow-demo { display: flex; gap: 12px; }
+    .grow-demo > div { flex: 1 1 0; min-width: 0; padding: 16px 8px; background: #e0ebff; border-radius: 8px; overflow-wrap: anywhere; }
+    .grow-demo > div:nth-child(2) { flex-grow: 2; background: #c4d8fc; }
+
+    /* 3. 실전: 메뉴 간격은 gap, 로그인 버튼의 왼쪽 남는 공간은 margin-left:auto.
+       flex-wrap:wrap으로 좁아질 때 다음 줄에 배치할 수 있다. */
+    .menu-demo { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 16px; background: #eef3fa; border-radius: 10px; }
+    .menu-demo .login { margin-left: auto; }
+    @media (max-width: 600px) { section { padding: 18px; } }
+  </style>
+</head>
+<body>
+  <main>
+    <nav aria-label="CSS 학습 예제"><a href="css-box-model.html">박스 모델</a><a href="css-animation.html">애니메이션</a><a href="css-paint-palette.html">그림물감 팔레트</a></nav>
+    <h1>CSS 플렉스박스</h1>
+    <p>부모가 자식들을 어느 방향으로 놓고, 남는 공간을 어떻게 나눌지 정하는 배치 방식이다.</p>
+    <section>
+      <h2>1. 방향과 정렬을 바꿔 보기</h2>
+      <div class="controls">
+        <label>flex-direction<select id="direction"><option>row</option><option>column</option><option>row-reverse</option><option>column-reverse</option></select></label>
+        <label>justify-content<select id="justify"><option>flex-start</option><option>center</option><option>flex-end</option><option>space-between</option><option>space-around</option><option>space-evenly</option></select></label>
+        <label>align-items<select id="align"><option>flex-start</option><option selected>center</option><option>flex-end</option><option>stretch</option></select></label>
+        <label>flex-wrap<select id="wrap"><option>nowrap</option><option>wrap</option></select></label>
+        <label>gap <output id="gap-value">12px</output><input id="gap" type="range" min="0" max="36" value="12"></label>
+        <label>상자 개수<select id="count"><option>3</option><option selected>5</option><option>8</option></select></label>
+        <button type="button" id="reset">초기화</button>
+      </div>
+      <div class="axis" aria-live="polite"><span id="main-axis"></span><span id="cross-axis"></span></div>
+      <!-- 자식이 넘칠 때 예제 창 안에서만 스크롤한다. 페이지 전체 너비는 늘리지 않는다. -->
+      <div class="preview-scroll"><div class="playground row" id="playground" aria-label="플렉스박스 배치 결과"></div></div>
+      <p class="note">기본 가로쓰기와 왼쪽에서 오른쪽으로 읽는 방향 기준이다. 상자가 줄어들지 않도록 설정했으므로 nowrap에서 공간이 부족하면 넘친다. 개수를 8개로 늘린 뒤 wrap으로 바꾸어 비교할 수 있다.</p>
+      <pre><code id="live-code"></code></pre>
+    </section>
+    <section>
+      <h2>2. 부모에 쓰는 것과 자식에 쓰는 것</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>대상</th><th>속성</th><th>존재 이유</th></tr></thead>
+        <tbody>
+          <tr><td>부모</td><td><code>display: flex</code></td><td>직계 자식에게 Flexbox 배치를 적용한다.</td></tr>
+          <tr><td>부모</td><td><code>flex-direction</code></td><td>주축의 방향을 정한다.</td></tr>
+          <tr><td>부모</td><td><code>justify-content</code></td><td>주축 방향으로 남는 공간을 배분한다.</td></tr>
+          <tr><td>부모</td><td><code>align-items</code></td><td>각 줄 안에서 자식을 교차축 방향으로 정렬한다.</td></tr>
+          <tr><td>부모</td><td><code>flex-wrap</code></td><td>공간이 부족할 때 줄바꿈을 허용할지 정한다.</td></tr>
+          <tr><td>부모</td><td><code>gap</code></td><td>자식 또는 줄 사이에 간격을 둔다. 바깥 여백은 만들지 않는다.</td></tr>
+          <tr><td>부모</td><td><code>align-content</code></td><td>여러 줄을 허용하는 컨테이너에서 줄 묶음의 교차축 배치를 정한다.</td></tr>
+          <tr><td>자식</td><td><code>flex</code></td><td>grow / shrink / basis로 늘어남, 줄어듦, 기준 크기를 정한다.</td></tr>
+          <tr><td>자식</td><td><code>align-self</code></td><td>그 자식만 align-items와 다르게 정렬한다.</td></tr>
+        </tbody>
+      </table></div>
+      <p><strong>justify-content가 언제나 가로 정렬인 것은 아니다.</strong> row에서는 가로가 주축이고 column에서는 세로가 주축이다.</p>
+      <p class="note">stretch는 교차축 크기가 auto일 때 늘린다. wrap 상태의 줄 묶음과 각 줄 안의 아이템 정렬도 구분해야 한다.</p>
+    </section>
+    <section>
+      <h2>3. flex: 늘어남 / 줄어듦 / 기준 크기</h2>
+      <div class="grow-demo"><div>grow: 1</div><div>grow: 2</div><div>grow: 1</div></div>
+      <pre><code>.parent { display: flex; gap: 12px; }
+.child {
+  flex: 1 1 0;
+  /* 1: 남는 공간을 받는다.
+     1: 부족하면 줄어들 수 있다.
+     0: 주축의 기준 크기를 0에서 시작한다. */
+  min-width: 0; /* 긴 내용이 기본 최소 너비로 버티지 않도록 허용 */
+}
+.child:nth-child(2) { flex-grow: 2; }</code></pre>
+      <p class="note">grow:2가 어떤 상황에서나 최종 박스 너비 두 배를 뜻하지는 않는다. 기준 크기, 여백, 최소 크기도 계산에 참여한다. shrink는 shrink 값과 기준 크기를 함께 고려해 부족한 공간을 나눈다.</p>
+    </section>
+    <section>
+      <h2>4. 메뉴는 왼쪽, 로그인은 오른쪽</h2>
+      <div class="menu-demo"><strong>AX</strong><span>홈</span><span>학습 기록</span><span class="login">로그인</span></div>
+      <pre><code>.menu { display: flex; align-items: center; gap: 12px; }
+.login { margin-left: auto; }
+/* 로그인 왼쪽의 auto margin이 같은 줄의 남는 공간을 차지한다. */</code></pre>
+      <p class="note">내용과 테두리 사이에는 padding, 아이템 사이에는 gap, 특정 요소 바깥 간격에는 margin을 사용한다.</p>
+    </section>
+  </main>
+  <script>
+    // JavaScript는 폼 값을 CSS에 전달하고, 적용된 코드를 화면에 보여 주는 역할이다.
+    const playground = document.querySelector('#playground');
+    const controls = Object.fromEntries(['direction', 'justify', 'align', 'wrap', 'gap', 'count'].map(id => [id, document.getElementById(id)]));
+    function update() {
+      const direction = controls.direction.value;
+      const column = direction.startsWith('column');
+      const reverse = direction.endsWith('reverse');
+      playground.className = `playground ${column ? 'column' : 'row'}`;
+      playground.style.flexDirection = direction;
+      playground.style.justifyContent = controls.justify.value;
+      playground.style.alignItems = controls.align.value;
+      playground.style.flexWrap = controls.wrap.value;
+      playground.style.gap = `${controls.gap.value}px`;
+
+      // 개수가 달라졌을 때만 직계 자식을 다시 만든다.
+      if (playground.children.length !== Number(controls.count.value)) {
+        playground.replaceChildren();
+        for (let i = 1; i <= Number(controls.count.value); i++) {
+          const item = document.createElement('div');
+          item.className = 'item';
+          item.textContent = i;
+          playground.append(item);
+        }
+      }
+      document.querySelector('#gap-value').textContent = `${controls.gap.value}px`;
+      document.querySelector('#main-axis').textContent = `주축 ${column ? (reverse ? '↑ 아래에서 위' : '↓ 위에서 아래') : (reverse ? '← 오른쪽에서 왼쪽' : '→ 왼쪽에서 오른쪽')} / justify-content`;
+      document.querySelector('#cross-axis').textContent = `교차축 ${column ? '→ 가로' : '↓ 세로'} / align-items`;
+      document.querySelector('#live-code').textContent = `.parent {\n  display: flex;\n  flex-direction: ${direction};\n  justify-content: ${controls.justify.value};\n  align-items: ${controls.align.value};\n  flex-wrap: ${controls.wrap.value};\n  gap: ${controls.gap.value}px;\n  align-content: flex-start;\n}\n.child { flex: 0 0 auto; } /* 정렬 관찰용: 줄어들지 않는 상자 */`;
+    }
+    Object.values(controls).forEach(control => control.addEventListener('input', update));
+    document.querySelector('#reset').addEventListener('click', () => {
+      const defaults = { direction: 'row', justify: 'flex-start', align: 'center', wrap: 'nowrap', gap: '12', count: '5' };
+      Object.entries(defaults).forEach(([id, value]) => { controls[id].value = value; });
+      update();
+    });
+    update();
+  </script>
+</body>
+</html>

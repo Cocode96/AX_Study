@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>그림물감 팔레트: 웹 색상 실험</title>
+  <style>
+    /* HTML은 색 선택과 결과 영역, CSS는 배치와 색 표현, JS는 RGB 계산을 담당한다. */
+    * { box-sizing: border-box; }
+    body { margin: 0; color: #182b40; background: #f4f7fa; font: 16px/1.75 "Malgun Gothic", sans-serif; }
+    main { max-width: 980px; margin: auto; padding: 36px 20px; }
+    nav, .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+    a { color: #174fba; }
+    h1 { font-size: clamp(28px, 5vw, 42px); line-height: 1.3; }
+    h2 { margin-top: 0; font-size: 22px; }
+    section { padding: 24px; margin: 24px 0; background: white; border: 1px solid #dce4ec; border-radius: 16px; }
+    .note { color: #52677e; font-size: 14px; }
+    input, button { font: inherit; }
+    input[type="color"] { width: 68px; height: 44px; padding: 3px; background: white; border: 1px solid #8295af; border-radius: 8px; }
+    input[type="range"] { width: min(100%, 280px); }
+    button { padding: 8px 12px; border: 1px solid #8295af; border-radius: 8px; background: white; color: inherit; cursor: pointer; }
+    :focus-visible { outline: 3px solid #a85d00; outline-offset: 4px; }
+    code { font-family: Consolas, monospace; }
+    pre { padding: 18px; background: #13263d; color: #e9f0ff; border-radius: 10px; white-space: pre-wrap; overflow-wrap: anywhere; }
+
+    /* Flexbox 응용: 팔레트 상자를 한 줄로 놓고 공간이 부족하면 줄을 바꾼다. */
+    .palette { display: flex; flex-wrap: wrap; gap: 18px; margin: 22px 0; }
+    .sample { flex: 1 1 180px; min-width: 0; padding: 16px; border: 1px solid #dce4ec; border-radius: 12px; }
+    .sample strong { display: block; margin-bottom: 12px; }
+    .swatch { height: 120px; border: 1px solid #0002; border-radius: 45% 55% 60% 40% / 55% 45% 55% 45%; }
+    .value { display: block; margin-top: 14px; overflow-wrap: anywhere; }
+
+    /* 투명 배경을 확인하는 체크무늬다. 투명해진 곳에서 이 배경이 드러난다. */
+    .checker {
+      margin: 18px 0; padding: 24px;
+      background: repeating-conic-gradient(#e0e5ec 0% 25%, white 0% 50%) 0 / 24px 24px;
+      border: 1px solid #c5d0df; border-radius: 12px;
+    }
+    .alpha-card { padding: 24px; border: 2px solid #182b40; border-radius: 10px; color: #182b40; font-weight: bold; }
+    @media (max-width: 600px) { section { padding: 18px; } }
+  </style>
+</head>
+<body>
+  <main>
+    <nav aria-label="CSS 학습 예제"><a href="css-box-model.html">박스 모델</a><a href="css-animation.html">애니메이션</a><a href="css-flexbox.html">플렉스박스</a></nav>
+    <h1>그림물감 팔레트</h1>
+    <p>두 색의 비율을 바꾸고, 같은 색에 투명도를 적용해 보는 웹 색상 실험이다.</p>
+    <p class="note">실제 안료 혼합을 재현하지 않는다. 여기서는 sRGB의 R/G/B 숫자를 비율에 따라 선형 보간한다. 노랑과 파랑을 섞어도 실제 물감처럼 초록이 되지 않을 수 있다.</p>
+    <section>
+      <h2>1. 두 색을 골라 중간색 만들기</h2>
+      <div class="controls">
+        <label for="color-a">색 A</label><input id="color-a" type="color" value="#ff0000">
+        <label for="color-b">색 B</label><input id="color-b" type="color" value="#0000ff">
+        <button type="button" id="swap">A/B 바꾸기</button><button type="button" id="reset">초기화</button>
+      </div>
+      <p><label for="ratio">색 B의 비율 <output id="ratio-value">50%</output></label></p>
+      <input id="ratio" type="range" min="0" max="100" value="50">
+      <div class="palette">
+        <div class="sample"><strong>색 A</strong><div class="swatch" id="swatch-a"></div><code class="value" id="value-a"></code></div>
+        <div class="sample"><strong>중간색</strong><div class="swatch" id="swatch-result"></div><output class="value" id="value-result" aria-live="polite"></output></div>
+        <div class="sample"><strong>색 B</strong><div class="swatch" id="swatch-b"></div><code class="value" id="value-b"></code></div>
+      </div>
+      <pre><code id="mix-code"></code></pre>
+      <p class="note">HEX의 #RRGGBB는 빨강, 초록, 파랑을 각각 16진수 두 자리로 표현한다. 00은 0, FF는 255다. #ff0000은 빨강, #0000ff는 파랑이다.</p>
+    </section>
+    <section>
+      <h2>2. 배경만 투명하게 / 요소 전체를 투명하게</h2>
+      <div class="controls">
+        <label for="alpha">불투명도 <output id="alpha-value">50%</output></label><input id="alpha" type="range" min="0" max="100" value="50">
+      </div>
+      <div class="palette">
+        <div class="sample"><strong>rgba(): 배경색에만 적용</strong><div class="checker"><div class="alpha-card" id="background-only">글자와 테두리는 유지</div></div></div>
+        <div class="sample"><strong>opacity: 요소 전체에 적용</strong><div class="checker"><div class="alpha-card" id="whole-element">글자와 테두리도 투명</div></div></div>
+      </div>
+      <pre><code id="alpha-code"></code></pre>
+      <p class="note">알파는 0이면 완전 투명, 1이면 완전 불투명이다. opacity:0이 되어도 배치 공간은 남는다. 실제 보이는 색은 뒤에 있는 배경과도 합성된다.</p>
+    </section>
+  </main>
+  <script>
+    const colorA = document.querySelector('#color-a');
+    const colorB = document.querySelector('#color-b');
+    const ratio = document.querySelector('#ratio');
+    const alpha = document.querySelector('#alpha');
+
+    // #RRGGBB에서 두 글자씩 잘라 16진수 → 0~255 숫자로 변환한다.
+    function toRgb(hex) {
+      return [1, 3, 5].map(start => parseInt(hex.slice(start, start + 2), 16));
+    }
+    function update() {
+      const a = toRgb(colorA.value);
+      const b = toRgb(colorB.value);
+      const t = Number(ratio.value) / 100;
+      // 각 채널의 보간: A × (1 - t) + B × t. t=0이면 A, t=1이면 B다.
+      const mixed = a.map((channel, index) => Math.round(channel * (1 - t) + b[index] * t));
+      const rgb = `rgb(${mixed.join(', ')})`;
+      const hex = '#' + mixed.map(channel => channel.toString(16).padStart(2, '0')).join('');
+      document.querySelector('#swatch-a').style.backgroundColor = colorA.value;
+      document.querySelector('#swatch-b').style.backgroundColor = colorB.value;
+      document.querySelector('#swatch-result').style.backgroundColor = rgb;
+      document.querySelector('#value-a').textContent = colorA.value;
+      document.querySelector('#value-b').textContent = colorB.value;
+      document.querySelector('#value-result').textContent = `${hex} / ${rgb}`;
+      document.querySelector('#ratio-value').textContent = `${ratio.value}%`;
+      document.querySelector('#mix-code').textContent = `/* 각 RGB 채널: A × (1 - t) + B × t */\n/* t = ${t} */\n.result { background-color: ${hex}; }`;
+
+      const opacity = Number(alpha.value) / 100;
+      const rgba = `rgba(${mixed.join(', ')}, ${opacity})`;
+      document.querySelector('#background-only').style.backgroundColor = rgba;
+      const whole = document.querySelector('#whole-element');
+      whole.style.backgroundColor = rgb;
+      whole.style.opacity = opacity;
+      document.querySelector('#alpha-value').textContent = `${alpha.value}%`;
+      document.querySelector('#alpha-code').textContent = `.background-only {\n  background-color: ${rgba};\n}\n.whole-element {\n  background-color: ${rgb};\n  opacity: ${opacity};\n}`;
+    }
+    [colorA, colorB, ratio, alpha].forEach(input => input.addEventListener('input', update));
+    document.querySelector('#swap').addEventListener('click', () => {
+      [colorA.value, colorB.value] = [colorB.value, colorA.value];
+      update();
+    });
+    document.querySelector('#reset').addEventListener('click', () => {
+      colorA.value = '#ff0000'; colorB.value = '#0000ff'; ratio.value = '50'; alpha.value = '50';
+      update();
+    });
+    update();
+  </script>
+</body>
+</html>
