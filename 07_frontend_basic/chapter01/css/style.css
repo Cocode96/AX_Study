@@ -1,0 +1,14 @@
+main{
+    background-color: aqua;
+}
+
+body{
+    background-color: indigo;
+    font: 100;
+    padding: 1;
+    padding-bottom: 0%;
+}
+
+nav{
+    background-color: brown;
+}

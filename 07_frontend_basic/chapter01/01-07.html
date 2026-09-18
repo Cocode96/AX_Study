@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>하루 5분 IT 뉴스 사이트</title>
+</head>
+<body>
+<style>/**/
+    nav{
+        background-color: rgb(36, 111, 25);
+    }
+
+    /* CSS가 --hue를 숫자로 인식해서 부드럽게 바꾸도록 설정 */
+    @property --hue {
+      syntax: "<number>";
+      inherits: false;
+      initial-value: 0;
+    }
+
+    .tech_head {
+      border-radius: 20px;
+      background-color: hsl(var(--hue) 100% 50%);
+      animation: rainbow 3s linear infinite;
+      font-style: italic;
+    }
+
+    @keyframes rainbow {
+      from { --hue: 0; }
+      to   { --hue: 360; }
+    }
+    
+</style> 
+    <header>
+        <h1>📰 하루 5분 IT 뉴스</h1>
+        
+        <nav>
+            <ul>
+                <li><a href="#home">홈</a></li>
+                <li><a href="#tech">테크 소식</a></li>
+                <li><a href="#opinion">칼럼</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <hr> <main>
+        
+        <section id="tech">
+            <h2 class="tech_head">🔥 실시간 테크 뉴스</h2>
+            
+            <article>
+                <h3>인공지능(AI)이 바꾸는 미래 대학 생활</h3>
+                <p>최근 생성형 AI 기술의 발전으로 대학생들의 학습 방식이 혁신적으로 변하고 있습니다. 노트 필기부터 요약까지 다양한 도구가 쓰이고 있습니다...</p>
+            </article>
+
+            <article>
+                <h3>HTML5 시멘틱 마크업이 중요한 진짜 이유</h3>
+                <p>시멘틱 태그를 활용한 마크업은 웹 사이트의 검색 노출 빈도를 극적으로 높여줍니다. 구조화된 웹은 미래의 핵심 경쟁력입니다...</p>
+            </article>
+        </section>
+
+        <hr>
+
+        <aside>
+            <h4>광고 및 이벤트</h4>
+            <p>💻 코딩 입문자 필수 코스! 선착순 50% 할인 혜택을 놓치지 마세요!</p>
+        </aside>
+
+    </main>
+
+    <hr>
+
+    <footer>
+        <p>&copy; 2026 하루 5분 IT 뉴스 Corp. All rights reserved.</p>
+        <p>문의사항: contact@itnews5.com</p>
+    </footer>
+
+</body>
+</html>

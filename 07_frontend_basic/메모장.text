@@ -1,0 +1,7 @@
+위치	키워드
+위쪽 로고와 로그인 영역	헤더(Header)
+공지사항, 이벤트 등이 있는 가로 메뉴	내비게이션 바(Navbar), GNB
+왼쪽 세로 메뉴	사이드바(Sidebar), 사이드 내비게이션, LNB
+☰ 메뉴 버튼	햄버거 메뉴(Hamburger Menu)
+메뉴를 누르면 옆에서 나오는 패널	드로어 메뉴(Drawer), 오프캔버스 메뉴(Off-canvas)
+패널 뒤에 깔리는 어두운 배경	오버레이(Overlay), 백드롭(Backdrop)

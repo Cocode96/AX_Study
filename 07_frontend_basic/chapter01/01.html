@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>게임 회원가입</title>
+
+    <!-- 내부 스타일: 이 페이지의 모양 설정 -->
+    <style>
+        body {
+            font-family: sans-serif;
+            max-width: 700px;
+            margin: 30px auto;
+            padding: 0 20px;
+            line-height: 1.6;
+        }
+
+        .input-group {
+            margin-bottom: 16px;
+        }
+
+        .required {
+            color: red;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid gray;
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+
+    <!-- 외부 CSS를 만들었다면 이렇게 연결합니다.
+    <link rel="stylesheet" href="style.css">
+    -->
+</head>
+
+<body>
+    <!-- header: 페이지 소개 영역 -->
+    <header>
+        <h1>게임 회원가입</h1>
+        <p>나만의 캐릭터와 함께 모험을 시작하세요.</p>
+
+        <!-- nav: 주요 이동 링크 -->
+        <nav>
+            <!-- #은 현재 페이지 안의 id를 가리킵니다. -->
+            <a href="#signup">회원가입</a>
+            <a href="#jobs">직업 안내</a>
+        </nav>
+    </header>
+
+    <!-- hr: 주제 전환 -->
+    <hr>
+
+    <!-- main: 페이지의 핵심 내용 -->
+    <main>
+        <!-- section: 하나의 주제로 묶은 영역 -->
+        <section id="signup">
+            <h2>회원가입 정보</h2>
+
+            <p>
+                <span class="required">*</span>는 필수 항목입니다.
+                <br>
+                <em>다른 사람의 정보를 입력하지 마세요.</em>
+            </p>
+
+            <!-- form: 입력 항목을 묶는 양식 -->
+            <form id="signup-form">
+                <h3>기본 정보</h3>
+
+                <!-- div: 스타일 적용 등을 위해 묶는 영역 -->
+                <div class="input-group">
+                    <!-- label의 for와 input의 id를 연결 -->
+                    <label for="nickname">
+                        닉네임 <span class="required">*</span>
+                    </label>
+                    <br>
+
+                    <input
+                        type="text"
+                        id="nickname"
+                        name="nickname"
+                        placeholder="닉네임을 입력하세요"
+                        required>
+                </div>
+
+                <div class="input-group">
+                    <label for="email">
+                        이메일 <span class="required">*</span>
+                    </label>
+                    <br>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="player@example.com"
+                        required>
+                </div>
+
+                <h3>상세 정보</h3>
+
+                <div class="input-group">
+                    <label for="job">시작 직업</label>
+
+                    <!-- select: 선택 목록 / option: 각 선택지 -->
+                    <select id="job" name="job">
+                        <option value="warrior">전사</option>
+                        <option value="mage">마법사</option>
+                        <option value="archer">궁수</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="intro">자기소개</label>
+                    <br>
+
+                    <!-- textarea: 여러 줄 입력 -->
+                    <textarea
+                        id="intro"
+                        name="intro"
+                        rows="4"
+                        placeholder="간단히 소개해주세요"></textarea>
+                </div>
+
+                <div class="input-group">
+                    <input
+                        type="checkbox"
+                        id="agree"
+                        name="agree"
+                        required>
+
+                    <label for="agree">
+                        연습용 양식임을 확인했습니다.
+                    </label>
+                </div>
+
+                <p>
+                    <strong>이 페이지에서는 실제 가입이 진행되지 않습니다.</strong>
+                </p>
+
+                <button type="submit">가입 내용 확인</button>
+                <button type="reset">입력 초기화</button>
+            </form>
+
+            <!-- JavaScript가 결과를 넣을 영역 -->
+            <p id="result" role="status"></p>
+        </section>
+
+        <hr>
+
+        <section id="jobs">
+            <h2>직업 안내</h2>
+
+            <!-- table: 표 전체 -->
+            <table>
+                <!-- tr: 행 / th: 제목 셀 / td: 데이터 셀 -->
+                <tr>
+                    <th scope="col">직업</th>
+                    <th scope="col">주요 무기</th>
+                    <th scope="col">특징</th>
+                </tr>
+                <tr>
+                    <td>전사</td>
+                    <td>검</td>
+                    <td>근접 전투</td>
+                </tr>
+                <tr>
+                    <td>마법사</td>
+                    <td>지팡이</td>
+                    <td>마법 공격</td>
+                </tr>
+                <tr>
+                    <td>궁수</td>
+                    <td>활</td>
+                    <td>원거리 공격</td>
+                </tr>
+            </table>
+
+            <h3>기본 지급 아이템</h3>
+
+            <!-- ul: 순서 없는 목록 / li: 각 항목 -->
+            <ul>
+                <li>체력 물약 5개</li>
+                <li>기본 무기 1개</li>
+                <li>초보자 방어구 1개</li>
+            </ul>
+
+            <h3>모험 시작 순서</h3>
+
+            <!-- ol: 순서 있는 목록 -->
+            <ol>
+                <li>회원가입</li>
+                <li>캐릭터 생성</li>
+                <li>튜토리얼 시작</li>
+            </ol>
+        </section>
+
+        <hr>
+
+        <!-- article: 독립적으로 읽을 수 있는 콘텐츠 -->
+        <article>
+            <h2>신규 모험가 안내</h2>
+            <p>첫 접속 시 튜토리얼을 진행할 수 있습니다.</p>
+
+            <!-- 같은 폴더에 character.png를 넣으면 표시됩니다.
+                 파일이 없으면 대체 텍스트가 표시됩니다. -->
+            <img
+                src="character.png"
+                alt="신규 모험가 캐릭터"
+                width="180">
+        </article>
+    </main>
+
+    <hr>
+
+    <!-- footer: 페이지 마무리 정보 -->
+    <footer>
+        <p>HTML 회원가입 연습 페이지</p>
+        <a href="#signup">회원가입 영역으로 돌아가기</a>
+    </footer>
+
+    <!-- script: 화면 동작을 담당하는 JavaScript -->
+    <script>
+        const form = document.getElementById("signup-form");
+        const result = document.getElementById("result");
+
+        form.addEventListener("submit", function (event) {
+            // 기본 제출 동작을 막고 화면에서만 결과를 표시합니다.
+            event.preventDefault();
+
+            const nickname = document.getElementById("nickname").value;
+
+            // 입력 내용을 HTML로 해석하지 않고 글자로 표시합니다.
+            result.textContent =
+                nickname + "님, 입력을 확인했습니다! 실제 가입은 진행되지 않았습니다.";
+        });
+
+        form.addEventListener("reset", function () {
+            result.textContent = "";
+        });
+    </script>
+</body>
+</html>

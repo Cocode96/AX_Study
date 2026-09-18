@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>팀스파르타</title>
+</head>
+<body>
+    <h1>회원 가입</h1>
+    <form action="./sub/sing_up.html" method="get">
+        이메일 <input type="text"> <br>
+        비밀번호 <input type="password"> <br>
+        비밀번호 확인 <input type="password"> <br>
+        전화번호 <input type="text"> <br>
+        성별
+            <label>
+                <input type="radio" name="gender" value="femail">여성
+            </label>
+            <label>
+                <input type="radio" name="gender" value="male">남성 <br>
+            </label>
+        취미
+            <input type="checkbox" name="hobby" value="pyhton" id="hobby_python">
+            <label for="hobby_python">파이썬 공부</label>
+            <input type="checkbox" name="hobby" value="machine" id="hobby_machine">
+            <label for="hobby_machine">머신러닝 공부</label>
+            <input type="checkbox" name="hobby" value="reading" id="hobby_reading">
+            <label for="hobby_reading">독서</label>
+        <br>
+        자기소개
+        <br>
+        <textarea name="introduction" rows="5" cols="100" placeholder="자기소개를 해주십숑!"></textarea>
+        <br>
+        태어난 년도
+        <select name="birth_year" multiple>
+            <option value="2020" name="year">2020</option>
+            <option value="2019" name="year">2019</option>
+            <option value="2018" name="year">2018</option>
+            <option value="2017" name="year">2017</option>
+            <option value="2016" name="year" selected>2016</option>
+        </select>
+        <br>
+        <button type="submit">회원가입</button><input type="reset">
+    </form>
+</body>
+</html>
