@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>기본 상호작용과 접근성 | HTML / CSS 키워드 참고서</title>
+  <link rel="stylesheet" href="../../assets/reference.css">
+  <script src="../../assets/reference.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#content">본문으로 이동</a>
+  <main id="content">
+    <nav aria-label="상위 탐색"><a href="../../index.html">← 전체 키워드</a><a href="../../index.html#html">HTML</a></nav>
+    <p class="eyebrow">HTML / 08</p>
+    <h1>기본 상호작용과 접근성</h1><p class="lead">브라우저가 제공하는 요소부터 사용하면 키보드 조작, 포커스, 상태 처리를 적은 코드로 구현할 수 있다.</p>
+    <section class="intro"><h2>이 페이지에서 찾기</h2><nav aria-label="페이지 목차"><a href="#keywords">키워드 표</a><a href="#examples">실행 예제</a><a href="#notes">헷갈리는 점</a></nav>
+      <p class="note">예제는 독립된 문서로 실행됩니다. 화면 공통 스타일과 섞이지 않으며, 미리보기 안에서 직접 클릭하거나 입력할 수 있습니다. JavaScript는 코드 적용과 너비 조절을 돕습니다.</p>
+    </section>
+    <section><h2>개별 키워드 백과사전</h2><p>한 항목만 찾아 문법, 값, 예제와 실패 조건을 확인한다.</p><ul class="toc"><li><a href="details/index.html">details</a> — 기본 펼침/접힘 UI를 만든다.</li><li><a href="summary/index.html">summary</a> — details의 열기/닫기 제목을 제공한다.</li><li><a href="dialog/index.html">dialog</a> — 브라우저가 관리하는 모달/비모달 대화상자를 만든다.</li><li><a href="progress/index.html">progress</a> — 진행 중인 작업의 완료 정도를 나타낸다.</li><li><a href="meter/index.html">meter</a> — 알려진 범위 안의 측정값을 나타낸다.</li><li><a href="template/index.html">template</a> — 당장 렌더링하지 않고 나중에 복제할 HTML을 보관한다.</li><li><a href="attr-dir/index.html">dir</a> — 콘텐츠의 글 진행 방향을 지정한다.</li><li><a href="attr-hidden/index.html">hidden</a> — 요소가 현재 문서에서 표시되어야 하지 않음을 지정한다.</li><li><a href="attr-inert/index.html">inert</a> — 요소 하위의 사용자 상호작용과 포커스 등을 제한한다.</li><li><a href="attr-tabindex/index.html">tabindex</a> — 요소의 포커스 가능 여부와 Tab 순서를 조절한다.</li><li><a href="attr-aria-label/index.html">aria-label</a> — 보조 기술이 읽을 접근 가능한 이름을 제공한다.</li><li><a href="attr-aria-describedby/index.html">aria-describedby</a> — 요소에 대한 추가 설명을 다른 id의 내용과 연결한다.</li><li><a href="attr-aria-labelledby/index.html">aria-labelledby</a> — 다른 요소의 텍스트를 접근 가능한 이름으로 연결한다.</li><li><a href="attr-aria-live/index.html">aria-live</a> — 동적으로 바뀌는 영역을 보조 기술에 알린다.</li><li><a href="attr-data-star/index.html">data-*</a> — 앱 전용 데이터를 요소에 저장한다.</li><li><a href="attr-popover/index.html">popover</a> — 요소를 브라우저의 팝오버로 표시하게 한다.</li></ul></section>
+<section id="keywords"><h2>키워드와 적용 대상</h2><div class="table-wrap"><table><thead><tr><th scope="col">키워드</th><th scope="col">어디에 쓰나</th><th scope="col">역할 / 기준</th></tr></thead><tbody><tr><td><code>details, summary, open</code></td><td>펼침 영역</td><td>summary를 눌러 상세 내용을 열고 닫는다.</td></tr>
+<tr><td><code>dialog, showModal()</code></td><td>대화상자</td><td>모달로 열면 바깥 콘텐츠의 상호작용을 제한하고 포커스를 관리한다.</td></tr>
+<tr><td><code>popover, popovertarget</code></td><td>팝오버</td><td>연결된 버튼으로 보조 UI를 토글한다. 기본 auto는 바깥 클릭 등으로 닫힌다.</td></tr>
+<tr><td><code>aria-label, aria-labelledby</code></td><td>접근 가능한 이름</td><td>화면에 드러나지 않는 이름이나 제목 요소 연결에 사용한다.</td></tr>
+<tr><td><code>aria-describedby</code></td><td>추가 설명</td><td>입력 조건 등의 설명 요소를 연결한다.</td></tr>
+<tr><td><code>aria-live</code></td><td>상태 안내</td><td>동적으로 바뀐 내용을 보조 기술에 알릴 때 사용한다.</td></tr>
+<tr><td><code>tabindex</code></td><td>포커스</td><td>0은 일반 Tab 순서에 포함, -1은 보통 스크립트로 포커스할 때 사용한다.</td></tr>
+<tr><td><code>hidden, inert</code></td><td>표시/상호작용</td><td>hidden은 렌더링 제외, inert는 하위 상호작용과 포커스를 제한한다.</td></tr>
+<tr><td><code>progress, meter</code></td><td>상태 값</td><td>작업 진행률과 알려진 범위 안의 측정값이다.</td></tr>
+<tr><td><code>data-*</code></td><td>사용자 정의 데이터</td><td>요소에 앱 전용 데이터를 붙인다. 단독으로 동작하지 않는다.</td></tr></tbody></table></div></section>
+    <section id="examples"><h2>실행 예제와 코드</h2><article class="example" id="example-1">
+    <h3>1. HTML만으로 펼치기</h3>
+    <p>summary는 details의 첫 번째 summary 자식으로 작성한다. 버튼을 따로 만들 필요가 없다.</p>
+    <div class="controls"><label for="width-0">미리보기 너비 <output for="width-0">100%</output></label><input data-width id="width-0" type="range" min="35" max="100" value="100"></div>
+    <div class="preview"><iframe title="HTML만으로 펼치기 실행 결과" height="270" sandbox="allow-scripts allow-forms" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ko&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;style&gt;body{margin:16px;font:16px/1.7 sans-serif;color:#182b40}*,*::before,*::after{box-sizing:border-box}button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere}:focus-visible{outline:3px solid #a45200;outline-offset:3px}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;details&gt;
+  &lt;summary&gt;position: absolute는 어디를 기준으로 하나?&lt;/summary&gt;
+  &lt;p&gt;보통 가장 가까운 positioned 조상의 padding box가 기준이 된다.&lt;/p&gt;
+&lt;/details&gt;
+&lt;p&gt;&lt;label&gt;다운로드 &lt;progress max=&quot;100&quot; value=&quot;65&quot;&gt;65%&lt;/progress&gt;&lt;/label&gt;&lt;/p&gt;
+&lt;p&gt;&lt;label&gt;저장 공간 &lt;meter min=&quot;0&quot; max=&quot;100&quot; value=&quot;35&quot;&gt;35%&lt;/meter&gt;&lt;/label&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    <details open><summary>주석이 있는 예제 코드</summary>
+      <label for="code-0" class="note">코드를 수정한 뒤 적용할 수 있습니다. 편집 내용은 새로고침하면 사라집니다.</label>
+      <textarea id="code-0" rows="6" spellcheck="false" autocapitalize="off" autocomplete="off">&lt;details&gt;
+  &lt;summary&gt;position: absolute는 어디를 기준으로 하나?&lt;/summary&gt;
+  &lt;p&gt;보통 가장 가까운 positioned 조상의 padding box가 기준이 된다.&lt;/p&gt;
+&lt;/details&gt;
+&lt;p&gt;&lt;label&gt;다운로드 &lt;progress max=&quot;100&quot; value=&quot;65&quot;&gt;65%&lt;/progress&gt;&lt;/label&gt;&lt;/p&gt;
+&lt;p&gt;&lt;label&gt;저장 공간 &lt;meter min=&quot;0&quot; max=&quot;100&quot; value=&quot;35&quot;&gt;35%&lt;/meter&gt;&lt;/label&gt;&lt;/p&gt;</textarea>
+      <div class="controls"><button class="primary" type="button" data-apply>코드 적용</button><button type="button" data-reset>초기화</button></div>
+      <p class="status" role="status"></p>
+    </details>
+  </article>
+<article class="example" id="example-2">
+    <h3>2. 대화상자와 포커스</h3>
+    <p>열기 후 Esc 또는 닫기를 누른다. open 속성만 붙인 비모달 상태와 showModal()은 다르다.</p>
+    <div class="controls"><label for="width-1">미리보기 너비 <output for="width-1">100%</output></label><input data-width id="width-1" type="range" min="35" max="100" value="100"></div>
+    <div class="preview"><iframe title="대화상자와 포커스 실행 결과" height="270" sandbox="allow-scripts allow-forms" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ko&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;style&gt;body{margin:16px;font:16px/1.7 sans-serif;color:#182b40}*,*::before,*::after{box-sizing:border-box}button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere}:focus-visible{outline:3px solid #a45200;outline-offset:3px}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;button id=&quot;open&quot; type=&quot;button&quot;&gt;도움말 열기&lt;/button&gt;
+&lt;dialog id=&quot;help&quot; aria-labelledby=&quot;dialog-title&quot;&gt;
+  &lt;h2 id=&quot;dialog-title&quot;&gt;도움말&lt;/h2&gt;
+  &lt;p&gt;Esc 키 또는 닫기 버튼으로 돌아간다.&lt;/p&gt;
+  &lt;form method=&quot;dialog&quot;&gt;&lt;button autofocus&gt;닫기&lt;/button&gt;&lt;/form&gt;
+&lt;/dialog&gt;
+&lt;style&gt;dialog::backdrop { background: rgb(15 30 50 / 60%); }&lt;/style&gt;
+&lt;script&gt;
+  document.querySelector('#open').addEventListener('click', () =&gt; {
+    document.querySelector('#help').showModal();
+  });
+&lt;/script&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    <details open><summary>주석이 있는 예제 코드</summary>
+      <label for="code-1" class="note">코드를 수정한 뒤 적용할 수 있습니다. 편집 내용은 새로고침하면 사라집니다.</label>
+      <textarea id="code-1" rows="12" spellcheck="false" autocapitalize="off" autocomplete="off">&lt;button id=&quot;open&quot; type=&quot;button&quot;&gt;도움말 열기&lt;/button&gt;
+&lt;dialog id=&quot;help&quot; aria-labelledby=&quot;dialog-title&quot;&gt;
+  &lt;h2 id=&quot;dialog-title&quot;&gt;도움말&lt;/h2&gt;
+  &lt;p&gt;Esc 키 또는 닫기 버튼으로 돌아간다.&lt;/p&gt;
+  &lt;form method=&quot;dialog&quot;&gt;&lt;button autofocus&gt;닫기&lt;/button&gt;&lt;/form&gt;
+&lt;/dialog&gt;
+&lt;style&gt;dialog::backdrop { background: rgb(15 30 50 / 60%); }&lt;/style&gt;
+&lt;script&gt;
+  document.querySelector('#open').addEventListener('click', () =&gt; {
+    document.querySelector('#help').showModal();
+  });
+&lt;/script&gt;</textarea>
+      <div class="controls"><button class="primary" type="button" data-apply>코드 적용</button><button type="button" data-reset>초기화</button></div>
+      <p class="status" role="status"></p>
+    </details>
+  </article>
+<article class="example" id="example-3">
+    <h3>3. 팝오버</h3>
+    <p>지원 브라우저에서 HTML 속성만으로 열린다. 미지원 브라우저에서는 동일한 UI가 작동하지 않을 수 있다.</p>
+    <div class="controls"><label for="width-2">미리보기 너비 <output for="width-2">100%</output></label><input data-width id="width-2" type="range" min="35" max="100" value="100"></div>
+    <div class="preview"><iframe title="팝오버 실행 결과" height="270" sandbox="allow-scripts allow-forms" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ko&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;style&gt;body{margin:16px;font:16px/1.7 sans-serif;color:#182b40}*,*::before,*::after{box-sizing:border-box}button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere}:focus-visible{outline:3px solid #a45200;outline-offset:3px}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;button type=&quot;button&quot; popovertarget=&quot;tip&quot;&gt;키워드 도움말&lt;/button&gt;
+&lt;div id=&quot;tip&quot; popover&gt;padding은 안쪽 여백이다.&lt;/div&gt;
+&lt;style&gt;[popover] { padding: 24px; border: 2px solid #2456b8; }&lt;/style&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    <details open><summary>주석이 있는 예제 코드</summary>
+      <label for="code-2" class="note">코드를 수정한 뒤 적용할 수 있습니다. 편집 내용은 새로고침하면 사라집니다.</label>
+      <textarea id="code-2" rows="6" spellcheck="false" autocapitalize="off" autocomplete="off">&lt;button type=&quot;button&quot; popovertarget=&quot;tip&quot;&gt;키워드 도움말&lt;/button&gt;
+&lt;div id=&quot;tip&quot; popover&gt;padding은 안쪽 여백이다.&lt;/div&gt;
+&lt;style&gt;[popover] { padding: 24px; border: 2px solid #2456b8; }&lt;/style&gt;</textarea>
+      <div class="controls"><button class="primary" type="button" data-apply>코드 적용</button><button type="button" data-reset>초기화</button></div>
+      <p class="status" role="status"></p>
+    </details>
+  </article></section>
+    <section id="notes"><h2>헷갈리는 점</h2><ul><li>aria-label로 보이는 label을 불필요하게 대체하지 않는다. 화면의 이름과 접근 가능한 이름도 일치시키는 편이 좋다.</li>
+<li>div에 click만 붙이면 button의 키보드 동작이 자동으로 생기지 않는다.</li>
+<li>이 자료의 대화상자는 실행 예제 iframe 내부에서만 모달이다. 전체 참고 페이지를 가리는 것은 아니다.</li></ul>
+
+    </section>
+    <section><h2>더 찾아보기</h2><p class="note">표준의 모든 태그/속성은 계속 확장됩니다. 이 페이지는 주제별 핵심 참고이며, 세부 문법과 지원 버전은 원문 색인에서 확인할 수 있습니다.</p><ul class="source-list"><li><a href="https://html.spec.whatwg.org/multipage/indices.html" target="_blank" rel="noopener noreferrer">HTML 요소 색인</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog" target="_blank" rel="noopener noreferrer">dialog</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/popover" target="_blank" rel="noopener noreferrer">popover</a></li></ul></section>
+    <nav class="footer-nav" aria-label="이전 다음 주제"><a href="../../html/07-forms/index.html">← 폼과 입력 검증</a><a href="../../index.html">전체 목록</a><a href="../../css/01-syntax-cascade/index.html">문법, 캐스케이드와 상속 →</a></nav></main>
+</body>
+</html>

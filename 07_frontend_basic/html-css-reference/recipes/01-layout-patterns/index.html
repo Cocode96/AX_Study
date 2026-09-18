@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>자주 쓰는 화면 패턴 | HTML / CSS 키워드 참고서</title>
+  <link rel="stylesheet" href="../../assets/reference.css">
+  <script src="../../assets/reference.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#content">본문으로 이동</a>
+  <main id="content">
+    <nav aria-label="상위 탐색"><a href="../../index.html">← 전체 키워드</a><a href="../../index.html#recipes">활용 / 디버깅</a></nav>
+    <p class="eyebrow">활용 / 디버깅 / 29</p>
+    <h1>자주 쓰는 화면 패턴</h1><p class="lead">앞의 키워드를 조합해 메뉴, 카드, 겹쳐 놓는 UI를 만든다. 예제에서 어떤 요소가 기준 부모인지 함께 확인한다.</p>
+    <section class="intro"><h2>이 페이지에서 찾기</h2><nav aria-label="페이지 목차"><a href="#keywords">키워드 표</a><a href="#examples">실행 예제</a><a href="#notes">헷갈리는 점</a></nav>
+      <p class="note">예제는 독립된 문서로 실행됩니다. 화면 공통 스타일과 섞이지 않으며, 미리보기 안에서 직접 클릭하거나 입력할 수 있습니다. JavaScript는 코드 적용과 너비 조절을 돕습니다.</p>
+    </section>
+    <section id="keywords"><h2>키워드와 적용 대상</h2><div class="table-wrap"><table><thead><tr><th scope="col">키워드</th><th scope="col">어디에 쓰나</th><th scope="col">역할 / 기준</th></tr></thead><tbody><tr><td><code>중앙 정렬</code></td><td>Grid / Flexbox</td><td>부모의 display와 축 정렬을 먼저 선택한다.</td></tr>
+<tr><td><code>반응형 카드 목록</code></td><td>Grid</td><td>auto-fit, minmax, gap을 조합한다.</td></tr>
+<tr><td><code>이미지 위 버튼</code></td><td>position</td><td>움직이는 이미지 트랙 바깥의 relative 래퍼에 버튼을 둔다.</td></tr>
+<tr><td><code>고정 비율 썸네일</code></td><td>aspect-ratio / object-fit</td><td>비율과 이미지 맞춤을 분리한다.</td></tr>
+<tr><td><code>말줄임 제목</code></td><td>min-width / overflow</td><td>Flex/Grid 아이템 최소 너비도 확인한다.</td></tr>
+<tr><td><code>CSS 토글 패널</code></td><td>:checked / 형제 선택자</td><td>상태 input과 뒤쪽 패널의 실제 형제 관계를 맞춘다.</td></tr></tbody></table></div></section>
+    <section id="examples"><h2>실행 예제와 코드</h2><article class="example" id="example-1">
+    <h3>1. 이미지 창 위에 고정되는 좌우 버튼</h3>
+    <p>트랙을 움직여도 버튼이 같이 움직이지 않도록 버튼을 track의 형제로 둔다. 체크하면 이동 방향을 비교한다.</p>
+    <div class="controls"><label for="width-0">미리보기 너비 <output for="width-0">100%</output></label><input data-width id="width-0" type="range" min="35" max="100" value="100"></div>
+    <div class="preview"><iframe title="이미지 창 위에 고정되는 좌우 버튼 실행 결과" height="270" sandbox="allow-scripts allow-forms" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ko&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;style&gt;body{margin:16px;font:16px/1.7 sans-serif;color:#182b40}*,*::before,*::after{box-sizing:border-box}button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere}:focus-visible{outline:3px solid #a45200;outline-offset:3px}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;label&gt;&lt;input id=&quot;next&quot; type=&quot;checkbox&quot;&gt;두 번째 화면&lt;/label&gt;
+&lt;div class=&quot;window&quot;&gt;
+  &lt;div class=&quot;track&quot;&gt;&lt;div&gt;첫 화면&lt;/div&gt;&lt;div&gt;두 번째 화면&lt;/div&gt;&lt;/div&gt;
+  &lt;label class=&quot;arrow&quot; for=&quot;next&quot;&gt;전환&lt;/label&gt;
+&lt;/div&gt;
+&lt;style&gt;
+  .window { position: relative; overflow: hidden; width: 100%; }
+  .track { display: flex; transition: transform .3s; }
+  .track &gt; div { flex: 0 0 100%; padding: 70px 20px; background: #dceaff; }
+  .track &gt; div:nth-child(2) { background: #d9f5e6; }
+  body:has(#next:checked) .track { transform: translateX(-100%); }
+  .arrow { position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+    background: white; padding: 8px 16px; cursor: pointer; }
+  @media (prefers-reduced-motion: reduce) { .track { transition: none; } }
+&lt;/style&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    <details open><summary>주석이 있는 예제 코드</summary>
+      <label for="code-0" class="note">코드를 수정한 뒤 적용할 수 있습니다. 편집 내용은 새로고침하면 사라집니다.</label>
+      <textarea id="code-0" rows="15" spellcheck="false" autocapitalize="off" autocomplete="off">&lt;label&gt;&lt;input id=&quot;next&quot; type=&quot;checkbox&quot;&gt;두 번째 화면&lt;/label&gt;
+&lt;div class=&quot;window&quot;&gt;
+  &lt;div class=&quot;track&quot;&gt;&lt;div&gt;첫 화면&lt;/div&gt;&lt;div&gt;두 번째 화면&lt;/div&gt;&lt;/div&gt;
+  &lt;label class=&quot;arrow&quot; for=&quot;next&quot;&gt;전환&lt;/label&gt;
+&lt;/div&gt;
+&lt;style&gt;
+  .window { position: relative; overflow: hidden; width: 100%; }
+  .track { display: flex; transition: transform .3s; }
+  .track &gt; div { flex: 0 0 100%; padding: 70px 20px; background: #dceaff; }
+  .track &gt; div:nth-child(2) { background: #d9f5e6; }
+  body:has(#next:checked) .track { transform: translateX(-100%); }
+  .arrow { position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+    background: white; padding: 8px 16px; cursor: pointer; }
+  @media (prefers-reduced-motion: reduce) { .track { transition: none; } }
+&lt;/style&gt;</textarea>
+      <div class="controls"><button class="primary" type="button" data-apply>코드 적용</button><button type="button" data-reset>초기화</button></div>
+      <p class="status" role="status"></p>
+    </details>
+  </article>
+<article class="example" id="example-2">
+    <h3>2. 가운데 정렬과 최대 너비</h3>
+    <p>바깥 shell이 배치를 맡고, panel이 콘텐츠 최대 너비를 맡는다.</p>
+    <div class="controls"><label for="width-1">미리보기 너비 <output for="width-1">100%</output></label><input data-width id="width-1" type="range" min="35" max="100" value="100"></div>
+    <div class="preview"><iframe title="가운데 정렬과 최대 너비 실행 결과" height="270" sandbox="allow-scripts allow-forms" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ko&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;style&gt;body{margin:16px;font:16px/1.7 sans-serif;color:#182b40}*,*::before,*::after{box-sizing:border-box}button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere}:focus-visible{outline:3px solid #a45200;outline-offset:3px}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;shell&quot;&gt;&lt;article class=&quot;panel&quot;&gt;&lt;h2&gt;안내 카드&lt;/h2&gt;&lt;p&gt;내용에 따라 높이가 늘어난다.&lt;/p&gt;&lt;/article&gt;&lt;/div&gt;
+&lt;style&gt;
+  .shell { min-height: 210px; display: grid; place-items: center; background: #eef3fa; padding: 16px; }
+  .panel { width: min(100%, 320px); padding: 20px; border: 1px solid #8ca3c1; border-radius: 12px; background: white; }
+&lt;/style&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    <details open><summary>주석이 있는 예제 코드</summary>
+      <label for="code-1" class="note">코드를 수정한 뒤 적용할 수 있습니다. 편집 내용은 새로고침하면 사라집니다.</label>
+      <textarea id="code-1" rows="6" spellcheck="false" autocapitalize="off" autocomplete="off">&lt;div class=&quot;shell&quot;&gt;&lt;article class=&quot;panel&quot;&gt;&lt;h2&gt;안내 카드&lt;/h2&gt;&lt;p&gt;내용에 따라 높이가 늘어난다.&lt;/p&gt;&lt;/article&gt;&lt;/div&gt;
+&lt;style&gt;
+  .shell { min-height: 210px; display: grid; place-items: center; background: #eef3fa; padding: 16px; }
+  .panel { width: min(100%, 320px); padding: 20px; border: 1px solid #8ca3c1; border-radius: 12px; background: white; }
+&lt;/style&gt;</textarea>
+      <div class="controls"><button class="primary" type="button" data-apply>코드 적용</button><button type="button" data-reset>초기화</button></div>
+      <p class="status" role="status"></p>
+    </details>
+  </article></section>
+    <section id="notes"><h2>헷갈리는 점</h2><ul><li>학습용 체크박스 상태를 사용했다. 실제 서비스의 슬라이더는 버튼 의미, 키보드 이동, 현재 슬라이드 안내 등을 추가로 설계한다.</li></ul>
+
+    </section>
+    <section><h2>더 찾아보기</h2><p class="note">표준의 모든 태그/속성은 계속 확장됩니다. 이 페이지는 주제별 핵심 참고이며, 세부 문법과 지원 버전은 원문 색인에서 확인할 수 있습니다.</p><ul class="source-list"><li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference" target="_blank" rel="noopener noreferrer">CSS 속성/선택자 색인</a></li></ul></section>
+    <nav class="footer-nav" aria-label="이전 다음 주제"><a href="../../css/20-filter-blend/index.html">← 필터, 합성과 클리핑</a><a href="../../index.html">전체 목록</a><a href="../../recipes/02-debugging/index.html">증상별 찾기와 DevTools →</a></nav></main>
+</body>
+</html>

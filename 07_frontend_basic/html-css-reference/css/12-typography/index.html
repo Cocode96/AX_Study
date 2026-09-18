@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>글꼴, 줄바꿈과 말줄임 | HTML / CSS 키워드 참고서</title>
+  <link rel="stylesheet" href="../../assets/reference.css">
+  <script src="../../assets/reference.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#content">본문으로 이동</a>
+  <main id="content">
+    <nav aria-label="상위 탐색"><a href="../../index.html">← 전체 키워드</a><a href="../../index.html#css">CSS</a></nav>
+    <p class="eyebrow">CSS / 20</p>
+    <h1>글꼴, 줄바꿈과 말줄임</h1><p class="lead">텍스트 스타일은 글자 자체와 줄 상자의 배치를 함께 다룬다. 긴 단어와 한국어 문장이 좁은 폭에서 어떻게 바뀌는지 확인한다.</p>
+    <section class="intro"><h2>이 페이지에서 찾기</h2><nav aria-label="페이지 목차"><a href="#keywords">키워드 표</a><a href="#examples">실행 예제</a><a href="#notes">헷갈리는 점</a></nav>
+      <p class="note">예제는 독립된 문서로 실행됩니다. 화면 공통 스타일과 섞이지 않으며, 미리보기 안에서 직접 클릭하거나 입력할 수 있습니다. JavaScript는 코드 적용과 너비 조절을 돕습니다.</p>
+    </section>
+    <section><h2>개별 키워드 백과사전</h2><p>한 항목만 찾아 문법, 값, 예제와 실패 조건을 확인한다.</p><ul class="toc"><li><a href="font-family/index.html">font-family</a> — 글꼴 후보를 순서대로 지정한다.</li><li><a href="font-size/index.html">font-size</a> — 글자 크기를 지정한다.</li><li><a href="font-weight/index.html">font-weight</a> — 글꼴의 굵기를 지정한다.</li><li><a href="font-style/index.html">font-style</a> — 기울임 글꼴 스타일을 지정한다.</li><li><a href="font/index.html">font</a> — 글꼴 하위 속성을 축약해서 지정한다.</li><li><a href="line-height/index.html">line-height</a> — 한 줄의 높이 계산을 지정한다.</li><li><a href="letter-spacing/index.html">letter-spacing</a> — 글자 사이 추가 간격을 지정한다.</li><li><a href="word-spacing/index.html">word-spacing</a> — 단어 사이 공백 간격을 조절한다.</li><li><a href="text-align/index.html">text-align</a> — 블록 안의 인라인 콘텐츠를 정렬한다.</li><li><a href="text-indent/index.html">text-indent</a> — 첫 줄 들여쓰기를 지정한다.</li><li><a href="text-decoration/index.html">text-decoration</a> — 밑줄/취소선 등의 텍스트 장식을 지정한다.</li><li><a href="text-transform/index.html">text-transform</a> — 화면 표시에서 대소문자 등을 변환한다.</li><li><a href="white-space/index.html">white-space</a> — 공백과 줄바꿈 보존/자동 줄바꿈 방식을 정한다.</li><li><a href="word-break/index.html">word-break</a> — 단어/문자 경계의 줄바꿈 규칙을 정한다.</li><li><a href="overflow-wrap/index.html">overflow-wrap</a> — 긴 문자열이 한 줄에 안 들어갈 때 비상 줄바꿈을 허용한다.</li><li><a href="text-overflow/index.html">text-overflow</a> — 가로로 넘친 텍스트의 끝 표시를 정한다.</li><li><a href="vertical-align/index.html">vertical-align</a> — 인라인 수준 박스나 표 셀의 세로 정렬을 정한다.</li><li><a href="text-shadow/index.html">text-shadow</a> — 글자 형태에 그림자를 그린다.</li><li><a href="list-style-type/index.html">list-style-type</a> — 목록 마커 종류를 지정한다.</li><li><a href="list-style-position/index.html">list-style-position</a> — 목록 마커를 내용 박스 안/밖 어디에 놓을지 정한다.</li><li><a href="at-font-face/index.html">@font-face</a> — 글꼴 파일을 CSS 글꼴 이름에 등록한다.</li></ul></section>
+<section id="keywords"><h2>키워드와 적용 대상</h2><div class="table-wrap"><table><thead><tr><th scope="col">키워드</th><th scope="col">어디에 쓰나</th><th scope="col">역할 / 기준</th></tr></thead><tbody><tr><td><code>font-family, @font-face</code></td><td>글꼴</td><td>대체 글꼴 목록과 웹폰트 파일 연결을 지정한다.</td></tr>
+<tr><td><code>font-size, font-weight, font-style</code></td><td>글자 모양</td><td>크기, 굵기, 기울임이다.</td></tr>
+<tr><td><code>line-height</code></td><td>줄 상자</td><td>단위 없는 값은 자식에서 자신의 글꼴 크기에 곱해져 사용된다.</td></tr>
+<tr><td><code>letter-spacing, word-spacing</code></td><td>간격</td><td>글자와 단어 사이 간격이다.</td></tr>
+<tr><td><code>text-align, text-indent</code></td><td>문장 배치</td><td>인라인 콘텐츠 정렬과 첫 줄 들여쓰기다.</td></tr>
+<tr><td><code>text-decoration, text-transform</code></td><td>텍스트 표시</td><td>밑줄 등의 장식과 대소문자 표시 변환이다.</td></tr>
+<tr><td><code>white-space</code></td><td>공백 처리</td><td>공백/줄바꿈 보존과 자동 줄바꿈을 제어한다.</td></tr>
+<tr><td><code>word-break, overflow-wrap</code></td><td>줄바꿈</td><td>언어별 끊기 규칙과 긴 단어의 비상 줄바꿈을 정한다.</td></tr>
+<tr><td><code>text-overflow</code></td><td>넘친 텍스트 표시</td><td>한 줄 말줄임은 overflow와 nowrap 등의 조건이 함께 필요하다.</td></tr>
+<tr><td><code>vertical-align</code></td><td>인라인/표 셀</td><td>inline-block 등의 줄 안 정렬이다. 일반 블록의 세로 중앙 정렬은 아니다.</td></tr></tbody></table></div></section>
+    <section id="examples"><h2>실행 예제와 코드</h2><article class="example" id="example-1">
+    <h3>1. 한 줄 말줄임</h3>
+    <p>text-overflow만 지정해서는 생략되지 않는다. 너비 제한, 줄바꿈 금지, 넘침 숨김을 함께 확인한다.</p>
+    <div class="controls"><label for="width-0">미리보기 너비 <output for="width-0">100%</output></label><input data-width id="width-0" type="range" min="35" max="100" value="100"></div>
+    <div class="preview"><iframe title="한 줄 말줄임 실행 결과" height="270" sandbox="allow-scripts allow-forms" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ko&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;style&gt;body{margin:16px;font:16px/1.7 sans-serif;color:#182b40}*,*::before,*::after{box-sizing:border-box}button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere}:focus-visible{outline:3px solid #a45200;outline-offset:3px}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;p class=&quot;ellipsis&quot; title=&quot;아주 긴 아이템 이름을 표시하는 카드 제목입니다&quot;&gt;아주 긴 아이템 이름을 표시하는 카드 제목입니다&lt;/p&gt;
+&lt;style&gt;
+  .ellipsis { width: min(100%, 220px); white-space: nowrap;
+    overflow: hidden; text-overflow: ellipsis; background: #dceaff; padding: 12px; }
+&lt;/style&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    <details open><summary>주석이 있는 예제 코드</summary>
+      <label for="code-0" class="note">코드를 수정한 뒤 적용할 수 있습니다. 편집 내용은 새로고침하면 사라집니다.</label>
+      <textarea id="code-0" rows="6" spellcheck="false" autocapitalize="off" autocomplete="off">&lt;p class=&quot;ellipsis&quot; title=&quot;아주 긴 아이템 이름을 표시하는 카드 제목입니다&quot;&gt;아주 긴 아이템 이름을 표시하는 카드 제목입니다&lt;/p&gt;
+&lt;style&gt;
+  .ellipsis { width: min(100%, 220px); white-space: nowrap;
+    overflow: hidden; text-overflow: ellipsis; background: #dceaff; padding: 12px; }
+&lt;/style&gt;</textarea>
+      <div class="controls"><button class="primary" type="button" data-apply>코드 적용</button><button type="button" data-reset>초기화</button></div>
+      <p class="status" role="status"></p>
+    </details>
+  </article>
+<article class="example" id="example-2">
+    <h3>2. 한국어와 긴 영문 줄바꿈</h3>
+    <p>keep-all로 한국어 단어 중간 끊김을 줄이고, anywhere로 긴 문자열이 박스를 밀어내는 것을 방지한다.</p>
+    <div class="controls"><label for="width-1">미리보기 너비 <output for="width-1">100%</output></label><input data-width id="width-1" type="range" min="35" max="100" value="100"></div>
+    <div class="preview"><iframe title="한국어와 긴 영문 줄바꿈 실행 결과" height="270" sandbox="allow-scripts allow-forms" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ko&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;style&gt;body{margin:16px;font:16px/1.7 sans-serif;color:#182b40}*,*::before,*::after{box-sizing:border-box}button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere}:focus-visible{outline:3px solid #a45200;outline-offset:3px}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;p class=&quot;text&quot;&gt;한국어 문장을 단어 기준으로 읽기 좋게 배치한다. veryveryveryveryverylongfilename_without_spaces.html&lt;/p&gt;
+&lt;style&gt;
+  .text { max-width: 260px; line-height: 1.8; word-break: keep-all;
+    overflow-wrap: anywhere; border: 1px solid #8ca3c1; padding: 12px; }
+&lt;/style&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    <details open><summary>주석이 있는 예제 코드</summary>
+      <label for="code-1" class="note">코드를 수정한 뒤 적용할 수 있습니다. 편집 내용은 새로고침하면 사라집니다.</label>
+      <textarea id="code-1" rows="6" spellcheck="false" autocapitalize="off" autocomplete="off">&lt;p class=&quot;text&quot;&gt;한국어 문장을 단어 기준으로 읽기 좋게 배치한다. veryveryveryveryverylongfilename_without_spaces.html&lt;/p&gt;
+&lt;style&gt;
+  .text { max-width: 260px; line-height: 1.8; word-break: keep-all;
+    overflow-wrap: anywhere; border: 1px solid #8ca3c1; padding: 12px; }
+&lt;/style&gt;</textarea>
+      <div class="controls"><button class="primary" type="button" data-apply>코드 적용</button><button type="button" data-reset>초기화</button></div>
+      <p class="status" role="status"></p>
+    </details>
+  </article></section>
+    <section id="notes"><h2>헷갈리는 점</h2><ul><li>웹폰트가 로드되지 않으면 다음 글꼴로 대체된다. 외부 글꼴 없이도 읽을 수 있게 기본 글꼴을 지정한다.</li>
+<li>여러 줄 말줄임은 지원 범위와 접근 가능한 전체 내용 제공 방식을 함께 검토한다.</li></ul>
+
+    </section>
+    <section><h2>더 찾아보기</h2><p class="note">표준의 모든 태그/속성은 계속 확장됩니다. 이 페이지는 주제별 핵심 참고이며, 세부 문법과 지원 버전은 원문 색인에서 확인할 수 있습니다.</p><ul class="source-list"><li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference" target="_blank" rel="noopener noreferrer">CSS 속성/선택자 색인</a></li></ul></section>
+    <nav class="footer-nav" aria-label="이전 다음 주제"><a href="../../css/11-grid/index.html">← Grid 행과 열</a><a href="../../index.html">전체 목록</a><a href="../../css/13-background-color/index.html">색상, 배경과 그라디언트 →</a></nav></main>
+</body>
+</html>

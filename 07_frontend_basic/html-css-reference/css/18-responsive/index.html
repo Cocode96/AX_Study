@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>반응형, 미디어와 컨테이너 | HTML / CSS 키워드 참고서</title>
+  <link rel="stylesheet" href="../../assets/reference.css">
+  <script src="../../assets/reference.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#content">본문으로 이동</a>
+  <main id="content">
+    <nav aria-label="상위 탐색"><a href="../../index.html">← 전체 키워드</a><a href="../../index.html#css">CSS</a></nav>
+    <p class="eyebrow">CSS / 26</p>
+    <h1>반응형, 미디어와 컨테이너</h1><p class="lead">반응형은 고정된 기기 목록을 맞추기보다 콘텐츠가 공간에 맞게 재배치되도록 만드는 작업이다.</p>
+    <section class="intro"><h2>이 페이지에서 찾기</h2><nav aria-label="페이지 목차"><a href="#keywords">키워드 표</a><a href="#examples">실행 예제</a><a href="#notes">헷갈리는 점</a></nav>
+      <p class="note">예제는 독립된 문서로 실행됩니다. 화면 공통 스타일과 섞이지 않으며, 미리보기 안에서 직접 클릭하거나 입력할 수 있습니다. JavaScript는 코드 적용과 너비 조절을 돕습니다.</p>
+    </section>
+    <section><h2>개별 키워드 백과사전</h2><p>한 항목만 찾아 문법, 값, 예제와 실패 조건을 확인한다.</p><ul class="toc"><li><a href="at-media/index.html">@media</a> — 뷰포트/출력 장치/사용자 설정 조건으로 CSS를 적용한다.</li><li><a href="at-container/index.html">@container</a> — 선택된 조상 컨테이너 조건에 따라 후손 스타일을 바꾼다.</li><li><a href="at-supports/index.html">@supports</a> — 선언/선택자 문법 지원에 따라 CSS를 조건부 적용한다.</li></ul></section>
+<section id="keywords"><h2>키워드와 적용 대상</h2><div class="table-wrap"><table><thead><tr><th scope="col">키워드</th><th scope="col">어디에 쓰나</th><th scope="col">역할 / 기준</th></tr></thead><tbody><tr><td><code>@media</code></td><td>뷰포트/환경</td><td>화면 너비, 인쇄, 입력 장치, 사용자 설정 등의 조건이다.</td></tr>
+<tr><td><code>min-width, max-width</code></td><td>미디어 조건</td><td>뷰포트 너비에 따른 규칙을 적용한다.</td></tr>
+<tr><td><code>mobile first</code></td><td>작성 방향</td><td>작은 화면 기본값에 넓은 화면 규칙을 추가한다.</td></tr>
+<tr><td><code>container-type: inline-size</code></td><td>쿼리 컨테이너</td><td>후손이 컨테이너의 인라인 크기를 질의하게 한다.</td></tr>
+<tr><td><code>@container</code></td><td>컨테이너 조건</td><td>뷰포트가 아닌 조건을 만족하는 조상의 크기를 기준으로 적용한다.</td></tr>
+<tr><td><code>hover, pointer</code></td><td>입력 환경</td><td>hover 지원 여부와 포인터 정밀도 등의 조건이다.</td></tr>
+<tr><td><code>prefers-color-scheme</code></td><td>색 선호</td><td>사용자의 밝은/어두운 색상 선호를 감지한다.</td></tr>
+<tr><td><code>@supports</code></td><td>기능 질의</td><td>선언/선택자 구문 지원 여부에 따라 스타일을 적용한다.</td></tr>
+<tr><td><code>@media print</code></td><td>인쇄</td><td>인쇄 시 불필요한 UI를 숨기고 레이아웃을 조정한다.</td></tr></tbody></table></div></section>
+    <section id="examples"><h2>실행 예제와 코드</h2><article class="example" id="example-1">
+    <h3>1. 너비 500px 전후에서 열 바꾸기</h3>
+    <p>미리보기 너비 슬라이더가 iframe 뷰포트를 바꾼다. 브라우저 전체 크기를 바꾸지 않아도 비교할 수 있다.</p>
+    <div class="controls"><label for="width-0">미리보기 너비 <output for="width-0">100%</output></label><input data-width id="width-0" type="range" min="35" max="100" value="100"></div>
+    <div class="preview"><iframe title="너비 500px 전후에서 열 바꾸기 실행 결과" height="340" sandbox="allow-scripts allow-forms" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ko&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;style&gt;body{margin:16px;font:16px/1.7 sans-serif;color:#182b40}*,*::before,*::after{box-sizing:border-box}button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere}:focus-visible{outline:3px solid #a45200;outline-offset:3px}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;cards&quot;&gt;&lt;div&gt;카드 A&lt;/div&gt;&lt;div&gt;카드 B&lt;/div&gt;&lt;div&gt;카드 C&lt;/div&gt;&lt;/div&gt;
+&lt;style&gt;
+  .cards { display: grid; gap: 12px; }
+  .cards &gt; div { padding: 20px; background: #dceaff; }
+  @media (min-width: 500px) { .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+&lt;/style&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    <details open><summary>주석이 있는 예제 코드</summary>
+      <label for="code-0" class="note">코드를 수정한 뒤 적용할 수 있습니다. 편집 내용은 새로고침하면 사라집니다.</label>
+      <textarea id="code-0" rows="6" spellcheck="false" autocapitalize="off" autocomplete="off">&lt;div class=&quot;cards&quot;&gt;&lt;div&gt;카드 A&lt;/div&gt;&lt;div&gt;카드 B&lt;/div&gt;&lt;div&gt;카드 C&lt;/div&gt;&lt;/div&gt;
+&lt;style&gt;
+  .cards { display: grid; gap: 12px; }
+  .cards &gt; div { padding: 20px; background: #dceaff; }
+  @media (min-width: 500px) { .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+&lt;/style&gt;</textarea>
+      <div class="controls"><button class="primary" type="button" data-apply>코드 적용</button><button type="button" data-reset>초기화</button></div>
+      <p class="status" role="status"></p>
+    </details>
+  </article>
+<article class="example" id="example-2">
+    <h3>2. 카드 부모의 크기로 판단</h3>
+    <p>host 너비를 280px와 500px로 바꾸어 본다. container query는 컨테이너 자신이 아니라 후손 card를 바꾼다.</p>
+    <div class="controls"><label for="width-1">미리보기 너비 <output for="width-1">100%</output></label><input data-width id="width-1" type="range" min="35" max="100" value="100"></div>
+    <div class="preview"><iframe title="카드 부모의 크기로 판단 실행 결과" height="270" sandbox="allow-scripts allow-forms" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ko&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;style&gt;body{margin:16px;font:16px/1.7 sans-serif;color:#182b40}*,*::before,*::after{box-sizing:border-box}button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere}:focus-visible{outline:3px solid #a45200;outline-offset:3px}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;host&quot;&gt;&lt;div class=&quot;card&quot;&gt;&lt;strong&gt;카드 제목&lt;/strong&gt;&lt;p&gt;공간이 넓으면 옆으로 배치한다.&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;style&gt;
+  .host { container-type: inline-size; width: 280px; max-width: 100%; }
+  .card { display: grid; gap: 12px; background: #dceaff; padding: 20px; }
+  @container (min-width: 400px) { .card { grid-template-columns: 1fr 2fr; } }
+&lt;/style&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    <details open><summary>주석이 있는 예제 코드</summary>
+      <label for="code-1" class="note">코드를 수정한 뒤 적용할 수 있습니다. 편집 내용은 새로고침하면 사라집니다.</label>
+      <textarea id="code-1" rows="6" spellcheck="false" autocapitalize="off" autocomplete="off">&lt;div class=&quot;host&quot;&gt;&lt;div class=&quot;card&quot;&gt;&lt;strong&gt;카드 제목&lt;/strong&gt;&lt;p&gt;공간이 넓으면 옆으로 배치한다.&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;style&gt;
+  .host { container-type: inline-size; width: 280px; max-width: 100%; }
+  .card { display: grid; gap: 12px; background: #dceaff; padding: 20px; }
+  @container (min-width: 400px) { .card { grid-template-columns: 1fr 2fr; } }
+&lt;/style&gt;</textarea>
+      <div class="controls"><button class="primary" type="button" data-apply>코드 적용</button><button type="button" data-reset>초기화</button></div>
+      <p class="status" role="status"></p>
+    </details>
+  </article></section>
+    <section id="notes"><h2>헷갈리는 점</h2><ul><li>이 자료는 최신 데스크톱 브라우저를 대상으로 작성했다. 새로운 속성은 MDN의 호환성 표에서 실제 대상 버전을 확인한다.</li>
+<li>뷰포트가 좁아졌을 때 가로 넘침, 긴 텍스트, 조작 가능한 컨트롤 크기도 함께 점검한다.</li></ul>
+
+    </section>
+    <section><h2>더 찾아보기</h2><p class="note">표준의 모든 태그/속성은 계속 확장됩니다. 이 페이지는 주제별 핵심 참고이며, 세부 문법과 지원 버전은 원문 색인에서 확인할 수 있습니다.</p><ul class="source-list"><li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference" target="_blank" rel="noopener noreferrer">CSS 속성/선택자 색인</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_containment/Container_queries" target="_blank" rel="noopener noreferrer">컨테이너 쿼리</a></li></ul></section>
+    <nav class="footer-nav" aria-label="이전 다음 주제"><a href="../../css/17-transition-animation/index.html">← 전환과 애니메이션</a><a href="../../index.html">전체 목록</a><a href="../../css/19-variables-logical/index.html">사용자 정의 속성과 논리 속성 →</a></nav></main>
+</body>
+</html>

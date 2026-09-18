@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>테두리, 외곽선과 그림자 | HTML / CSS 키워드 참고서</title>
+  <link rel="stylesheet" href="../../assets/reference.css">
+  <script src="../../assets/reference.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#content">본문으로 이동</a>
+  <main id="content">
+    <nav aria-label="상위 탐색"><a href="../../index.html">← 전체 키워드</a><a href="../../index.html#css">CSS</a></nav>
+    <p class="eyebrow">CSS / 22</p>
+    <h1>테두리, 외곽선과 그림자</h1><p class="lead">테두리는 박스 크기 계산에 참여하고, outline과 box-shadow는 일반적으로 주변 레이아웃 공간을 확보하지 않는다.</p>
+    <section class="intro"><h2>이 페이지에서 찾기</h2><nav aria-label="페이지 목차"><a href="#keywords">키워드 표</a><a href="#examples">실행 예제</a><a href="#notes">헷갈리는 점</a></nav>
+      <p class="note">예제는 독립된 문서로 실행됩니다. 화면 공통 스타일과 섞이지 않으며, 미리보기 안에서 직접 클릭하거나 입력할 수 있습니다. JavaScript는 코드 적용과 너비 조절을 돕습니다.</p>
+    </section>
+    <section><h2>개별 키워드 백과사전</h2><p>한 항목만 찾아 문법, 값, 예제와 실패 조건을 확인한다.</p><ul class="toc"><li><a href="border/index.html">border</a> — 테두리 두께, 선 종류, 색을 축약 지정한다.</li><li><a href="border-width/index.html">border-width</a> — 네 방향 테두리의 두께를 지정한다.</li><li><a href="border-style/index.html">border-style</a> — 테두리 선의 종류를 정한다.</li><li><a href="border-color/index.html">border-color</a> — 테두리 색을 정한다.</li><li><a href="border-radius/index.html">border-radius</a> — 박스 모서리의 곡률을 정한다.</li><li><a href="outline/index.html">outline</a> — 박스 공간을 늘리지 않는 외곽선을 그린다.</li><li><a href="outline-offset/index.html">outline-offset</a> — 외곽선과 테두리 사이 거리를 정한다.</li><li><a href="box-shadow/index.html">box-shadow</a> — 박스 외곽 또는 내부 그림자를 그린다.</li></ul></section>
+<section id="keywords"><h2>키워드와 적용 대상</h2><div class="table-wrap"><table><thead><tr><th scope="col">키워드</th><th scope="col">어디에 쓰나</th><th scope="col">역할 / 기준</th></tr></thead><tbody><tr><td><code>border-width, border-style, border-color</code></td><td>테두리</td><td>두께, 선 종류, 색이다.</td></tr>
+<tr><td><code>border-radius</code></td><td>모서리</td><td>모서리를 둥글게 한다. 크기 대비 %는 타원을 만들 수 있다.</td></tr>
+<tr><td><code>outline, outline-offset</code></td><td>외곽선</td><td>포커스 표시 등에 사용하며 박스 크기를 늘리지 않는다.</td></tr>
+<tr><td><code>box-shadow</code></td><td>박스 그림자</td><td>x/y 오프셋, blur, spread, 색 순으로 지정한다.</td></tr>
+<tr><td><code>inset</code></td><td>내부 그림자</td><td>box-shadow를 박스 안쪽에 그린다.</td></tr>
+<tr><td><code>text-shadow</code></td><td>글자 그림자</td><td>텍스트에 x/y 오프셋, blur, 색을 지정한다.</td></tr>
+<tr><td><code>border-image</code></td><td>이미지 경계</td><td>이미지를 분할해 테두리로 사용한다.</td></tr></tbody></table></div></section>
+    <section id="examples"><h2>실행 예제와 코드</h2><article class="example" id="example-1">
+    <h3>1. 그림자와 포커스 외곽선</h3>
+    <p>버튼으로 Tab 이동해 외곽선을 확인한다. 기본 outline을 없애려면 동등한 대체 표시가 필요하다.</p>
+    <div class="controls"><label for="width-0">미리보기 너비 <output for="width-0">100%</output></label><input data-width id="width-0" type="range" min="35" max="100" value="100"></div>
+    <div class="preview"><iframe title="그림자와 포커스 외곽선 실행 결과" height="270" sandbox="allow-scripts allow-forms" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ko&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;style&gt;body{margin:16px;font:16px/1.7 sans-serif;color:#182b40}*,*::before,*::after{box-sizing:border-box}button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere}:focus-visible{outline:3px solid #a45200;outline-offset:3px}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;button class=&quot;card&quot; type=&quot;button&quot;&gt;Tab으로 포커스&lt;/button&gt;
+&lt;style&gt;
+  .card { margin: 20px; padding: 24px; border: 1px solid #8ca3c1; border-radius: 16px;
+    background: white; box-shadow: 0 8px 20px rgb(20 40 70 / 20%); }
+  .card:focus-visible { outline: 3px solid #a45200; outline-offset: 5px; }
+&lt;/style&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    <details open><summary>주석이 있는 예제 코드</summary>
+      <label for="code-0" class="note">코드를 수정한 뒤 적용할 수 있습니다. 편집 내용은 새로고침하면 사라집니다.</label>
+      <textarea id="code-0" rows="6" spellcheck="false" autocapitalize="off" autocomplete="off">&lt;button class=&quot;card&quot; type=&quot;button&quot;&gt;Tab으로 포커스&lt;/button&gt;
+&lt;style&gt;
+  .card { margin: 20px; padding: 24px; border: 1px solid #8ca3c1; border-radius: 16px;
+    background: white; box-shadow: 0 8px 20px rgb(20 40 70 / 20%); }
+  .card:focus-visible { outline: 3px solid #a45200; outline-offset: 5px; }
+&lt;/style&gt;</textarea>
+      <div class="controls"><button class="primary" type="button" data-apply>코드 적용</button><button type="button" data-reset>초기화</button></div>
+      <p class="status" role="status"></p>
+    </details>
+  </article>
+<article class="example" id="example-2">
+    <h3>2. inset 그림자</h3>
+    <p>두 번째 그림자는 내부로 그린다. 쉼표로 여러 그림자를 쌓을 수 있다.</p>
+    <div class="controls"><label for="width-1">미리보기 너비 <output for="width-1">100%</output></label><input data-width id="width-1" type="range" min="35" max="100" value="100"></div>
+    <div class="preview"><iframe title="inset 그림자 실행 결과" height="270" sandbox="allow-scripts allow-forms" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ko&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;style&gt;body{margin:16px;font:16px/1.7 sans-serif;color:#182b40}*,*::before,*::after{box-sizing:border-box}button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere}:focus-visible{outline:3px solid #a45200;outline-offset:3px}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;panel&quot;&gt;안쪽이 눌린 패널&lt;/div&gt;
+&lt;style&gt;
+  .panel { margin: 16px; padding: 40px 20px; border-radius: 12px; background: #dceaff;
+    box-shadow: 0 3px 8px rgb(0 0 0 / 15%), inset 0 4px 8px rgb(0 0 0 / 20%); }
+&lt;/style&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    <details open><summary>주석이 있는 예제 코드</summary>
+      <label for="code-1" class="note">코드를 수정한 뒤 적용할 수 있습니다. 편집 내용은 새로고침하면 사라집니다.</label>
+      <textarea id="code-1" rows="6" spellcheck="false" autocapitalize="off" autocomplete="off">&lt;div class=&quot;panel&quot;&gt;안쪽이 눌린 패널&lt;/div&gt;
+&lt;style&gt;
+  .panel { margin: 16px; padding: 40px 20px; border-radius: 12px; background: #dceaff;
+    box-shadow: 0 3px 8px rgb(0 0 0 / 15%), inset 0 4px 8px rgb(0 0 0 / 20%); }
+&lt;/style&gt;</textarea>
+      <div class="controls"><button class="primary" type="button" data-apply>코드 적용</button><button type="button" data-reset>초기화</button></div>
+      <p class="status" role="status"></p>
+    </details>
+  </article></section>
+    <section id="notes"><h2>헷갈리는 점</h2><ul><li>그림자가 잘리면 조상의 overflow를 확인한다. 그림자가 레이아웃 크기를 자동으로 늘려 주지는 않는다.</li></ul>
+
+    </section>
+    <section><h2>더 찾아보기</h2><p class="note">표준의 모든 태그/속성은 계속 확장됩니다. 이 페이지는 주제별 핵심 참고이며, 세부 문법과 지원 버전은 원문 색인에서 확인할 수 있습니다.</p><ul class="source-list"><li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference" target="_blank" rel="noopener noreferrer">CSS 속성/선택자 색인</a></li></ul></section>
+    <nav class="footer-nav" aria-label="이전 다음 주제"><a href="../../css/13-background-color/index.html">← 색상, 배경과 그라디언트</a><a href="../../index.html">전체 목록</a><a href="../../css/15-overflow-images/index.html">넘침, 스크롤과 이미지 맞춤 →</a></nav></main>
+</body>
+</html>

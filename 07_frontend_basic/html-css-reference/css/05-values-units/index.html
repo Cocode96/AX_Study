@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>값, 단위와 CSS 함수 | HTML / CSS 키워드 참고서</title>
+  <link rel="stylesheet" href="../../assets/reference.css">
+  <script src="../../assets/reference.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#content">본문으로 이동</a>
+  <main id="content">
+    <nav aria-label="상위 탐색"><a href="../../index.html">← 전체 키워드</a><a href="../../index.html#css">CSS</a></nav>
+    <p class="eyebrow">CSS / 13</p>
+    <h1>값, 단위와 CSS 함수</h1><p class="lead">길이를 계산하는 기준은 속성과 단위에 따라 다르다. 숫자만 외우기보다 무엇을 기준으로 하는지 확인한다.</p>
+    <section class="intro"><h2>이 페이지에서 찾기</h2><nav aria-label="페이지 목차"><a href="#keywords">키워드 표</a><a href="#examples">실행 예제</a><a href="#notes">헷갈리는 점</a></nav>
+      <p class="note">예제는 독립된 문서로 실행됩니다. 화면 공통 스타일과 섞이지 않으며, 미리보기 안에서 직접 클릭하거나 입력할 수 있습니다. JavaScript는 코드 적용과 너비 조절을 돕습니다.</p>
+    </section>
+    <section><h2>개별 키워드 백과사전</h2><p>한 항목만 찾아 문법, 값, 예제와 실패 조건을 확인한다.</p><ul class="toc"><li><a href="fn-calc/index.html">calc()</a> — 서로 다른 길이 등을 계산해 하나의 값으로 만든다.</li><li><a href="fn-min/index.html">min()</a> — 후보 값 중 계산 결과가 가장 작은 값을 사용한다.</li><li><a href="fn-max/index.html">max()</a> — 후보 값 중 계산 결과가 가장 큰 값을 사용한다.</li><li><a href="fn-clamp/index.html">clamp()</a> — 최솟값과 최댓값 사이에서 선호값을 제한한다.</li><li><a href="px/index.html">px</a> — CSS 기준 픽셀 길이 단위다.</li><li><a href="em/index.html">em</a> — 글꼴 크기에 상대적인 단위다.</li><li><a href="rem/index.html">rem</a> — 루트 요소 글꼴 크기에 상대적인 단위다.</li><li><a href="vw/index.html">vw</a> — 뷰포트 너비의 1%에 해당한다.</li><li><a href="vh/index.html">vh</a> — 뷰포트 높이의 1%에 해당한다.</li><li><a href="dvh/index.html">dvh</a> — 동적 뷰포트 높이의 1%다.</li><li><a href="ch/index.html">ch</a> — 해당 글꼴의 0 글리프 진행 폭 기준 단위다.</li><li><a href="percentage/index.html">percentage</a> — 퍼센트는 속성마다 다른 기준에 대한 비율이다.</li></ul></section>
+<section id="keywords"><h2>키워드와 적용 대상</h2><div class="table-wrap"><table><thead><tr><th scope="col">키워드</th><th scope="col">어디에 쓰나</th><th scope="col">역할 / 기준</th></tr></thead><tbody><tr><td><code>px</code></td><td>절대 길이</td><td>CSS 기준 픽셀이다. 물리 디스플레이의 한 픽셀과 항상 같지 않다.</td></tr>
+<tr><td><code>em, rem</code></td><td>글꼴 기준</td><td>em은 사용 위치의 글꼴 크기 기준, rem은 루트 글꼴 크기 기준이다. font-size의 em은 부모 기준이다.</td></tr>
+<tr><td><code>%</code></td><td>속성별 기준</td><td>width, height, transform 등마다 기준이 다르다.</td></tr>
+<tr><td><code>vw, vh, dvh, svh, lvh</code></td><td>뷰포트</td><td>뷰포트 크기와 동적/작은/큰 뷰포트 기준 단위다.</td></tr>
+<tr><td><code>ch</code></td><td>글꼴 너비</td><td>해당 글꼴의 0 글리프 너비 기준이다. 한국어 글자 수와 같지 않다.</td></tr>
+<tr><td><code>fr</code></td><td>Grid 트랙</td><td>남은 공간을 비율로 배분한다. 일반 width의 길이 단위가 아니다.</td></tr>
+<tr><td><code>calc()</code></td><td>계산</td><td>단위가 있는 값들을 조합한다. +와 - 앞뒤 공백을 넣는다.</td></tr>
+<tr><td><code>min(), max(), clamp()</code></td><td>제한 계산</td><td>작은 값, 큰 값, 최소/선호/최대 범위를 선택한다.</td></tr>
+<tr><td><code>auto, min-content, max-content, fit-content</code></td><td>크기 키워드</td><td>레이아웃 및 콘텐츠에 따른 크기 규칙이다.</td></tr></tbody></table></div></section>
+    <section id="examples"><h2>실행 예제와 코드</h2><article class="example" id="example-1">
+    <h3>1. clamp와 제한 너비</h3>
+    <p>미리보기 너비를 바꾸면 글자가 유동적으로 변하되 20px에서 40px 범위를 유지한다.</p>
+    <div class="controls"><label for="width-0">미리보기 너비 <output for="width-0">100%</output></label><input data-width id="width-0" type="range" min="35" max="100" value="100"></div>
+    <div class="preview"><iframe title="clamp와 제한 너비 실행 결과" height="270" sandbox="allow-scripts allow-forms" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ko&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;style&gt;body{margin:16px;font:16px/1.7 sans-serif;color:#182b40}*,*::before,*::after{box-sizing:border-box}button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere}:focus-visible{outline:3px solid #a45200;outline-offset:3px}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;h2&gt;크기가 유동적인 제목&lt;/h2&gt;
+&lt;div class=&quot;card&quot;&gt;너비는 90%와 32rem 중 작은 값&lt;/div&gt;
+&lt;style&gt;
+  h2 { font-size: clamp(20px, 5vw, 40px); }
+  .card { width: min(90%, 32rem); padding: 1rem; background: #dceaff; }
+&lt;/style&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    <details open><summary>주석이 있는 예제 코드</summary>
+      <label for="code-0" class="note">코드를 수정한 뒤 적용할 수 있습니다. 편집 내용은 새로고침하면 사라집니다.</label>
+      <textarea id="code-0" rows="6" spellcheck="false" autocapitalize="off" autocomplete="off">&lt;h2&gt;크기가 유동적인 제목&lt;/h2&gt;
+&lt;div class=&quot;card&quot;&gt;너비는 90%와 32rem 중 작은 값&lt;/div&gt;
+&lt;style&gt;
+  h2 { font-size: clamp(20px, 5vw, 40px); }
+  .card { width: min(90%, 32rem); padding: 1rem; background: #dceaff; }
+&lt;/style&gt;</textarea>
+      <div class="controls"><button class="primary" type="button" data-apply>코드 적용</button><button type="button" data-reset>초기화</button></div>
+      <p class="status" role="status"></p>
+    </details>
+  </article>
+<article class="example" id="example-2">
+    <h3>2. 퍼센트의 서로 다른 기준</h3>
+    <p>width:50%는 컨테이닝 블록 너비, translateX(50%)는 보통 자신의 변환 기준 박스 너비 기준이다.</p>
+    <div class="controls"><label for="width-1">미리보기 너비 <output for="width-1">100%</output></label><input data-width id="width-1" type="range" min="35" max="100" value="100"></div>
+    <div class="preview"><iframe title="퍼센트의 서로 다른 기준 실행 결과" height="270" sandbox="allow-scripts allow-forms" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ko&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;style&gt;body{margin:16px;font:16px/1.7 sans-serif;color:#182b40}*,*::before,*::after{box-sizing:border-box}button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere}:focus-visible{outline:3px solid #a45200;outline-offset:3px}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;parent&quot;&gt;&lt;div class=&quot;child&quot;&gt;50% 너비&lt;/div&gt;&lt;/div&gt;
+&lt;style&gt;
+  .parent { width: 100%; background: #eef3fa; padding-block: 40px; }
+  .child { width: 50%; background: #2456b8; color: white; transform: translateX(50%); }
+&lt;/style&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    <details open><summary>주석이 있는 예제 코드</summary>
+      <label for="code-1" class="note">코드를 수정한 뒤 적용할 수 있습니다. 편집 내용은 새로고침하면 사라집니다.</label>
+      <textarea id="code-1" rows="6" spellcheck="false" autocapitalize="off" autocomplete="off">&lt;div class=&quot;parent&quot;&gt;&lt;div class=&quot;child&quot;&gt;50% 너비&lt;/div&gt;&lt;/div&gt;
+&lt;style&gt;
+  .parent { width: 100%; background: #eef3fa; padding-block: 40px; }
+  .child { width: 50%; background: #2456b8; color: white; transform: translateX(50%); }
+&lt;/style&gt;</textarea>
+      <div class="controls"><button class="primary" type="button" data-apply>코드 적용</button><button type="button" data-reset>초기화</button></div>
+      <p class="status" role="status"></p>
+    </details>
+  </article></section>
+    <section id="notes"><h2>헷갈리는 점</h2><ul><li>일반적인 가로쓰기에서 margin/padding의 퍼센트는 세로 방향 값도 컨테이닝 블록의 너비 기준이다.</li>
+<li>부모의 높이가 확정되지 않은 상황에서는 height:100%가 기대한 높이가 되지 않을 수 있다.</li></ul>
+
+    </section>
+    <section><h2>더 찾아보기</h2><p class="note">표준의 모든 태그/속성은 계속 확장됩니다. 이 페이지는 주제별 핵심 참고이며, 세부 문법과 지원 버전은 원문 색인에서 확인할 수 있습니다.</p><ul class="source-list"><li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference" target="_blank" rel="noopener noreferrer">CSS 속성/선택자 색인</a></li></ul></section>
+    <nav class="footer-nav" aria-label="이전 다음 주제"><a href="../../css/04-pseudo-elements/index.html">← 가상 요소와 장식</a><a href="../../index.html">전체 목록</a><a href="../../css/06-box-sizing/index.html">박스 모델과 크기 →</a></nav></main>
+</body>
+</html>

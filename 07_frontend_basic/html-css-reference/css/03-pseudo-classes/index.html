@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>가상 클래스와 조건 선택 | HTML / CSS 키워드 참고서</title>
+  <link rel="stylesheet" href="../../assets/reference.css">
+  <script src="../../assets/reference.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#content">본문으로 이동</a>
+  <main id="content">
+    <nav aria-label="상위 탐색"><a href="../../index.html">← 전체 키워드</a><a href="../../index.html#css">CSS</a></nav>
+    <p class="eyebrow">CSS / 11</p>
+    <h1>가상 클래스와 조건 선택</h1><p class="lead">가상 클래스는 요소의 상태나 구조적 조건을 검사한다. : 뒤의 이름 자체가 새로운 HTML 요소를 만들지는 않는다.</p>
+    <section class="intro"><h2>이 페이지에서 찾기</h2><nav aria-label="페이지 목차"><a href="#keywords">키워드 표</a><a href="#examples">실행 예제</a><a href="#notes">헷갈리는 점</a></nav>
+      <p class="note">예제는 독립된 문서로 실행됩니다. 화면 공통 스타일과 섞이지 않으며, 미리보기 안에서 직접 클릭하거나 입력할 수 있습니다. JavaScript는 코드 적용과 너비 조절을 돕습니다.</p>
+    </section>
+    <section><h2>개별 키워드 백과사전</h2><p>한 항목만 찾아 문법, 값, 예제와 실패 조건을 확인한다.</p><ul class="toc"><li><a href="hover/index.html">:hover</a> — 포인터가 위에 있는 동안의 상태다.</li><li><a href="active/index.html">:active</a> — 사용자가 요소를 활성화하는 동안의 상태다.</li><li><a href="focus/index.html">:focus</a> — 입력 포커스를 가진 요소를 고른다.</li><li><a href="focus-visible/index.html">:focus-visible</a> — 브라우저가 포커스 표시가 필요하다고 판단한 요소다.</li><li><a href="disabled/index.html">:disabled</a> — HTML상 비활성 상태인 지원 컨트롤을 고른다.</li><li><a href="enabled/index.html">:enabled</a> — 활성 상태인 지원 컨트롤을 고른다.</li><li><a href="valid/index.html">:valid</a> — HTML 입력 조건을 충족하는 입력을 고른다.</li><li><a href="invalid/index.html">:invalid</a> — HTML 입력 조건을 충족하지 못하는 입력을 고른다.</li><li><a href="required/index.html">:required</a> — required 조건이 있는 입력을 고른다.</li><li><a href="placeholder-shown/index.html">:placeholder-shown</a> — placeholder가 현재 표시 중인 입력을 고른다.</li><li><a href="checked/index.html">:checked</a> — checkbox/radio의 현재 선택 상태를 고른다.</li><li><a href="focus-within/index.html">:focus-within</a> — 자신 또는 후손 중 포커스가 있는 요소를 고른다.</li><li><a href="first-child/index.html">:first-child</a> — 형제 요소 중 첫 번째인 대상을 고른다.</li><li><a href="last-child/index.html">:last-child</a> — 형제 요소 중 마지막인 대상을 고른다.</li><li><a href="nth-child/index.html">:nth-child()</a> — 같은 부모의 요소 자식 순서로 선택한다.</li><li><a href="nth-of-type/index.html">:nth-of-type()</a> — 같은 타입의 형제끼리 센 순서로 선택한다.</li><li><a href="only-child/index.html">:only-child</a> — 유일한 요소 자식인 대상을 선택한다.</li><li><a href="not/index.html">:not()</a> — 인수 조건에 맞지 않는 요소를 고른다.</li><li><a href="is/index.html">:is()</a> — 여러 선택자 중 하나에 맞는 대상을 묶는다.</li><li><a href="where/index.html">:where()</a> — 명시도 0으로 선택자 조건을 묶는다.</li><li><a href="has/index.html">:has()</a> — 상대 선택자 조건을 만족하는 요소가 있는지 검사한다.</li><li><a href="target/index.html">:target</a> — URL의 #조각과 id가 일치하는 요소를 고른다.</li><li><a href="root/index.html">:root</a> — 문서 루트 요소를 선택한다.</li><li><a href="empty/index.html">:empty</a> — 자식 요소와 의미 있는 텍스트 내용이 없는 요소를 선택한다.</li></ul></section>
+<section id="keywords"><h2>키워드와 적용 대상</h2><div class="table-wrap"><table><thead><tr><th scope="col">키워드</th><th scope="col">어디에 쓰나</th><th scope="col">역할 / 기준</th></tr></thead><tbody><tr><td><code>:hover, :active</code></td><td>사용자 동작</td><td>위에 올린 동안, 활성화하는 동안을 선택한다.</td></tr>
+<tr><td><code>:focus, :focus-visible, :focus-within</code></td><td>포커스</td><td>현재 포커스, 필요한 포커스 표시, 자신 또는 후손의 포커스다.</td></tr>
+<tr><td><code>:checked, :disabled, :enabled</code></td><td>폼 상태</td><td>선택 여부와 활성 상태를 검사한다.</td></tr>
+<tr><td><code>:valid, :invalid, :required</code></td><td>입력 조건</td><td>HTML 검증 상태 또는 필수 입력 여부를 검사한다.</td></tr>
+<tr><td><code>:placeholder-shown, :empty</code></td><td>내용 조건</td><td>플레이스홀더 표시와 빈 요소 조건이다. :empty는 공백 텍스트가 있어도 매치되지 않을 수 있다.</td></tr>
+<tr><td><code>:first-child, :last-child, :only-child</code></td><td>형제 위치</td><td>같은 부모의 요소 자식 순서를 센다.</td></tr>
+<tr><td><code>:nth-child(), :nth-of-type()</code></td><td>순서</td><td>모든 요소 형제 기준과 같은 타입 형제 기준의 차이다.</td></tr>
+<tr><td><code>:not(), :is(), :where()</code></td><td>조건 조합</td><td>제외, 선택자 목록 매치, 명시도 0의 조건 묶음이다.</td></tr>
+<tr><td><code>:has()</code></td><td>관계 조건</td><td>내부/주변에 조건을 만족하는 상대 요소가 있는지 검사한다.</td></tr>
+<tr><td><code>:target, :root</code></td><td>문서</td><td>URL 조각과 맞는 요소, 문서 루트다.</td></tr></tbody></table></div></section>
+    <section id="examples"><h2>실행 예제와 코드</h2><article class="example" id="example-1">
+    <h3>1. nth-child와 nth-of-type</h3>
+    <p>두 번째 p는 전체 요소 형제 중 세 번째다. 첫 번째 h3도 nth-child 순서에 포함된다.</p>
+    <div class="controls"><label for="width-0">미리보기 너비 <output for="width-0">100%</output></label><input data-width id="width-0" type="range" min="35" max="100" value="100"></div>
+    <div class="preview"><iframe title="nth-child와 nth-of-type 실행 결과" height="270" sandbox="allow-scripts allow-forms" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ko&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;style&gt;body{margin:16px;font:16px/1.7 sans-serif;color:#182b40}*,*::before,*::after{box-sizing:border-box}button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere}:focus-visible{outline:3px solid #a45200;outline-offset:3px}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;group&quot;&gt;
+  &lt;h3&gt;제목&lt;/h3&gt;
+  &lt;p&gt;첫 번째 p / 두 번째 자식&lt;/p&gt;
+  &lt;p&gt;두 번째 p / 세 번째 자식&lt;/p&gt;
+&lt;/div&gt;
+&lt;style&gt;
+  .group &gt; p:nth-child(2) { color: #2456b8; }
+  .group &gt; p:nth-of-type(2) { background: #ffedb5; }
+&lt;/style&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    <details open><summary>주석이 있는 예제 코드</summary>
+      <label for="code-0" class="note">코드를 수정한 뒤 적용할 수 있습니다. 편집 내용은 새로고침하면 사라집니다.</label>
+      <textarea id="code-0" rows="9" spellcheck="false" autocapitalize="off" autocomplete="off">&lt;div class=&quot;group&quot;&gt;
+  &lt;h3&gt;제목&lt;/h3&gt;
+  &lt;p&gt;첫 번째 p / 두 번째 자식&lt;/p&gt;
+  &lt;p&gt;두 번째 p / 세 번째 자식&lt;/p&gt;
+&lt;/div&gt;
+&lt;style&gt;
+  .group &gt; p:nth-child(2) { color: #2456b8; }
+  .group &gt; p:nth-of-type(2) { background: #ffedb5; }
+&lt;/style&gt;</textarea>
+      <div class="controls"><button class="primary" type="button" data-apply>코드 적용</button><button type="button" data-reset>초기화</button></div>
+      <p class="status" role="status"></p>
+    </details>
+  </article>
+<article class="example" id="example-2">
+    <h3>2. :has와 :focus-within</h3>
+    <p>focus-within은 입력 포커스로, has는 체크 상태로 부모 카드를 바꾼다.</p>
+    <div class="controls"><label for="width-1">미리보기 너비 <output for="width-1">100%</output></label><input data-width id="width-1" type="range" min="35" max="100" value="100"></div>
+    <div class="preview"><iframe title=":has와 :focus-within 실행 결과" height="270" sandbox="allow-scripts allow-forms" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ko&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;style&gt;body{margin:16px;font:16px/1.7 sans-serif;color:#182b40}*,*::before,*::after{box-sizing:border-box}button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere}:focus-visible{outline:3px solid #a45200;outline-offset:3px}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;option&quot;&gt;
+  &lt;label&gt;&lt;input type=&quot;checkbox&quot;&gt;강조 카드&lt;/label&gt;
+  &lt;label&gt;이름 &lt;input type=&quot;text&quot;&gt;&lt;/label&gt;
+&lt;/div&gt;
+&lt;style&gt;
+  .option { padding: 20px; border: 2px solid #8ca3c1; }
+  .option:has(input:checked) { background: #d9f5e6; }
+  .option:focus-within { border-color: #2456b8; }
+  input:focus-visible { outline: 3px solid #a45200; }
+&lt;/style&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    <details open><summary>주석이 있는 예제 코드</summary>
+      <label for="code-1" class="note">코드를 수정한 뒤 적용할 수 있습니다. 편집 내용은 새로고침하면 사라집니다.</label>
+      <textarea id="code-1" rows="10" spellcheck="false" autocapitalize="off" autocomplete="off">&lt;div class=&quot;option&quot;&gt;
+  &lt;label&gt;&lt;input type=&quot;checkbox&quot;&gt;강조 카드&lt;/label&gt;
+  &lt;label&gt;이름 &lt;input type=&quot;text&quot;&gt;&lt;/label&gt;
+&lt;/div&gt;
+&lt;style&gt;
+  .option { padding: 20px; border: 2px solid #8ca3c1; }
+  .option:has(input:checked) { background: #d9f5e6; }
+  .option:focus-within { border-color: #2456b8; }
+  input:focus-visible { outline: 3px solid #a45200; }
+&lt;/style&gt;</textarea>
+      <div class="controls"><button class="primary" type="button" data-apply>코드 적용</button><button type="button" data-reset>초기화</button></div>
+      <p class="status" role="status"></p>
+    </details>
+  </article></section>
+    <section id="notes"><h2>헷갈리는 점</h2><ul><li>:is(), :not(), :has()는 인수 중 가장 높은 명시도의 영향을 받는다. :where()와 인수의 명시도는 0이다.</li>
+<li>nth-child는 1부터 센다. odd는 홀수, even은 짝수, 3n+1은 1, 4, 7번째다.</li>
+<li>hover는 터치 환경에서 마우스처럼 동작하지 않을 수 있다. 필요한 기능을 hover에만 숨기지 않는다.</li></ul>
+      <p>기존 상세 예제: <a href="../../../pseudo-classes.html">pseudo-classes.html</a></p>
+    </section>
+    <section><h2>더 찾아보기</h2><p class="note">표준의 모든 태그/속성은 계속 확장됩니다. 이 페이지는 주제별 핵심 참고이며, 세부 문법과 지원 버전은 원문 색인에서 확인할 수 있습니다.</p><ul class="source-list"><li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference" target="_blank" rel="noopener noreferrer">CSS 속성/선택자 색인</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/:has" target="_blank" rel="noopener noreferrer">:has()</a></li></ul></section>
+    <nav class="footer-nav" aria-label="이전 다음 주제"><a href="../../css/02-selectors/index.html">← 기본 선택자와 결합자</a><a href="../../index.html">전체 목록</a><a href="../../css/04-pseudo-elements/index.html">가상 요소와 장식 →</a></nav></main>
+</body>
+</html>

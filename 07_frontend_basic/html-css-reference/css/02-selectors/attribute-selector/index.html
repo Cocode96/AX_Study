@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>attribute-selector | HTML / CSS 키워드 참고서</title>
+  <link rel="stylesheet" href="../../../assets/reference.css">
+  <script src="../../../assets/reference.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#content">본문으로 이동</a>
+  <main id="content">
+ <nav aria-label="상위 탐색"><a href="../../../index.html">← 키워드 검색</a><a href="../index.html">같은 주제: 기본 선택자와 결합자</a></nav>
+ <p class="eyebrow">CSS / selector</p><h1><code>attribute-selector</code></h1><p class="lead">속성 존재나 값 조건으로 요소를 고른다.</p>
+ <section class="intro"><h2>어디에 쓰나</h2><p>선택자 위치. 규칙의 { ... } 앞에 작성한다.</p>
+
+ <nav aria-label="항목 목차"><a href="#values">문법과 값</a><a href="#example">실행/수정</a><a href="#troubleshooting">안 될 때</a><a href="#related">관련 항목</a></nav></section>
+ <section id="values"><h2>문법과 값별 차이</h2><div class="table-wrap"><table><thead><tr><th scope="col">값 / 문법</th><th scope="col">무엇이 달라지나</th></tr></thead><tbody><tr><td><code>[type=&quot;email&quot;]</code></td><td>정확한 값</td></tr>
+<tr><td><code>[href^=&quot;https&quot;]</code></td><td>접두</td></tr>
+<tr><td><code>[href$=&quot;.pdf&quot;]</code></td><td>접미</td></tr>
+<tr><td><code>[class~=&quot;tag&quot;]</code></td><td>공백 토큰</td></tr>
+<tr><td><code>[data-name*=&quot;abc&quot;]</code></td><td>부분 문자열</td></tr></tbody></table></div><p class="note">이 표는 자주 사용하는 값과 비교할 차이를 정리한다. 전체 문법과 세부 지원 버전은 아래 원문 링크에서 확인한다.</p></section>
+ <section id="example"><h2>바로 수정하는 예제</h2><article class="example" id="sample"><h3>attribute-selector를 직접 바꾸기</h3><p>아래 HTML과 CSS를 수정한 후 코드 적용을 누른다. 필요한 JavaScript는 예제 안에 함께 표시했다.</p>
+  <div class="controls"><label for="width">미리보기 폭 <output for="width">100%</output></label><input id="width" data-width type="range" min="35" max="100" value="100"></div>
+  <div class="preview"><iframe title="attribute-selector 동작 예제" height="320" sandbox="allow-scripts allow-forms" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ko&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;style&gt;body{margin:16px;font:16px/1.7 sans-serif;color:#182b40}*,*::before,*::after{box-sizing:border-box}button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere}:focus-visible{outline:3px solid #a45200;outline-offset:3px}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;label&gt;이메일 &lt;input type=&quot;email&quot;&gt;&lt;/label&gt;&lt;label&gt;텍스트 &lt;input type=&quot;text&quot;&gt;&lt;/label&gt;&lt;style&gt;input[type=&quot;email&quot;]{border:3px solid #2456b8}&lt;/style&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+  <label for="code" class="note">주석을 포함한 예제 전체 코드. 변경은 미리보기에만 적용되며 새로고침하면 사라진다.</label>
+  <textarea id="code" rows="18" spellcheck="false" autocapitalize="off" autocomplete="off">&lt;label&gt;이메일 &lt;input type=&quot;email&quot;&gt;&lt;/label&gt;&lt;label&gt;텍스트 &lt;input type=&quot;text&quot;&gt;&lt;/label&gt;&lt;style&gt;input[type=&quot;email&quot;]{border:3px solid #2456b8}&lt;/style&gt;</textarea>
+  <div class="controls"><button data-apply type="button" class="primary">코드 적용</button><button data-reset type="button">초기화</button><button data-copy type="button">코드 복사</button></div><p class="status" role="status"></p></article></section>
+ <section id="troubleshooting"><h2>안 되거나 헷갈릴 때</h2><p>[class=&quot;a&quot;]는 class=&quot;a b&quot;와 정확히 같지 않다. .a 또는 [class~=&quot;a&quot;]는 토큰 단위다.</p></section>
+ <section id="related"><h2>함께 보는 키워드</h2><p><a href="../universal-selector/index.html">universal-selector</a> / <a href="../class-selector/index.html">class-selector</a> / <a href="../id-selector/index.html">id-selector</a> / <a href="../descendant-selector/index.html">descendant-selector</a> / <a href="../child-selector/index.html">child-selector</a> / <a href="../adjacent-sibling-selector/index.html">adjacent-sibling-selector</a> / <a href="../general-sibling-selector/index.html">general-sibling-selector</a></p><p><a href="../index.html">기본 선택자와 결합자의 전체 설명과 추가 예제</a></p></section>
+ <p class="note">더 자세한 문법: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference" target="_blank" rel="noopener noreferrer">CSS 원문 참고</a>. 자료 작성/확인일 2026-09-18. 외부 참고 링크에만 인터넷이 필요하다.</p></main>
+</body>
+</html>

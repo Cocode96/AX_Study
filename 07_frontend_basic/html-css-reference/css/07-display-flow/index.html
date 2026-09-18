@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>display, 흐름과 숨기기 | HTML / CSS 키워드 참고서</title>
+  <link rel="stylesheet" href="../../assets/reference.css">
+  <script src="../../assets/reference.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#content">본문으로 이동</a>
+  <main id="content">
+    <nav aria-label="상위 탐색"><a href="../../index.html">← 전체 키워드</a><a href="../../index.html#css">CSS</a></nav>
+    <p class="eyebrow">CSS / 15</p>
+    <h1>display, 흐름과 숨기기</h1><p class="lead">요소의 의미와 배치 방식은 분리해서 생각한다. display는 바깥 배치와 내부 자식 배치에 영향을 준다.</p>
+    <section class="intro"><h2>이 페이지에서 찾기</h2><nav aria-label="페이지 목차"><a href="#keywords">키워드 표</a><a href="#examples">실행 예제</a><a href="#notes">헷갈리는 점</a></nav>
+      <p class="note">예제는 독립된 문서로 실행됩니다. 화면 공통 스타일과 섞이지 않으며, 미리보기 안에서 직접 클릭하거나 입력할 수 있습니다. JavaScript는 코드 적용과 너비 조절을 돕습니다.</p>
+    </section>
+    <section><h2>개별 키워드 백과사전</h2><p>한 항목만 찾아 문법, 값, 예제와 실패 조건을 확인한다.</p><ul class="toc"><li><a href="display/index.html">display</a> — 요소의 바깥 흐름과 내부 자식 배치 방식을 정한다.</li><li><a href="visibility/index.html">visibility</a> — 공간을 남긴 채 표시 여부를 제어한다.</li><li><a href="opacity/index.html">opacity</a> — 자손을 포함한 요소 결과 전체의 불투명도를 정한다.</li><li><a href="float/index.html">float</a> — 박스를 한쪽으로 보내 뒤의 인라인 내용이 옆을 흐르게 한다.</li><li><a href="clear/index.html">clear</a> — 앞선 float 옆으로 올라가는 것을 제한한다.</li><li><a href="cursor/index.html">cursor</a> — 포인터가 올라왔을 때 커서 모양을 지정한다.</li><li><a href="pointer-events/index.html">pointer-events</a> — 포인터 히트 테스트에 참여할지 정한다.</li><li><a href="user-select/index.html">user-select</a> — 사용자가 텍스트를 선택할 수 있는지 정한다.</li><li><a href="accent-color/index.html">accent-color</a> — 지원하는 기본 폼 컨트롤의 강조 색을 지정한다.</li><li><a href="appearance/index.html">appearance</a> — 기본 폼 컨트롤의 플랫폼 모양을 사용할지 정한다.</li><li><a href="resize/index.html">resize</a> — 사용자가 요소 크기를 드래그로 조절할 수 있을지 정한다.</li></ul></section>
+<section id="keywords"><h2>키워드와 적용 대상</h2><div class="table-wrap"><table><thead><tr><th scope="col">키워드</th><th scope="col">어디에 쓰나</th><th scope="col">역할 / 기준</th></tr></thead><tbody><tr><td><code>block</code></td><td>블록 배치</td><td>일반 흐름에서 새 줄을 만들고 가용 너비를 사용하는 경향이 있다.</td></tr>
+<tr><td><code>inline</code></td><td>인라인 배치</td><td>문장 흐름에 참여한다. 일반 비대체 인라인에는 width/height가 적용되지 않는다.</td></tr>
+<tr><td><code>inline-block</code></td><td>인라인 수준 박스</td><td>한 줄에 놓이면서 width/height를 지정할 수 있다.</td></tr>
+<tr><td><code>flex, inline-flex</code></td><td>Flexbox</td><td>자식을 Flex로 배치하고 자신의 바깥 표시 유형도 정한다.</td></tr>
+<tr><td><code>grid, inline-grid</code></td><td>Grid</td><td>자식을 행과 열로 배치한다.</td></tr>
+<tr><td><code>none</code></td><td>숨기기</td><td>레이아웃 박스가 사라진다. 일반적으로 접근성 트리에서도 제외된다.</td></tr>
+<tr><td><code>visibility: hidden</code></td><td>표시 숨김</td><td>박스 공간은 남지만 보이지 않는다.</td></tr>
+<tr><td><code>opacity: 0</code></td><td>투명</td><td>공간과 상호작용은 남을 수 있다. 숨기기 기능과 구분한다.</td></tr>
+<tr><td><code>flow-root</code></td><td>독립 블록 서식 문맥</td><td>내부 float를 포함하는 등 흐름 경계를 만든다.</td></tr>
+<tr><td><code>float, clear</code></td><td>텍스트 감싸기</td><td>이미지 옆에 텍스트를 흐르게 하거나 float 옆 배치를 해제한다.</td></tr></tbody></table></div></section>
+    <section id="examples"><h2>실행 예제와 코드</h2><article class="example" id="example-1">
+    <h3>1. inline과 inline-block</h3>
+    <p>span의 width를 바꾸어 본다. inline-block에만 너비가 반영된다.</p>
+    <div class="controls"><label for="width-0">미리보기 너비 <output for="width-0">100%</output></label><input data-width id="width-0" type="range" min="35" max="100" value="100"></div>
+    <div class="preview"><iframe title="inline과 inline-block 실행 결과" height="270" sandbox="allow-scripts allow-forms" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ko&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;style&gt;body{margin:16px;font:16px/1.7 sans-serif;color:#182b40}*,*::before,*::after{box-sizing:border-box}button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere}:focus-visible{outline:3px solid #a45200;outline-offset:3px}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;문장 &lt;span class=&quot;inline&quot;&gt;inline&lt;/span&gt; 사이
+&lt;span class=&quot;inline-block&quot;&gt;inline-block&lt;/span&gt; 끝
+&lt;style&gt;
+  span { width: 130px; padding: 8px; background: #dceaff; }
+  .inline { display: inline; }
+  .inline-block { display: inline-block; }
+&lt;/style&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    <details open><summary>주석이 있는 예제 코드</summary>
+      <label for="code-0" class="note">코드를 수정한 뒤 적용할 수 있습니다. 편집 내용은 새로고침하면 사라집니다.</label>
+      <textarea id="code-0" rows="7" spellcheck="false" autocapitalize="off" autocomplete="off">문장 &lt;span class=&quot;inline&quot;&gt;inline&lt;/span&gt; 사이
+&lt;span class=&quot;inline-block&quot;&gt;inline-block&lt;/span&gt; 끝
+&lt;style&gt;
+  span { width: 130px; padding: 8px; background: #dceaff; }
+  .inline { display: inline; }
+  .inline-block { display: inline-block; }
+&lt;/style&gt;</textarea>
+      <div class="controls"><button class="primary" type="button" data-apply>코드 적용</button><button type="button" data-reset>초기화</button></div>
+      <p class="status" role="status"></p>
+    </details>
+  </article>
+<article class="example" id="example-2">
+    <h3>2. 숨김과 공간의 차이</h3>
+    <p>체크하면 각각의 숨김 규칙이 적용된다. 세 번째 상자는 투명해도 버튼 동작이 남는다.</p>
+    <div class="controls"><label for="width-1">미리보기 너비 <output for="width-1">100%</output></label><input data-width id="width-1" type="range" min="35" max="100" value="100"></div>
+    <div class="preview"><iframe title="숨김과 공간의 차이 실행 결과" height="270" sandbox="allow-scripts allow-forms" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ko&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;style&gt;body{margin:16px;font:16px/1.7 sans-serif;color:#182b40}*,*::before,*::after{box-sizing:border-box}button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere}:focus-visible{outline:3px solid #a45200;outline-offset:3px}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;label&gt;&lt;input id=&quot;hide&quot; type=&quot;checkbox&quot;&gt;숨기기 비교&lt;/label&gt;
+&lt;div class=&quot;row&quot;&gt;
+  &lt;button class=&quot;none&quot;&gt;display&lt;/button&gt;&lt;button class=&quot;hidden&quot;&gt;visibility&lt;/button&gt;
+  &lt;button class=&quot;transparent&quot;&gt;opacity&lt;/button&gt;&lt;span&gt;마지막&lt;/span&gt;
+&lt;/div&gt;
+&lt;p id=&quot;message&quot;&gt;투명 버튼도 클릭 가능&lt;/p&gt;
+&lt;style&gt;
+  .row { display: flex; flex-wrap: wrap; gap: 10px; padding: 20px; }
+  body:has(#hide:checked) .none { display: none; }
+  body:has(#hide:checked) .hidden { visibility: hidden; }
+  body:has(#hide:checked) .transparent { opacity: 0; }
+&lt;/style&gt;
+&lt;script&gt;
+  document.querySelector('.transparent').onclick = () =&gt; {
+    document.querySelector('#message').textContent = '투명 버튼이 클릭되었다.';
+  };
+&lt;/script&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    <details open><summary>주석이 있는 예제 코드</summary>
+      <label for="code-1" class="note">코드를 수정한 뒤 적용할 수 있습니다. 편집 내용은 새로고침하면 사라집니다.</label>
+      <textarea id="code-1" rows="16" spellcheck="false" autocapitalize="off" autocomplete="off">&lt;label&gt;&lt;input id=&quot;hide&quot; type=&quot;checkbox&quot;&gt;숨기기 비교&lt;/label&gt;
+&lt;div class=&quot;row&quot;&gt;
+  &lt;button class=&quot;none&quot;&gt;display&lt;/button&gt;&lt;button class=&quot;hidden&quot;&gt;visibility&lt;/button&gt;
+  &lt;button class=&quot;transparent&quot;&gt;opacity&lt;/button&gt;&lt;span&gt;마지막&lt;/span&gt;
+&lt;/div&gt;
+&lt;p id=&quot;message&quot;&gt;투명 버튼도 클릭 가능&lt;/p&gt;
+&lt;style&gt;
+  .row { display: flex; flex-wrap: wrap; gap: 10px; padding: 20px; }
+  body:has(#hide:checked) .none { display: none; }
+  body:has(#hide:checked) .hidden { visibility: hidden; }
+  body:has(#hide:checked) .transparent { opacity: 0; }
+&lt;/style&gt;
+&lt;script&gt;
+  document.querySelector('.transparent').onclick = () =&gt; {
+    document.querySelector('#message').textContent = '투명 버튼이 클릭되었다.';
+  };
+&lt;/script&gt;</textarea>
+      <div class="controls"><button class="primary" type="button" data-apply>코드 적용</button><button type="button" data-reset>초기화</button></div>
+      <p class="status" role="status"></p>
+    </details>
+  </article></section>
+    <section id="notes"><h2>헷갈리는 점</h2><ul><li>opacity:0으로만 숨긴 버튼은 키보드나 마우스로 조작될 수 있다. UI 목적에 맞는 숨김 방식을 고른다.</li>
+<li>float는 문장 감싸기에 유용하다. 일반 메뉴/카드 배치는 Flexbox/Grid가 더 직접적이다.</li></ul>
+
+    </section>
+    <section><h2>더 찾아보기</h2><p class="note">표준의 모든 태그/속성은 계속 확장됩니다. 이 페이지는 주제별 핵심 참고이며, 세부 문법과 지원 버전은 원문 색인에서 확인할 수 있습니다.</p><ul class="source-list"><li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference" target="_blank" rel="noopener noreferrer">CSS 속성/선택자 색인</a></li></ul></section>
+    <nav class="footer-nav" aria-label="이전 다음 주제"><a href="../../css/06-box-sizing/index.html">← 박스 모델과 크기</a><a href="../../index.html">전체 목록</a><a href="../../css/08-position/index.html">position과 기준 좌표 →</a></nav></main>
+</body>
+</html>

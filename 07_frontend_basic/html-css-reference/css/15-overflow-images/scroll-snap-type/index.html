@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>scroll-snap-type | HTML / CSS 키워드 참고서</title>
+  <link rel="stylesheet" href="../../../assets/reference.css">
+  <script src="../../../assets/reference.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#content">본문으로 이동</a>
+  <main id="content">
+ <nav aria-label="상위 탐색"><a href="../../../index.html">← 키워드 검색</a><a href="../index.html">같은 주제: 넘침, 스크롤과 이미지 맞춤</a></nav>
+ <p class="eyebrow">CSS / property</p><h1><code>scroll-snap-type</code></h1><p class="lead">스크롤 축과 스냅 강도를 정한다.</p>
+ <section class="intro"><h2>어디에 쓰나</h2><p>넘침이 생길 스크롤 부모 .target</p>
+ <p><strong>초깃값:</strong> <code>none</code> / <strong>상속:</strong> 아니오</p><p class="note">초깃값은 CSS 명세 기준이다. 브라우저 기본 태그 스타일이나 아래 예제의 준비 스타일과 다를 수 있다.</p>
+ <nav aria-label="항목 목차"><a href="#values">문법과 값</a><a href="#example">실행/수정</a><a href="#troubleshooting">안 될 때</a><a href="#related">관련 항목</a></nav></section>
+ <section id="values"><h2>문법과 값별 차이</h2><pre><code>선택자 { scroll-snap-type: x mandatory; }</code></pre><div class="table-wrap"><table><thead><tr><th scope="col">값 / 문법</th><th scope="col">무엇이 달라지나</th></tr></thead><tbody><tr><td><code>x mandatory</code></td><td>가로 스크롤 후 스냅 강제</td></tr>
+<tr><td><code>x proximity</code></td><td>가까울 때 가로 스냅</td></tr>
+<tr><td><code>none</code></td><td>스냅 없음</td></tr></tbody></table></div><p class="note">이 표는 자주 사용하는 값과 비교할 차이를 정리한다. 전체 문법과 세부 지원 버전은 아래 원문 링크에서 확인한다.</p></section>
+ <section id="example"><h2>바로 수정하는 예제</h2><article class="example" id="sample"><h3>scroll-snap-type를 직접 바꾸기</h3><p>내부 콘텐츠보다 부모 크기를 작게 지정했다. 해당 영역 안에서 직접 스크롤한다.</p>
+  <div class="controls"><label for="preset">미리보기 값 <select id="preset" data-preset><option data-code="&lt;!-- 넘침이 생길 스크롤 부모 .target. 스크롤 축과 스냅 강도를 정한다. --&gt;
+&lt;a href=&quot;#last&quot;&gt;마지막 카드로 이동&lt;/a&gt;&lt;div class=&quot;target&quot;&gt;&lt;div class=&quot;item&quot;&gt;A&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;B&lt;/div&gt;&lt;div class=&quot;item&quot; id=&quot;last&quot;&gt;C&lt;/div&gt;&lt;/div&gt;
+&lt;style&gt;
+.target{display:flex;width:300px;max-width:100%;overflow:auto;scroll-snap-type:x mandatory;border:2px solid #8ca3c1}.item{flex:0 0 230px;height:150px;margin:8px;padding:20px;background:#dceaff;scroll-snap-align:start}
+/* 이 선언의 값을 바꾸어 비교한다. */
+.target { scroll-snap-type: x mandatory; }
+&lt;/style&gt;">x mandatory</option><option data-code="&lt;!-- 넘침이 생길 스크롤 부모 .target. 스크롤 축과 스냅 강도를 정한다. --&gt;
+&lt;a href=&quot;#last&quot;&gt;마지막 카드로 이동&lt;/a&gt;&lt;div class=&quot;target&quot;&gt;&lt;div class=&quot;item&quot;&gt;A&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;B&lt;/div&gt;&lt;div class=&quot;item&quot; id=&quot;last&quot;&gt;C&lt;/div&gt;&lt;/div&gt;
+&lt;style&gt;
+.target{display:flex;width:300px;max-width:100%;overflow:auto;scroll-snap-type:x mandatory;border:2px solid #8ca3c1}.item{flex:0 0 230px;height:150px;margin:8px;padding:20px;background:#dceaff;scroll-snap-align:start}
+/* 이 선언의 값을 바꾸어 비교한다. */
+.target { scroll-snap-type: x proximity; }
+&lt;/style&gt;">x proximity</option><option data-code="&lt;!-- 넘침이 생길 스크롤 부모 .target. 스크롤 축과 스냅 강도를 정한다. --&gt;
+&lt;a href=&quot;#last&quot;&gt;마지막 카드로 이동&lt;/a&gt;&lt;div class=&quot;target&quot;&gt;&lt;div class=&quot;item&quot;&gt;A&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;B&lt;/div&gt;&lt;div class=&quot;item&quot; id=&quot;last&quot;&gt;C&lt;/div&gt;&lt;/div&gt;
+&lt;style&gt;
+.target{display:flex;width:300px;max-width:100%;overflow:auto;scroll-snap-type:x mandatory;border:2px solid #8ca3c1}.item{flex:0 0 230px;height:150px;margin:8px;padding:20px;background:#dceaff;scroll-snap-align:start}
+/* 이 선언의 값을 바꾸어 비교한다. */
+.target { scroll-snap-type: none; }
+&lt;/style&gt;">none</option></select></label><label for="width">미리보기 폭 <output for="width">100%</output></label><input id="width" data-width type="range" min="35" max="100" value="100"></div>
+  <div class="preview"><iframe title="scroll-snap-type 동작 예제" height="320" sandbox="allow-scripts allow-forms" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ko&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;style&gt;body{margin:16px;font:16px/1.7 sans-serif;color:#182b40}*,*::before,*::after{box-sizing:border-box}button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere}:focus-visible{outline:3px solid #a45200;outline-offset:3px}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;!-- 넘침이 생길 스크롤 부모 .target. 스크롤 축과 스냅 강도를 정한다. --&gt;
+&lt;a href=&quot;#last&quot;&gt;마지막 카드로 이동&lt;/a&gt;&lt;div class=&quot;target&quot;&gt;&lt;div class=&quot;item&quot;&gt;A&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;B&lt;/div&gt;&lt;div class=&quot;item&quot; id=&quot;last&quot;&gt;C&lt;/div&gt;&lt;/div&gt;
+&lt;style&gt;
+.target{display:flex;width:300px;max-width:100%;overflow:auto;scroll-snap-type:x mandatory;border:2px solid #8ca3c1}.item{flex:0 0 230px;height:150px;margin:8px;padding:20px;background:#dceaff;scroll-snap-align:start}
+/* 이 선언의 값을 바꾸어 비교한다. */
+.target { scroll-snap-type: x mandatory; }
+&lt;/style&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+  <label for="code" class="note">주석을 포함한 예제 전체 코드. 변경은 미리보기에만 적용되며 새로고침하면 사라진다.</label>
+  <textarea id="code" rows="18" spellcheck="false" autocapitalize="off" autocomplete="off">&lt;!-- 넘침이 생길 스크롤 부모 .target. 스크롤 축과 스냅 강도를 정한다. --&gt;
+&lt;a href=&quot;#last&quot;&gt;마지막 카드로 이동&lt;/a&gt;&lt;div class=&quot;target&quot;&gt;&lt;div class=&quot;item&quot;&gt;A&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;B&lt;/div&gt;&lt;div class=&quot;item&quot; id=&quot;last&quot;&gt;C&lt;/div&gt;&lt;/div&gt;
+&lt;style&gt;
+.target{display:flex;width:300px;max-width:100%;overflow:auto;scroll-snap-type:x mandatory;border:2px solid #8ca3c1}.item{flex:0 0 230px;height:150px;margin:8px;padding:20px;background:#dceaff;scroll-snap-align:start}
+/* 이 선언의 값을 바꾸어 비교한다. */
+.target { scroll-snap-type: x mandatory; }
+&lt;/style&gt;</textarea>
+  <div class="controls"><button data-apply type="button" class="primary">코드 적용</button><button data-reset type="button">초기화</button><button data-copy type="button">코드 복사</button></div><p class="status" role="status"></p></article></section>
+ <section id="troubleshooting"><h2>안 되거나 헷갈릴 때</h2><p>자식에 scroll-snap-align도 필요하다. 과한 강제 스냅은 긴 콘텐츠 탐색을 방해할 수 있다.</p><p>DevTools에서 <code>scroll-snap-type</code>를 검색해 선언이 취소선인지, 최종 계산값이 무엇인지 확인한다. 위의 적용 대상과 부모 조건도 같이 확인한다.</p></section>
+ <section id="related"><h2>함께 보는 키워드</h2><p><a href="../overflow/index.html">overflow</a> / <a href="../overflow-x/index.html">overflow-x</a> / <a href="../overflow-y/index.html">overflow-y</a> / <a href="../overscroll-behavior/index.html">overscroll-behavior</a> / <a href="../scroll-behavior/index.html">scroll-behavior</a> / <a href="../scroll-padding/index.html">scroll-padding</a> / <a href="../scroll-snap-align/index.html">scroll-snap-align</a> / <a href="../scroll-margin/index.html">scroll-margin</a> / <a href="../object-fit/index.html">object-fit</a> / <a href="../object-position/index.html">object-position</a></p><p><a href="../index.html">넘침, 스크롤과 이미지 맞춤의 전체 설명과 추가 예제</a></p></section>
+ <p class="note">더 자세한 문법: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-snap-type" target="_blank" rel="noopener noreferrer">CSS 원문 참고</a>. 자료 작성/확인일 2026-09-18. 외부 참고 링크에만 인터넷이 필요하다.</p></main>
+</body>
+</html>

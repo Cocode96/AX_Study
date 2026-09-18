@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>dl | HTML / CSS 키워드 참고서</title>
+  <link rel="stylesheet" href="../../../assets/reference.css">
+  <script src="../../../assets/reference.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#content">본문으로 이동</a>
+  <main id="content">
+ <nav aria-label="상위 탐색"><a href="../../../index.html">← 키워드 검색</a><a href="../index.html">같은 주제: 텍스트와 목록</a></nav>
+ <p class="eyebrow">HTML / element</p><h1><code>dl</code></h1><p class="lead">용어와 설명의 대응 목록을 만든다.</p>
+ <section class="intro"><h2>어디에 쓰나</h2><p>HTML 요소. 아래 예제의 부모/자식 구조와 함께 사용한다.</p>
+
+ <nav aria-label="항목 목차"><a href="#values">문법과 값</a><a href="#example">실행/수정</a><a href="#troubleshooting">안 될 때</a><a href="#related">관련 항목</a></nav></section>
+ <section id="values"><h2>문법과 값별 차이</h2><div class="table-wrap"><table><thead><tr><th scope="col">값 / 문법</th><th scope="col">무엇이 달라지나</th></tr></thead><tbody><tr><td><code>텍스트/자식 콘텐츠</code></td><td>태그 사이에 의미에 맞는 내용을 작성</td></tr>
+<tr><td><code>class, id</code></td><td>스타일과 식별에 쓰는 공통 속성</td></tr></tbody></table></div><p class="note">이 표는 자주 사용하는 값과 비교할 차이를 정리한다. 전체 문법과 세부 지원 버전은 아래 원문 링크에서 확인한다.</p></section>
+ <section id="example"><h2>바로 수정하는 예제</h2><article class="example" id="sample"><h3>dl를 직접 바꾸기</h3><p>아래 HTML과 CSS를 수정한 후 코드 적용을 누른다. 필요한 JavaScript는 예제 안에 함께 표시했다.</p>
+  <div class="controls"><label for="width">미리보기 폭 <output for="width">100%</output></label><input id="width" data-width type="range" min="35" max="100" value="100"></div>
+  <div class="preview"><iframe title="dl 동작 예제" height="320" sandbox="allow-scripts allow-forms" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ko&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;style&gt;body{margin:16px;font:16px/1.7 sans-serif;color:#182b40}*,*::before,*::after{box-sizing:border-box}button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere}:focus-visible{outline:3px solid #a45200;outline-offset:3px}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;dl&gt;&lt;dt&gt;padding&lt;/dt&gt;&lt;dd&gt;안쪽 여백&lt;/dd&gt;&lt;dt&gt;margin&lt;/dt&gt;&lt;dd&gt;바깥 여백&lt;/dd&gt;&lt;/dl&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+  <label for="code" class="note">주석을 포함한 예제 전체 코드. 변경은 미리보기에만 적용되며 새로고침하면 사라진다.</label>
+  <textarea id="code" rows="18" spellcheck="false" autocapitalize="off" autocomplete="off">&lt;dl&gt;&lt;dt&gt;padding&lt;/dt&gt;&lt;dd&gt;안쪽 여백&lt;/dd&gt;&lt;dt&gt;margin&lt;/dt&gt;&lt;dd&gt;바깥 여백&lt;/dd&gt;&lt;/dl&gt;</textarea>
+  <div class="controls"><button data-apply type="button" class="primary">코드 적용</button><button data-reset type="button">초기화</button><button data-copy type="button">코드 복사</button></div><p class="status" role="status"></p></article></section>
+ <section id="troubleshooting"><h2>안 되거나 헷갈릴 때</h2><p>단순 2열 배치라는 이유로 사용하지 않는다. 이름과 값/설명 관계일 때 자연스럽다.</p></section>
+ <section id="related"><h2>함께 보는 키워드</h2><p><a href="../p/index.html">p</a> / <a href="../br/index.html">br</a> / <a href="../hr/index.html">hr</a> / <a href="../strong/index.html">strong</a> / <a href="../em/index.html">em</a> / <a href="../b/index.html">b</a> / <a href="../i/index.html">i</a> / <a href="../mark/index.html">mark</a> / <a href="../small/index.html">small</a> / <a href="../blockquote/index.html">blockquote</a> / <a href="../q/index.html">q</a> / <a href="../cite/index.html">cite</a> / <a href="../pre/index.html">pre</a> / <a href="../code/index.html">code</a> / <a href="../kbd/index.html">kbd</a> / <a href="../samp/index.html">samp</a> / <a href="../abbr/index.html">abbr</a> / <a href="../time/index.html">time</a> / <a href="../sub/index.html">sub</a> / <a href="../sup/index.html">sup</a> / <a href="../del/index.html">del</a> / <a href="../ins/index.html">ins</a> / <a href="../ul/index.html">ul</a> / <a href="../ol/index.html">ol</a> / <a href="../li/index.html">li</a> / <a href="../dt/index.html">dt</a> / <a href="../dd/index.html">dd</a></p><p><a href="../index.html">텍스트와 목록의 전체 설명과 추가 예제</a></p></section>
+ <p class="note">더 자세한 문법: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dl" target="_blank" rel="noopener noreferrer">HTML 원문 참고</a>. 자료 작성/확인일 2026-09-18. 외부 참고 링크에만 인터넷이 필요하다.</p></main>
+</body>
+</html>

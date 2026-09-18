@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>박스 모델과 크기 | HTML / CSS 키워드 참고서</title>
+  <link rel="stylesheet" href="../../assets/reference.css">
+  <script src="../../assets/reference.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#content">본문으로 이동</a>
+  <main id="content">
+    <nav aria-label="상위 탐색"><a href="../../index.html">← 전체 키워드</a><a href="../../index.html#css">CSS</a></nav>
+    <p class="eyebrow">CSS / 14</p>
+    <h1>박스 모델과 크기</h1><p class="lead">화면의 상자는 content, padding, border, margin으로 구성된다. width가 어디까지 포함하는지 box-sizing이 정한다.</p>
+    <section class="intro"><h2>이 페이지에서 찾기</h2><nav aria-label="페이지 목차"><a href="#keywords">키워드 표</a><a href="#examples">실행 예제</a><a href="#notes">헷갈리는 점</a></nav>
+      <p class="note">예제는 독립된 문서로 실행됩니다. 화면 공통 스타일과 섞이지 않으며, 미리보기 안에서 직접 클릭하거나 입력할 수 있습니다. JavaScript는 코드 적용과 너비 조절을 돕습니다.</p>
+    </section>
+    <section><h2>개별 키워드 백과사전</h2><p>한 항목만 찾아 문법, 값, 예제와 실패 조건을 확인한다.</p><ul class="toc"><li><a href="width/index.html">width</a> — 요소의 가로 크기를 지정한다.</li><li><a href="height/index.html">height</a> — 요소의 세로 크기를 지정한다.</li><li><a href="min-width/index.html">min-width</a> — 요소가 줄어들 수 있는 최소 너비를 제한한다.</li><li><a href="max-width/index.html">max-width</a> — 요소가 커질 수 있는 최대 너비를 제한한다.</li><li><a href="min-height/index.html">min-height</a> — 최소 높이를 확보하면서 필요하면 더 커지도록 한다.</li><li><a href="max-height/index.html">max-height</a> — 요소의 최대 높이를 제한한다.</li><li><a href="padding/index.html">padding</a> — 내용과 테두리 사이의 안쪽 여백을 정한다.</li><li><a href="padding-top/index.html">padding-top</a> — 내용 위쪽의 안쪽 여백을 지정한다.</li><li><a href="padding-right/index.html">padding-right</a> — 내용 오른쪽의 안쪽 여백을 지정한다.</li><li><a href="padding-bottom/index.html">padding-bottom</a> — 내용 아래쪽의 안쪽 여백을 지정한다.</li><li><a href="padding-left/index.html">padding-left</a> — 내용 왼쪽의 안쪽 여백을 지정한다.</li><li><a href="margin/index.html">margin</a> — 테두리 바깥의 여백을 지정한다.</li><li><a href="margin-top/index.html">margin-top</a> — 요소 위쪽의 바깥 여백을 지정한다.</li><li><a href="margin-right/index.html">margin-right</a> — 요소 오른쪽의 바깥 여백을 지정한다.</li><li><a href="margin-bottom/index.html">margin-bottom</a> — 요소 아래쪽의 바깥 여백을 지정한다.</li><li><a href="margin-left/index.html">margin-left</a> — 요소 왼쪽의 바깥 여백을 지정한다.</li><li><a href="box-sizing/index.html">box-sizing</a> — width와 height가 포함하는 박스 범위를 정한다.</li><li><a href="aspect-ratio/index.html">aspect-ratio</a> — 자동 크기 계산에 사용할 선호 가로:세로 비율을 정한다.</li></ul></section>
+<section id="keywords"><h2>키워드와 적용 대상</h2><div class="table-wrap"><table><thead><tr><th scope="col">키워드</th><th scope="col">어디에 쓰나</th><th scope="col">역할 / 기준</th></tr></thead><tbody><tr><td><code>width, height</code></td><td>기본 크기</td><td>box-sizing에 따라 content 또는 border box 크기를 지정한다.</td></tr>
+<tr><td><code>padding</code></td><td>내부 여백</td><td>내용과 테두리 사이 공간이다.</td></tr>
+<tr><td><code>border</code></td><td>경계</td><td>두께, 선 종류, 색을 지정한다.</td></tr>
+<tr><td><code>margin</code></td><td>외부 여백</td><td>박스 바깥의 간격이다.</td></tr>
+<tr><td><code>box-sizing: content-box</code></td><td>기본 계산</td><td>width에 padding과 border가 더해진다.</td></tr>
+<tr><td><code>box-sizing: border-box</code></td><td>대안 계산</td><td>width에 padding과 border를 포함한다.</td></tr>
+<tr><td><code>min-width, max-width</code></td><td>너비 제한</td><td>최소/최대 너비다. 최소 크기가 수축을 막을 수 있다.</td></tr>
+<tr><td><code>min-height, max-height</code></td><td>높이 제한</td><td>내용에 따라 자라게 하려면 고정 height 대신 min-height를 검토한다.</td></tr>
+<tr><td><code>aspect-ratio</code></td><td>비율</td><td>auto 크기의 계산에 선호 종횡비를 제공한다.</td></tr>
+<tr><td><code>margin collapse</code></td><td>블록 흐름</td><td>조건을 만족하는 수직 margin은 더해지지 않고 겹친다.</td></tr></tbody></table></div></section>
+    <section id="examples"><h2>실행 예제와 코드</h2><article class="example" id="example-1">
+    <h3>1. 동일 width의 실제 크기 비교</h3>
+    <p>content-box는 180 + 20×2 + 4×2 = 228px, border-box는 총 180px이다.</p>
+    <div class="controls"><label for="width-0">미리보기 너비 <output for="width-0">100%</output></label><input data-width id="width-0" type="range" min="35" max="100" value="100"></div>
+    <div class="preview"><iframe title="동일 width의 실제 크기 비교 실행 결과" height="270" sandbox="allow-scripts allow-forms" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ko&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;style&gt;body{margin:16px;font:16px/1.7 sans-serif;color:#182b40}*,*::before,*::after{box-sizing:border-box}button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere}:focus-visible{outline:3px solid #a45200;outline-offset:3px}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;box content&quot;&gt;content-box&lt;/div&gt;
+&lt;div class=&quot;box border&quot;&gt;border-box&lt;/div&gt;
+&lt;style&gt;
+  .box { width: 180px; padding: 20px; border: 4px solid #2456b8; margin-block: 12px; }
+  .content { box-sizing: content-box; }
+  .border { box-sizing: border-box; background: #dceaff; }
+&lt;/style&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    <details open><summary>주석이 있는 예제 코드</summary>
+      <label for="code-0" class="note">코드를 수정한 뒤 적용할 수 있습니다. 편집 내용은 새로고침하면 사라집니다.</label>
+      <textarea id="code-0" rows="7" spellcheck="false" autocapitalize="off" autocomplete="off">&lt;div class=&quot;box content&quot;&gt;content-box&lt;/div&gt;
+&lt;div class=&quot;box border&quot;&gt;border-box&lt;/div&gt;
+&lt;style&gt;
+  .box { width: 180px; padding: 20px; border: 4px solid #2456b8; margin-block: 12px; }
+  .content { box-sizing: content-box; }
+  .border { box-sizing: border-box; background: #dceaff; }
+&lt;/style&gt;</textarea>
+      <div class="controls"><button class="primary" type="button" data-apply>코드 적용</button><button type="button" data-reset>초기화</button></div>
+      <p class="status" role="status"></p>
+    </details>
+  </article>
+<article class="example" id="example-2">
+    <h3>2. 비율을 유지하는 카드</h3>
+    <p>너비가 달라지면 높이를 16:9로 계산한다. 두 축을 모두 고정하면 이 비율이 크기를 강제하지 않는다.</p>
+    <div class="controls"><label for="width-1">미리보기 너비 <output for="width-1">100%</output></label><input data-width id="width-1" type="range" min="35" max="100" value="100"></div>
+    <div class="preview"><iframe title="비율을 유지하는 카드 실행 결과" height="270" sandbox="allow-scripts allow-forms" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ko&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;style&gt;body{margin:16px;font:16px/1.7 sans-serif;color:#182b40}*,*::before,*::after{box-sizing:border-box}button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere}:focus-visible{outline:3px solid #a45200;outline-offset:3px}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;video-card&quot;&gt;16 : 9&lt;/div&gt;
+&lt;style&gt;
+  .video-card {
+    width: min(100%, 360px); aspect-ratio: 16 / 9;
+    display: grid; place-items: center; background: #dceaff;
+    border: 2px solid #2456b8;
+  }
+&lt;/style&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    <details open><summary>주석이 있는 예제 코드</summary>
+      <label for="code-1" class="note">코드를 수정한 뒤 적용할 수 있습니다. 편집 내용은 새로고침하면 사라집니다.</label>
+      <textarea id="code-1" rows="8" spellcheck="false" autocapitalize="off" autocomplete="off">&lt;div class=&quot;video-card&quot;&gt;16 : 9&lt;/div&gt;
+&lt;style&gt;
+  .video-card {
+    width: min(100%, 360px); aspect-ratio: 16 / 9;
+    display: grid; place-items: center; background: #dceaff;
+    border: 2px solid #2456b8;
+  }
+&lt;/style&gt;</textarea>
+      <div class="controls"><button class="primary" type="button" data-apply>코드 적용</button><button type="button" data-reset>초기화</button></div>
+      <p class="status" role="status"></p>
+    </details>
+  </article></section>
+    <section id="notes"><h2>헷갈리는 점</h2><ul><li>margin은 요소 배경으로 칠해지지 않는다. padding은 배경 안쪽이다.</li>
+<li>수직 margin 겹침은 일반 블록 흐름의 조건에서 발생한다. Flex/Grid 아이템 사이 간격은 같은 방식으로 겹치지 않는다.</li></ul>
+      <p>기존 상세 예제: <a href="../../../css-box-model.html">css-box-model.html</a></p>
+    </section>
+    <section><h2>더 찾아보기</h2><p class="note">표준의 모든 태그/속성은 계속 확장됩니다. 이 페이지는 주제별 핵심 참고이며, 세부 문법과 지원 버전은 원문 색인에서 확인할 수 있습니다.</p><ul class="source-list"><li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference" target="_blank" rel="noopener noreferrer">CSS 속성/선택자 색인</a></li></ul></section>
+    <nav class="footer-nav" aria-label="이전 다음 주제"><a href="../../css/05-values-units/index.html">← 값, 단위와 CSS 함수</a><a href="../../index.html">전체 목록</a><a href="../../css/07-display-flow/index.html">display, 흐름과 숨기기 →</a></nav></main>
+</body>
+</html>

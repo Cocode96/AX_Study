@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>색상, 배경과 그라디언트 | HTML / CSS 키워드 참고서</title>
+  <link rel="stylesheet" href="../../assets/reference.css">
+  <script src="../../assets/reference.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#content">본문으로 이동</a>
+  <main id="content">
+    <nav aria-label="상위 탐색"><a href="../../index.html">← 전체 키워드</a><a href="../../index.html#css">CSS</a></nav>
+    <p class="eyebrow">CSS / 21</p>
+    <h1>색상, 배경과 그라디언트</h1><p class="lead">color는 글자색, background는 요소 뒤에 그리는 배경이다. 이미지 크기와 반복 방식은 각각 별도 속성이다.</p>
+    <section class="intro"><h2>이 페이지에서 찾기</h2><nav aria-label="페이지 목차"><a href="#keywords">키워드 표</a><a href="#examples">실행 예제</a><a href="#notes">헷갈리는 점</a></nav>
+      <p class="note">예제는 독립된 문서로 실행됩니다. 화면 공통 스타일과 섞이지 않으며, 미리보기 안에서 직접 클릭하거나 입력할 수 있습니다. JavaScript는 코드 적용과 너비 조절을 돕습니다.</p>
+    </section>
+    <section><h2>개별 키워드 백과사전</h2><p>한 항목만 찾아 문법, 값, 예제와 실패 조건을 확인한다.</p><ul class="toc"><li><a href="color/index.html">color</a> — 텍스트와 currentColor가 참조할 전경색을 지정한다.</li><li><a href="background-color/index.html">background-color</a> — 요소 뒤에 칠할 단색 배경을 지정한다.</li><li><a href="background-image/index.html">background-image</a> — 배경 이미지 레이어를 지정한다.</li><li><a href="background-size/index.html">background-size</a> — 배경 이미지의 크기를 지정한다.</li><li><a href="background-position/index.html">background-position</a> — 배경 이미지의 배치 위치를 지정한다.</li><li><a href="background-repeat/index.html">background-repeat</a> — 배경 이미지 반복 방식을 지정한다.</li><li><a href="background-origin/index.html">background-origin</a> — 배경 이미지 배치 기준 박스를 정한다.</li><li><a href="background-clip/index.html">background-clip</a> — 배경을 어디까지 칠할지 정한다.</li><li><a href="background-attachment/index.html">background-attachment</a> — 스크롤에 대한 배경의 기준을 지정한다.</li><li><a href="background/index.html">background</a> — 배경 관련 하위 속성을 한 번에 지정한다.</li><li><a href="fn-rgb/index.html">rgb()</a> — RGB 채널과 알파로 색을 만든다.</li><li><a href="fn-hsl/index.html">hsl()</a> — 색상 각도, 채도, 명도로 색을 만든다.</li><li><a href="fn-linear-gradient/index.html">linear-gradient()</a> — 직선 방향을 따라 색이 변하는 이미지를 만든다.</li><li><a href="fn-radial-gradient/index.html">radial-gradient()</a> — 중심에서 바깥으로 색이 변하는 이미지를 만든다.</li><li><a href="fn-conic-gradient/index.html">conic-gradient()</a> — 중심 주위의 각도에 따라 색이 변하는 이미지를 만든다.</li></ul></section>
+<section id="keywords"><h2>키워드와 적용 대상</h2><div class="table-wrap"><table><thead><tr><th scope="col">키워드</th><th scope="col">어디에 쓰나</th><th scope="col">역할 / 기준</th></tr></thead><tbody><tr><td><code>color, currentColor</code></td><td>색</td><td>텍스트 색과 현재 color 값 참조다.</td></tr>
+<tr><td><code>hex, rgb(), hsl()</code></td><td>색 표현</td><td>16진수, RGB 채널, 색상/채도/명도 방식이다.</td></tr>
+<tr><td><code>alpha, transparent</code></td><td>투명</td><td>rgb(0 0 0 / 50%)처럼 색의 투명도를 지정한다.</td></tr>
+<tr><td><code>background-color, background-image</code></td><td>배경</td><td>단색과 이미지 또는 그라디언트 레이어다.</td></tr>
+<tr><td><code>background-size</code></td><td>배경 크기</td><td>cover는 채우고 일부를 자를 수 있으며 contain은 전체를 보이고 빈 공간을 남길 수 있다.</td></tr>
+<tr><td><code>background-position, background-repeat</code></td><td>위치와 반복</td><td>배경의 배치 위치와 반복을 정한다.</td></tr>
+<tr><td><code>background-origin, background-clip</code></td><td>기준과 칠하기</td><td>배치 기준 박스와 칠할 범위를 정한다.</td></tr>
+<tr><td><code>background-attachment</code></td><td>스크롤</td><td>배경이 scroll/local/fixed 중 어떤 기준으로 움직일지 정한다.</td></tr>
+<tr><td><code>linear-gradient(), radial-gradient(), conic-gradient()</code></td><td>이미지 함수</td><td>직선, 방사형, 각도 기반 그라디언트를 만든다.</td></tr>
+<tr><td><code>background</code></td><td>축약</td><td>생략한 하위 속성도 초깃값으로 재설정할 수 있다.</td></tr></tbody></table></div></section>
+    <section id="examples"><h2>실행 예제와 코드</h2><article class="example" id="example-1">
+    <h3>1. 여러 배경을 쌓기</h3>
+    <p>먼저 쓴 배경 이미지가 위쪽에 그려진다. 단색 배경은 가장 아래다.</p>
+    <div class="controls"><label for="width-0">미리보기 너비 <output for="width-0">100%</output></label><input data-width id="width-0" type="range" min="35" max="100" value="100"></div>
+    <div class="preview"><iframe title="여러 배경을 쌓기 실행 결과" height="270" sandbox="allow-scripts allow-forms" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ko&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;style&gt;body{margin:16px;font:16px/1.7 sans-serif;color:#182b40}*,*::before,*::after{box-sizing:border-box}button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere}:focus-visible{outline:3px solid #a45200;outline-offset:3px}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;banner&quot;&gt;두 개의 그라디언트&lt;/div&gt;
+&lt;style&gt;
+  .banner { padding: 60px 20px; color: white;
+    background: linear-gradient(90deg, rgb(0 0 0 / 65%), transparent),
+      linear-gradient(135deg, #2456b8, #2da67c); }
+&lt;/style&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    <details open><summary>주석이 있는 예제 코드</summary>
+      <label for="code-0" class="note">코드를 수정한 뒤 적용할 수 있습니다. 편집 내용은 새로고침하면 사라집니다.</label>
+      <textarea id="code-0" rows="6" spellcheck="false" autocapitalize="off" autocomplete="off">&lt;div class=&quot;banner&quot;&gt;두 개의 그라디언트&lt;/div&gt;
+&lt;style&gt;
+  .banner { padding: 60px 20px; color: white;
+    background: linear-gradient(90deg, rgb(0 0 0 / 65%), transparent),
+      linear-gradient(135deg, #2456b8, #2da67c); }
+&lt;/style&gt;</textarea>
+      <div class="controls"><button class="primary" type="button" data-apply>코드 적용</button><button type="button" data-reset>초기화</button></div>
+      <p class="status" role="status"></p>
+    </details>
+  </article>
+<article class="example" id="example-2">
+    <h3>2. 배경 알파와 요소 opacity</h3>
+    <p>왼쪽은 배경색만 반투명, 오른쪽은 텍스트까지 함께 투명해진다.</p>
+    <div class="controls"><label for="width-1">미리보기 너비 <output for="width-1">100%</output></label><input data-width id="width-1" type="range" min="35" max="100" value="100"></div>
+    <div class="preview"><iframe title="배경 알파와 요소 opacity 실행 결과" height="270" sandbox="allow-scripts allow-forms" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ko&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;style&gt;body{margin:16px;font:16px/1.7 sans-serif;color:#182b40}*,*::before,*::after{box-sizing:border-box}button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere}:focus-visible{outline:3px solid #a45200;outline-offset:3px}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;stage&quot;&gt;&lt;p class=&quot;alpha&quot;&gt;배경만 35%&lt;/p&gt;&lt;p class=&quot;opacity&quot;&gt;전체 35%&lt;/p&gt;&lt;/div&gt;
+&lt;style&gt;
+  .stage { background: repeating-linear-gradient(45deg, #fff 0 10px, #dceaff 10px 20px); padding: 12px; }
+  p { padding: 20px; color: black; font-weight: bold; }
+  .alpha { background: rgb(255 170 0 / 35%); }
+  .opacity { background: orange; opacity: .35; }
+&lt;/style&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    <details open><summary>주석이 있는 예제 코드</summary>
+      <label for="code-1" class="note">코드를 수정한 뒤 적용할 수 있습니다. 편집 내용은 새로고침하면 사라집니다.</label>
+      <textarea id="code-1" rows="7" spellcheck="false" autocapitalize="off" autocomplete="off">&lt;div class=&quot;stage&quot;&gt;&lt;p class=&quot;alpha&quot;&gt;배경만 35%&lt;/p&gt;&lt;p class=&quot;opacity&quot;&gt;전체 35%&lt;/p&gt;&lt;/div&gt;
+&lt;style&gt;
+  .stage { background: repeating-linear-gradient(45deg, #fff 0 10px, #dceaff 10px 20px); padding: 12px; }
+  p { padding: 20px; color: black; font-weight: bold; }
+  .alpha { background: rgb(255 170 0 / 35%); }
+  .opacity { background: orange; opacity: .35; }
+&lt;/style&gt;</textarea>
+      <div class="controls"><button class="primary" type="button" data-apply>코드 적용</button><button type="button" data-reset>초기화</button></div>
+      <p class="status" role="status"></p>
+    </details>
+  </article></section>
+    <section id="notes"><h2>헷갈리는 점</h2><ul><li>CSS 배경 이미지는 요소의 높이를 자동으로 만들지 않는다. 콘텐츠나 크기 지정이 필요하다.</li>
+<li>게임 렌더링의 알파 합성과 비슷하게 앞쪽 투명도와 뒤쪽 색이 결과에 영향을 준다. CSS의 쌓임 순서도 함께 봐야 한다.</li></ul>
+      <p>기존 상세 예제: <a href="../../../css-background.html">css-background.html</a></p>
+    </section>
+    <section><h2>더 찾아보기</h2><p class="note">표준의 모든 태그/속성은 계속 확장됩니다. 이 페이지는 주제별 핵심 참고이며, 세부 문법과 지원 버전은 원문 색인에서 확인할 수 있습니다.</p><ul class="source-list"><li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference" target="_blank" rel="noopener noreferrer">CSS 속성/선택자 색인</a></li></ul></section>
+    <nav class="footer-nav" aria-label="이전 다음 주제"><a href="../../css/12-typography/index.html">← 글꼴, 줄바꿈과 말줄임</a><a href="../../index.html">전체 목록</a><a href="../../css/14-border-shadow/index.html">테두리, 외곽선과 그림자 →</a></nav></main>
+</body>
+</html>

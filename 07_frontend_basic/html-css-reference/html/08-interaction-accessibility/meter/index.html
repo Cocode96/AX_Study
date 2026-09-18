@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>meter | HTML / CSS 키워드 참고서</title>
+  <link rel="stylesheet" href="../../../assets/reference.css">
+  <script src="../../../assets/reference.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#content">본문으로 이동</a>
+  <main id="content">
+ <nav aria-label="상위 탐색"><a href="../../../index.html">← 키워드 검색</a><a href="../index.html">같은 주제: 기본 상호작용과 접근성</a></nav>
+ <p class="eyebrow">HTML / element</p><h1><code>meter</code></h1><p class="lead">알려진 범위 안의 측정값을 나타낸다.</p>
+ <section class="intro"><h2>어디에 쓰나</h2><p>HTML 요소. 아래 예제의 부모/자식 구조와 함께 사용한다.</p>
+
+ <nav aria-label="항목 목차"><a href="#values">문법과 값</a><a href="#example">실행/수정</a><a href="#troubleshooting">안 될 때</a><a href="#related">관련 항목</a></nav></section>
+ <section id="values"><h2>문법과 값별 차이</h2><div class="table-wrap"><table><thead><tr><th scope="col">값 / 문법</th><th scope="col">무엇이 달라지나</th></tr></thead><tbody><tr><td><code>min, max</code></td><td>측정 범위</td></tr>
+<tr><td><code>value</code></td><td>현재 값</td></tr>
+<tr><td><code>low, high, optimum</code></td><td>낮음/높음/최적 기준</td></tr></tbody></table></div><p class="note">이 표는 자주 사용하는 값과 비교할 차이를 정리한다. 전체 문법과 세부 지원 버전은 아래 원문 링크에서 확인한다.</p></section>
+ <section id="example"><h2>바로 수정하는 예제</h2><article class="example" id="sample"><h3>meter를 직접 바꾸기</h3><p>아래 HTML과 CSS를 수정한 후 코드 적용을 누른다. 필요한 JavaScript는 예제 안에 함께 표시했다.</p>
+  <div class="controls"><label for="width">미리보기 폭 <output for="width">100%</output></label><input id="width" data-width type="range" min="35" max="100" value="100"></div>
+  <div class="preview"><iframe title="meter 동작 예제" height="320" sandbox="allow-scripts allow-forms" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ko&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;style&gt;body{margin:16px;font:16px/1.7 sans-serif;color:#182b40}*,*::before,*::after{box-sizing:border-box}button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere}:focus-visible{outline:3px solid #a45200;outline-offset:3px}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;label&gt;저장 공간 &lt;meter min=&quot;0&quot; max=&quot;100&quot; low=&quot;20&quot; high=&quot;80&quot; optimum=&quot;10&quot; value=&quot;85&quot;&gt;85%&lt;/meter&gt;&lt;/label&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+  <label for="code" class="note">주석을 포함한 예제 전체 코드. 변경은 미리보기에만 적용되며 새로고침하면 사라진다.</label>
+  <textarea id="code" rows="18" spellcheck="false" autocapitalize="off" autocomplete="off">&lt;label&gt;저장 공간 &lt;meter min=&quot;0&quot; max=&quot;100&quot; low=&quot;20&quot; high=&quot;80&quot; optimum=&quot;10&quot; value=&quot;85&quot;&gt;85%&lt;/meter&gt;&lt;/label&gt;</textarea>
+  <div class="controls"><button data-apply type="button" class="primary">코드 적용</button><button data-reset type="button">초기화</button><button data-copy type="button">코드 복사</button></div><p class="status" role="status"></p></article></section>
+ <section id="troubleshooting"><h2>안 되거나 헷갈릴 때</h2><p>작업 진행률은 progress다. 색 의미는 임계값과 optimum 설정에 따라 달라진다.</p></section>
+ <section id="related"><h2>함께 보는 키워드</h2><p><a href="../details/index.html">details</a> / <a href="../summary/index.html">summary</a> / <a href="../dialog/index.html">dialog</a> / <a href="../progress/index.html">progress</a> / <a href="../template/index.html">template</a> / <a href="../attr-dir/index.html">dir</a> / <a href="../attr-hidden/index.html">hidden</a> / <a href="../attr-inert/index.html">inert</a> / <a href="../attr-tabindex/index.html">tabindex</a> / <a href="../attr-aria-label/index.html">aria-label</a> / <a href="../attr-aria-describedby/index.html">aria-describedby</a> / <a href="../attr-aria-labelledby/index.html">aria-labelledby</a> / <a href="../attr-aria-live/index.html">aria-live</a> / <a href="../attr-data-star/index.html">data-*</a> / <a href="../attr-popover/index.html">popover</a></p><p><a href="../index.html">기본 상호작용과 접근성의 전체 설명과 추가 예제</a></p></section>
+ <p class="note">더 자세한 문법: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meter" target="_blank" rel="noopener noreferrer">HTML 원문 참고</a>. 자료 작성/확인일 2026-09-18. 외부 참고 링크에만 인터넷이 필요하다.</p></main>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>폼과 입력 검증 | HTML / CSS 키워드 참고서</title>
+  <link rel="stylesheet" href="../../assets/reference.css">
+  <script src="../../assets/reference.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#content">본문으로 이동</a>
+  <main id="content">
+    <nav aria-label="상위 탐색"><a href="../../index.html">← 전체 키워드</a><a href="../../index.html#html">HTML</a></nav>
+    <p class="eyebrow">HTML / 07</p>
+    <h1>폼과 입력 검증</h1><p class="lead">form은 입력값을 이름과 값의 쌍으로 모은다. label은 입력의 의미를 알리고, name은 전송할 필드 이름을 정한다.</p>
+    <section class="intro"><h2>이 페이지에서 찾기</h2><nav aria-label="페이지 목차"><a href="#keywords">키워드 표</a><a href="#examples">실행 예제</a><a href="#notes">헷갈리는 점</a></nav>
+      <p class="note">예제는 독립된 문서로 실행됩니다. 화면 공통 스타일과 섞이지 않으며, 미리보기 안에서 직접 클릭하거나 입력할 수 있습니다. JavaScript는 코드 적용과 너비 조절을 돕습니다.</p>
+    </section>
+    <section><h2>개별 키워드 백과사전</h2><p>한 항목만 찾아 문법, 값, 예제와 실패 조건을 확인한다.</p><ul class="toc"><li><a href="form/index.html">form</a> — 입력 필드를 묶어 이름/값 데이터를 제출한다.</li><li><a href="label/index.html">label</a> — 입력 컨트롤의 이름과 클릭 대상을 연결한다.</li><li><a href="input/index.html">input</a> — type에 따라 한 줄 입력/선택/파일 등의 컨트롤을 만든다.</li><li><a href="button/index.html">button</a> — 사용자 조작 버튼을 만든다.</li><li><a href="textarea/index.html">textarea</a> — 여러 줄 텍스트 입력 컨트롤을 만든다.</li><li><a href="select/index.html">select</a> — 선택 목록에서 값을 고르게 한다.</li><li><a href="option/index.html">option</a> — select/datalist의 선택 후보를 만든다.</li><li><a href="optgroup/index.html">optgroup</a> — select의 관련 선택지를 그룹으로 묶는다.</li><li><a href="fieldset/index.html">fieldset</a> — 관련 입력을 하나의 그룹으로 묶는다.</li><li><a href="legend/index.html">legend</a> — fieldset 그룹의 제목을 제공한다.</li><li><a href="datalist/index.html">datalist</a> — 자유 입력에 선택 가능한 추천값을 제공한다.</li><li><a href="output/index.html">output</a> — 계산 또는 사용자 동작의 결과를 나타낸다.</li><li><a href="attr-for/index.html">for</a> — label을 특정 입력 id와 연결한다.</li><li><a href="attr-name/index.html">name</a> — 폼 데이터의 필드 이름을 지정한다.</li><li><a href="attr-value/index.html">value</a> — 컨트롤의 값 또는 전송 값을 정한다.</li><li><a href="attr-type/index.html">type</a> — input 또는 button의 동작 종류를 정한다.</li><li><a href="attr-required/index.html">required</a> — 지원 입력이 비어 있으면 유효하지 않게 만든다.</li><li><a href="attr-disabled/index.html">disabled</a> — 지원 컨트롤을 조작 불가 상태로 만든다.</li><li><a href="attr-readonly/index.html">readonly</a> — 지원 텍스트 입력 등을 편집 불가로 만든다.</li><li><a href="attr-checked/index.html">checked</a> — checkbox/radio의 초기 선택 상태를 지정한다.</li><li><a href="attr-placeholder/index.html">placeholder</a> — 입력이 비어 있을 때 짧은 힌트를 보여 준다.</li><li><a href="attr-pattern/index.html">pattern</a> — 지원 텍스트 입력의 값 전체에 정규식 조건을 적용한다.</li><li><a href="attr-min/index.html">min</a> — 숫자/날짜 등의 허용 최솟값을 정한다.</li><li><a href="attr-max/index.html">max</a> — 숫자/날짜 등의 허용 최댓값을 정한다.</li><li><a href="attr-step/index.html">step</a> — 수치 입력의 유효한 간격을 정한다.</li><li><a href="attr-maxlength/index.html">maxlength</a> — 입력 문자열의 최대 길이를 제한한다.</li><li><a href="attr-autocomplete/index.html">autocomplete</a> — 브라우저 자동 완성의 목적을 설명한다.</li><li><a href="attr-inputmode/index.html">inputmode</a> — 가상 키보드에 입력 종류 힌트를 준다.</li><li><a href="attr-method/index.html">method</a> — form 데이터 전송 방식을 정한다.</li><li><a href="attr-action/index.html">action</a> — form 제출을 처리할 URL을 지정한다.</li><li><a href="attr-enctype/index.html">enctype</a> — POST 폼 데이터의 인코딩 방식을 정한다.</li></ul></section>
+<section id="keywords"><h2>키워드와 적용 대상</h2><div class="table-wrap"><table><thead><tr><th scope="col">키워드</th><th scope="col">어디에 쓰나</th><th scope="col">역할 / 기준</th></tr></thead><tbody><tr><td><code>form action, method</code></td><td>폼</td><td>전송 대상과 GET/POST 방식을 정한다.</td></tr>
+<tr><td><code>label for, input id</code></td><td>입력 연결</td><td>for와 id가 일치하면 라벨 클릭으로 입력에 접근한다.</td></tr>
+<tr><td><code>name, value</code></td><td>전송 데이터</td><td>필드 이름과 값이다. id만으로 전송 이름이 생기지 않는다.</td></tr>
+<tr><td><code>type</code></td><td>input</td><td>text, email, password, number, date, range, color, file 등 입력 종류다.</td></tr>
+<tr><td><code>checkbox, radio</code></td><td>선택 입력</td><td>checkbox는 독립 선택, 같은 name의 radio는 그룹 안의 단일 선택이다.</td></tr>
+<tr><td><code>required, min, max, step, pattern</code></td><td>입력 조건</td><td>빈 값, 수 범위, 간격, 문자열 패턴 등을 검사한다.</td></tr>
+<tr><td><code>select, option, optgroup</code></td><td>선택 목록</td><td>선택 가능한 값과 그룹이다.</td></tr>
+<tr><td><code>textarea</code></td><td>여러 줄 입력</td><td>초깃값은 value 속성이 아닌 태그 사이 텍스트다.</td></tr>
+<tr><td><code>fieldset, legend</code></td><td>관련 입력 묶음</td><td>라디오 그룹처럼 관련된 입력과 그룹 제목을 묶는다.</td></tr>
+<tr><td><code>disabled, readonly</code></td><td>상태</td><td>disabled는 보통 전송에서 빠지고, readonly는 지원 입력에서 읽기 전용이며 전송된다.</td></tr>
+<tr><td><code>button type</code></td><td>버튼</td><td>submit, reset, button을 명시해 의도하지 않은 전송을 막는다.</td></tr>
+<tr><td><code>autocomplete, inputmode</code></td><td>입력 보조</td><td>자동 완성 목적과 가상 키보드 힌트다. 검증 규칙은 아니다.</td></tr></tbody></table></div></section>
+    <section id="examples"><h2>실행 예제와 코드</h2><article class="example" id="example-1">
+    <h3>1. 입력 검사와 전송할 값 관찰</h3>
+    <p>빈 이메일 또는 잘못된 형식으로 누르면 브라우저 검증이 먼저 실행된다. 성공하면 JavaScript가 전송을 막고 FormData만 표시한다.</p>
+    <div class="controls"><label for="width-0">미리보기 너비 <output for="width-0">100%</output></label><input data-width id="width-0" type="range" min="35" max="100" value="100"></div>
+    <div class="preview"><iframe title="입력 검사와 전송할 값 관찰 실행 결과" height="380" sandbox="allow-scripts allow-forms" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ko&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;style&gt;body{margin:16px;font:16px/1.7 sans-serif;color:#182b40}*,*::before,*::after{box-sizing:border-box}button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere}:focus-visible{outline:3px solid #a45200;outline-offset:3px}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;form id=&quot;signup&quot;&gt;
+  &lt;label for=&quot;email&quot;&gt;이메일 (필수)&lt;/label&gt;
+  &lt;input id=&quot;email&quot; name=&quot;email&quot; type=&quot;email&quot; required autocomplete=&quot;email&quot;&gt;
+  &lt;fieldset&gt;&lt;legend&gt;직업&lt;/legend&gt;
+    &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;job&quot; value=&quot;warrior&quot; checked&gt;검사&lt;/label&gt;
+    &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;job&quot; value=&quot;mage&quot;&gt;마법사&lt;/label&gt;
+  &lt;/fieldset&gt;
+  &lt;label&gt;&lt;input type=&quot;checkbox&quot; name=&quot;news&quot; value=&quot;yes&quot;&gt;소식 받기&lt;/label&gt;
+  &lt;button type=&quot;submit&quot;&gt;전송값 확인&lt;/button&gt;
+&lt;/form&gt;
+&lt;pre id=&quot;result&quot; aria-live=&quot;polite&quot;&gt;아직 전송하지 않았다.&lt;/pre&gt;
+&lt;script&gt;
+  document.querySelector('#signup').addEventListener('submit', event =&gt; {
+    event.preventDefault(); // 학습 예제: 서버로 보내지 않는다.
+    const entries = [...new FormData(event.currentTarget).entries()];
+    document.querySelector('#result').textContent = JSON.stringify(entries, null, 2);
+  });
+&lt;/script&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    <details open><summary>주석이 있는 예제 코드</summary>
+      <label for="code-0" class="note">코드를 수정한 뒤 적용할 수 있습니다. 편집 내용은 새로고침하면 사라집니다.</label>
+      <textarea id="code-0" rows="16" spellcheck="false" autocapitalize="off" autocomplete="off">&lt;form id=&quot;signup&quot;&gt;
+  &lt;label for=&quot;email&quot;&gt;이메일 (필수)&lt;/label&gt;
+  &lt;input id=&quot;email&quot; name=&quot;email&quot; type=&quot;email&quot; required autocomplete=&quot;email&quot;&gt;
+  &lt;fieldset&gt;&lt;legend&gt;직업&lt;/legend&gt;
+    &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;job&quot; value=&quot;warrior&quot; checked&gt;검사&lt;/label&gt;
+    &lt;label&gt;&lt;input type=&quot;radio&quot; name=&quot;job&quot; value=&quot;mage&quot;&gt;마법사&lt;/label&gt;
+  &lt;/fieldset&gt;
+  &lt;label&gt;&lt;input type=&quot;checkbox&quot; name=&quot;news&quot; value=&quot;yes&quot;&gt;소식 받기&lt;/label&gt;
+  &lt;button type=&quot;submit&quot;&gt;전송값 확인&lt;/button&gt;
+&lt;/form&gt;
+&lt;pre id=&quot;result&quot; aria-live=&quot;polite&quot;&gt;아직 전송하지 않았다.&lt;/pre&gt;
+&lt;script&gt;
+  document.querySelector('#signup').addEventListener('submit', event =&gt; {
+    event.preventDefault(); // 학습 예제: 서버로 보내지 않는다.
+    const entries = [...new FormData(event.currentTarget).entries()];
+    document.querySelector('#result').textContent = JSON.stringify(entries, null, 2);
+  });
+&lt;/script&gt;</textarea>
+      <div class="controls"><button class="primary" type="button" data-apply>코드 적용</button><button type="button" data-reset>초기화</button></div>
+      <p class="status" role="status"></p>
+    </details>
+  </article>
+<article class="example" id="example-2">
+    <h3>2. 다양한 입력 종류</h3>
+    <p>입력 모양은 브라우저/운영체제에 따라 다르다. 아래 컨트롤은 전송 없이 값을 바꿔 보는 예제다.</p>
+    <div class="controls"><label for="width-1">미리보기 너비 <output for="width-1">100%</output></label><input data-width id="width-1" type="range" min="35" max="100" value="100"></div>
+    <div class="preview"><iframe title="다양한 입력 종류 실행 결과" height="360" sandbox="allow-scripts allow-forms" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ko&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;style&gt;body{margin:16px;font:16px/1.7 sans-serif;color:#182b40}*,*::before,*::after{box-sizing:border-box}button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere}:focus-visible{outline:3px solid #a45200;outline-offset:3px}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;label&gt;개수 &lt;input type=&quot;number&quot; min=&quot;1&quot; max=&quot;10&quot; step=&quot;1&quot; value=&quot;3&quot;&gt;&lt;/label&gt;
+&lt;label&gt;음량 &lt;input type=&quot;range&quot; min=&quot;0&quot; max=&quot;100&quot; value=&quot;40&quot;&gt;&lt;/label&gt;
+&lt;label&gt;색상 &lt;input type=&quot;color&quot; value=&quot;#2456b8&quot;&gt;&lt;/label&gt;
+&lt;label&gt;날짜 &lt;input type=&quot;date&quot;&gt;&lt;/label&gt;
+&lt;label&gt;지역 &lt;select&gt;&lt;option&gt;숲&lt;/option&gt;&lt;option&gt;마을&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
+&lt;label&gt;메모 &lt;textarea rows=&quot;2&quot;&gt;초기 텍스트&lt;/textarea&gt;&lt;/label&gt;
+&lt;style&gt;label { display: block; margin-block: 10px; }&lt;/style&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    <details open><summary>주석이 있는 예제 코드</summary>
+      <label for="code-1" class="note">코드를 수정한 뒤 적용할 수 있습니다. 편집 내용은 새로고침하면 사라집니다.</label>
+      <textarea id="code-1" rows="7" spellcheck="false" autocapitalize="off" autocomplete="off">&lt;label&gt;개수 &lt;input type=&quot;number&quot; min=&quot;1&quot; max=&quot;10&quot; step=&quot;1&quot; value=&quot;3&quot;&gt;&lt;/label&gt;
+&lt;label&gt;음량 &lt;input type=&quot;range&quot; min=&quot;0&quot; max=&quot;100&quot; value=&quot;40&quot;&gt;&lt;/label&gt;
+&lt;label&gt;색상 &lt;input type=&quot;color&quot; value=&quot;#2456b8&quot;&gt;&lt;/label&gt;
+&lt;label&gt;날짜 &lt;input type=&quot;date&quot;&gt;&lt;/label&gt;
+&lt;label&gt;지역 &lt;select&gt;&lt;option&gt;숲&lt;/option&gt;&lt;option&gt;마을&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
+&lt;label&gt;메모 &lt;textarea rows=&quot;2&quot;&gt;초기 텍스트&lt;/textarea&gt;&lt;/label&gt;
+&lt;style&gt;label { display: block; margin-block: 10px; }&lt;/style&gt;</textarea>
+      <div class="controls"><button class="primary" type="button" data-apply>코드 적용</button><button type="button" data-reset>초기화</button></div>
+      <p class="status" role="status"></p>
+    </details>
+  </article></section>
+    <section id="notes"><h2>헷갈리는 점</h2><ul><li>GET은 보통 조회에 사용하며 입력값이 URL 쿼리에 들어간다. POST는 요청 본문을 사용한다. POST 자체가 암호화를 뜻하지는 않는다.</li>
+<li>체크되지 않은 checkbox와 disabled 입력은 보통 FormData에 들어가지 않는다.</li>
+<li>브라우저 검증은 입력 도움이다. 실제 서비스에서는 서버에서도 검증해야 한다. 파일 전송 폼에는 enctype=&quot;multipart/form-data&quot;가 필요하다.</li></ul>
+
+    </section>
+    <section><h2>더 찾아보기</h2><p class="note">표준의 모든 태그/속성은 계속 확장됩니다. 이 페이지는 주제별 핵심 참고이며, 세부 문법과 지원 버전은 원문 색인에서 확인할 수 있습니다.</p><ul class="source-list"><li><a href="https://html.spec.whatwg.org/multipage/indices.html" target="_blank" rel="noopener noreferrer">HTML 요소 색인</a></li></ul></section>
+    <nav class="footer-nav" aria-label="이전 다음 주제"><a href="../../html/06-tables/index.html">← 표와 데이터 구조</a><a href="../../index.html">전체 목록</a><a href="../../html/08-interaction-accessibility/index.html">기본 상호작용과 접근성 →</a></nav></main>
+</body>
+</html>

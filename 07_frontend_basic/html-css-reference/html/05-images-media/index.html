@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>이미지와 미디어 | HTML / CSS 키워드 참고서</title>
+  <link rel="stylesheet" href="../../assets/reference.css">
+  <script src="../../assets/reference.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#content">본문으로 이동</a>
+  <main id="content">
+    <nav aria-label="상위 탐색"><a href="../../index.html">← 전체 키워드</a><a href="../../index.html#html">HTML</a></nav>
+    <p class="eyebrow">HTML / 05</p>
+    <h1>이미지와 미디어</h1><p class="lead">콘텐츠 이미지는 img, 장식은 CSS background로 구분한다. 이미지가 못 뜨는 경우에도 의미가 전달되게 작성한다.</p>
+    <section class="intro"><h2>이 페이지에서 찾기</h2><nav aria-label="페이지 목차"><a href="#keywords">키워드 표</a><a href="#examples">실행 예제</a><a href="#notes">헷갈리는 점</a></nav>
+      <p class="note">예제는 독립된 문서로 실행됩니다. 화면 공통 스타일과 섞이지 않으며, 미리보기 안에서 직접 클릭하거나 입력할 수 있습니다. JavaScript는 코드 적용과 너비 조절을 돕습니다.</p>
+    </section>
+    <section><h2>개별 키워드 백과사전</h2><p>한 항목만 찾아 문법, 값, 예제와 실패 조건을 확인한다.</p><ul class="toc"><li><a href="img/index.html">img</a> — 콘텐츠 이미지를 삽입한다.</li><li><a href="picture/index.html">picture</a> — 조건에 따라 다른 이미지 소스를 선택한다.</li><li><a href="figure/index.html">figure</a> — 본문에서 독립적으로 참조 가능한 그림/코드 등의 단위를 묶는다.</li><li><a href="figcaption/index.html">figcaption</a> — figure의 캡션을 제공한다.</li><li><a href="iframe/index.html">iframe</a> — 독립적인 중첩 HTML 문서를 삽입한다.</li><li><a href="svg/index.html">svg</a> — 요소로 구성되는 벡터 그래픽을 삽입한다.</li><li><a href="canvas/index.html">canvas</a> — 스크립트가 그릴 비트맵 표면을 만든다.</li><li><a href="audio/index.html">audio</a> — 음성 재생 요소를 제공한다.</li><li><a href="video/index.html">video</a> — 영상 재생 요소를 제공한다.</li><li><a href="source/index.html">source</a> — picture 또는 audio/video에 조건별 자원 후보를 제공한다.</li><li><a href="track/index.html">track</a> — video/audio에 자막 등의 시간 기반 텍스트를 연결한다.</li><li><a href="attr-src/index.html">src</a> — 가져올 이미지/스크립트/문서 등의 자원 주소다.</li><li><a href="attr-alt/index.html">alt</a> — 이미지의 대체 텍스트를 제공한다.</li><li><a href="attr-srcset/index.html">srcset</a> — 이미지 소스의 해상도/너비 후보를 제공한다.</li><li><a href="attr-sizes/index.html">sizes</a> — 반응형 이미지의 예상 표시 너비를 브라우저에 알린다.</li><li><a href="attr-loading/index.html">loading</a> — 화면 밖 자원의 로딩 시점을 제안한다.</li></ul></section>
+<section id="keywords"><h2>키워드와 적용 대상</h2><div class="table-wrap"><table><thead><tr><th scope="col">키워드</th><th scope="col">어디에 쓰나</th><th scope="col">역할 / 기준</th></tr></thead><tbody><tr><td><code>img src, alt</code></td><td>이미지</td><td>소스와 대체 텍스트다. 장식 이미지는 alt=&quot;&quot;로 표시한다.</td></tr>
+<tr><td><code>width, height</code></td><td>이미지 크기</td><td>고유 비율을 미리 알려 레이아웃 이동을 줄인다.</td></tr>
+<tr><td><code>figure, figcaption</code></td><td>설명 있는 콘텐츠</td><td>이미지 등의 독립 단위와 캡션을 묶는다.</td></tr>
+<tr><td><code>picture, source</code></td><td>반응형 이미지</td><td>media, type 등의 조건으로 소스를 선택한다.</td></tr>
+<tr><td><code>srcset, sizes</code></td><td>이미지 후보</td><td>해상도 또는 너비 후보와 예상 표시 크기를 제공한다.</td></tr>
+<tr><td><code>loading=&quot;lazy&quot;</code></td><td>로딩</td><td>화면 밖 이미지를 필요 시점에 가깝게 로딩한다.</td></tr>
+<tr><td><code>audio, video, controls</code></td><td>미디어</td><td>브라우저 재생 UI를 제공한다. 자동 재생은 환경에 따라 제한된다.</td></tr>
+<tr><td><code>track</code></td><td>video 자식</td><td>WebVTT 자막 등을 연결한다.</td></tr>
+<tr><td><code>iframe, title, sandbox</code></td><td>중첩 문서</td><td>별도 문서를 삽입하고 접근 가능한 이름과 실행 권한을 지정한다.</td></tr>
+<tr><td><code>svg, canvas</code></td><td>그래픽</td><td>SVG는 벡터 요소, canvas는 스크립트로 그리는 비트맵 표면이다.</td></tr></tbody></table></div></section>
+    <section id="examples"><h2>실행 예제와 코드</h2><article class="example" id="example-1">
+    <h3>1. 파일 없이 확인하는 이미지</h3>
+    <p>SVG 데이터 URL을 사용했다. 실제 작업에서는 src를 이미지 경로로 바꾸면 된다.</p>
+    <div class="controls"><label for="width-0">미리보기 너비 <output for="width-0">100%</output></label><input data-width id="width-0" type="range" min="35" max="100" value="100"></div>
+    <div class="preview"><iframe title="파일 없이 확인하는 이미지 실행 결과" height="270" sandbox="allow-scripts allow-forms" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ko&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;style&gt;body{margin:16px;font:16px/1.7 sans-serif;color:#182b40}*,*::before,*::after{box-sizing:border-box}button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere}:focus-visible{outline:3px solid #a45200;outline-offset:3px}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;figure&gt;
+  &lt;img width=&quot;320&quot; height=&quot;160&quot; alt=&quot;파란 바탕 위 노란 원&quot;
+    src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='160'%3E%3Crect width='320' height='160' fill='%232456b8'/%3E%3Ccircle cx='160' cy='80' r='48' fill='%23ffce66'/%3E%3C/svg%3E&quot;&gt;
+  &lt;figcaption&gt;figure와 figcaption으로 이미지 설명을 묶었다.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;style&gt;img { max-width: 100%; height: auto; } figure { margin: 0; }&lt;/style&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    <details open><summary>주석이 있는 예제 코드</summary>
+      <label for="code-0" class="note">코드를 수정한 뒤 적용할 수 있습니다. 편집 내용은 새로고침하면 사라집니다.</label>
+      <textarea id="code-0" rows="6" spellcheck="false" autocapitalize="off" autocomplete="off">&lt;figure&gt;
+  &lt;img width=&quot;320&quot; height=&quot;160&quot; alt=&quot;파란 바탕 위 노란 원&quot;
+    src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='160'%3E%3Crect width='320' height='160' fill='%232456b8'/%3E%3Ccircle cx='160' cy='80' r='48' fill='%23ffce66'/%3E%3C/svg%3E&quot;&gt;
+  &lt;figcaption&gt;figure와 figcaption으로 이미지 설명을 묶었다.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;style&gt;img { max-width: 100%; height: auto; } figure { margin: 0; }&lt;/style&gt;</textarea>
+      <div class="controls"><button class="primary" type="button" data-apply>코드 적용</button><button type="button" data-reset>초기화</button></div>
+      <p class="status" role="status"></p>
+    </details>
+  </article>
+<article class="example" id="example-2">
+    <h3>2. SVG와 임베디드 문서</h3>
+    <p>iframe은 자신의 HTML 문서를 가진다. 이 참고 자료의 실행 예제도 같은 방식으로 격리한다.</p>
+    <div class="controls"><label for="width-1">미리보기 너비 <output for="width-1">100%</output></label><input data-width id="width-1" type="range" min="35" max="100" value="100"></div>
+    <div class="preview"><iframe title="SVG와 임베디드 문서 실행 결과" height="270" sandbox="allow-scripts allow-forms" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ko&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;style&gt;body{margin:16px;font:16px/1.7 sans-serif;color:#182b40}*,*::before,*::after{box-sizing:border-box}button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere}:focus-visible{outline:3px solid #a45200;outline-offset:3px}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;svg viewBox=&quot;0 0 200 60&quot; width=&quot;200&quot; role=&quot;img&quot; aria-label=&quot;초록색 가로 막대&quot;&gt;
+  &lt;rect width=&quot;160&quot; height=&quot;40&quot; x=&quot;10&quot; y=&quot;10&quot; rx=&quot;8&quot; fill=&quot;#18794e&quot; /&gt;
+&lt;/svg&gt;
+&lt;iframe title=&quot;삽입한 짧은 문서&quot; sandbox
+  srcdoc=&quot;&lt;p&gt;iframe 내부 문서입니다.&lt;/p&gt;&quot;&gt;&lt;/iframe&gt;
+&lt;style&gt;iframe { display: block; width: 95%; height: 90px; }&lt;/style&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    <details open><summary>주석이 있는 예제 코드</summary>
+      <label for="code-1" class="note">코드를 수정한 뒤 적용할 수 있습니다. 편집 내용은 새로고침하면 사라집니다.</label>
+      <textarea id="code-1" rows="6" spellcheck="false" autocapitalize="off" autocomplete="off">&lt;svg viewBox=&quot;0 0 200 60&quot; width=&quot;200&quot; role=&quot;img&quot; aria-label=&quot;초록색 가로 막대&quot;&gt;
+  &lt;rect width=&quot;160&quot; height=&quot;40&quot; x=&quot;10&quot; y=&quot;10&quot; rx=&quot;8&quot; fill=&quot;#18794e&quot; /&gt;
+&lt;/svg&gt;
+&lt;iframe title=&quot;삽입한 짧은 문서&quot; sandbox
+  srcdoc=&quot;&lt;p&gt;iframe 내부 문서입니다.&lt;/p&gt;&quot;&gt;&lt;/iframe&gt;
+&lt;style&gt;iframe { display: block; width: 95%; height: 90px; }&lt;/style&gt;</textarea>
+      <div class="controls"><button class="primary" type="button" data-apply>코드 적용</button><button type="button" data-reset>초기화</button></div>
+      <p class="status" role="status"></p>
+    </details>
+  </article></section>
+    <section id="notes"><h2>헷갈리는 점</h2><ul><li>video에는 controls와 필요한 자막을 제공한다. 예: &lt;video controls&gt;&lt;source src=&quot;clip.mp4&quot; type=&quot;video/mp4&quot;&gt;&lt;track kind=&quot;captions&quot; src=&quot;ko.vtt&quot; srclang=&quot;ko&quot; label=&quot;한국어&quot;&gt;&lt;/video&gt;. 실제 미디어 파일은 별도로 필요하다.</li>
+<li>srcset의 480w와 960w는 이미지 파일의 실제 픽셀 너비다. sizes는 이미지가 배치될 너비 조건이다.</li>
+<li>object-fit은 img/video 콘텐츠의 박스 내부 맞춤 방식이다. CSS 배경에는 background-size를 사용한다.</li></ul>
+
+    </section>
+    <section><h2>더 찾아보기</h2><p class="note">표준의 모든 태그/속성은 계속 확장됩니다. 이 페이지는 주제별 핵심 참고이며, 세부 문법과 지원 버전은 원문 색인에서 확인할 수 있습니다.</p><ul class="source-list"><li><a href="https://html.spec.whatwg.org/multipage/indices.html" target="_blank" rel="noopener noreferrer">HTML 요소 색인</a></li></ul></section>
+    <nav class="footer-nav" aria-label="이전 다음 주제"><a href="../../html/04-links-paths/index.html">← 링크와 파일 경로</a><a href="../../index.html">전체 목록</a><a href="../../html/06-tables/index.html">표와 데이터 구조 →</a></nav></main>
+</body>
+</html>

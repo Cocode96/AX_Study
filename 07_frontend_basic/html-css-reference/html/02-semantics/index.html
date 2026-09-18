@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>시맨틱 구조 | HTML / CSS 키워드 참고서</title>
+  <link rel="stylesheet" href="../../assets/reference.css">
+  <script src="../../assets/reference.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#content">본문으로 이동</a>
+  <main id="content">
+    <nav aria-label="상위 탐색"><a href="../../index.html">← 전체 키워드</a><a href="../../index.html#html">HTML</a></nav>
+    <p class="eyebrow">HTML / 02</p>
+    <h1>시맨틱 구조</h1><p class="lead">태그는 시각적 모양보다 콘텐츠의 역할에 맞춰 선택한다. 기본 표시 방식은 CSS로 바꿀 수 있다.</p>
+    <section class="intro"><h2>이 페이지에서 찾기</h2><nav aria-label="페이지 목차"><a href="#keywords">키워드 표</a><a href="#examples">실행 예제</a><a href="#notes">헷갈리는 점</a></nav>
+      <p class="note">예제는 독립된 문서로 실행됩니다. 화면 공통 스타일과 섞이지 않으며, 미리보기 안에서 직접 클릭하거나 입력할 수 있습니다. JavaScript는 코드 적용과 너비 조절을 돕습니다.</p>
+    </section>
+    <section><h2>개별 키워드 백과사전</h2><p>한 항목만 찾아 문법, 값, 예제와 실패 조건을 확인한다.</p><ul class="toc"><li><a href="header/index.html">header</a> — 페이지 또는 구획의 머리말을 담는다.</li><li><a href="nav/index.html">nav</a> — 주요 탐색 링크를 묶는다.</li><li><a href="main/index.html">main</a> — 문서의 지배적인 주요 콘텐츠를 담는다.</li><li><a href="section/index.html">section</a> — 하나의 주제를 가진 문서 구획을 만든다.</li><li><a href="article/index.html">article</a> — 독립적으로 배포하거나 재사용할 수 있는 콘텐츠 단위다.</li><li><a href="aside/index.html">aside</a> — 본문과 관련 있지만 부수적인 정보를 담는다.</li><li><a href="footer/index.html">footer</a> — 페이지 또는 가까운 구획의 꼬리말을 담는다.</li><li><a href="div/index.html">div</a> — 별도 의미 없이 흐름 콘텐츠를 묶는다.</li><li><a href="span/index.html">span</a> — 문장 안의 일부를 의미 없는 인라인 묶음으로 감싼다.</li><li><a href="h1-h6/index.html">h1-h6</a> — 문서 제목의 논리적 계층을 표현한다.</li><li><a href="address/index.html">address</a> — 가까운 article 또는 문서의 연락처 정보를 담는다.</li></ul></section>
+<section id="keywords"><h2>키워드와 적용 대상</h2><div class="table-wrap"><table><thead><tr><th scope="col">키워드</th><th scope="col">어디에 쓰나</th><th scope="col">역할 / 기준</th></tr></thead><tbody><tr><td><code>header, footer</code></td><td>페이지 또는 구획</td><td>머리말과 꼬리말이다. 고정 위치를 뜻하지 않는다.</td></tr>
+<tr><td><code>nav</code></td><td>주요 탐색 영역</td><td>주요 페이지 또는 구획 이동 링크를 묶는다.</td></tr>
+<tr><td><code>main</code></td><td>문서 주요 콘텐츠</td><td>일반적인 문서에서는 표시되는 main을 하나 둔다.</td></tr>
+<tr><td><code>section</code></td><td>주제별 구획</td><td>보통 제목과 함께 하나의 주제를 묶는다.</td></tr>
+<tr><td><code>article</code></td><td>독립 콘텐츠</td><td>게시글, 기사처럼 독립적으로 재사용할 단위다.</td></tr>
+<tr><td><code>aside</code></td><td>보조 콘텐츠</td><td>관련 링크, 부가 설명처럼 본문에 부수적인 내용이다.</td></tr>
+<tr><td><code>div, span</code></td><td>일반 묶음</td><td>특별한 의미 없이 묶는다. 기본 div는 block, span은 inline이다.</td></tr>
+<tr><td><code>h1 ~ h6</code></td><td>제목 단계</td><td>문서의 논리적 계층을 표시한다. 글자 크기 때문에 단계를 고르지 않는다.</td></tr></tbody></table></div></section>
+    <section id="examples"><h2>실행 예제와 코드</h2><article class="example" id="example-1">
+    <h3>1. 페이지 영역 나누기</h3>
+    <p>각 영역의 테두리는 CSS가 그린다. header라는 이름만으로 화면 위에 고정되지 않는다.</p>
+    <div class="controls"><label for="width-0">미리보기 너비 <output for="width-0">100%</output></label><input data-width id="width-0" type="range" min="35" max="100" value="100"></div>
+    <div class="preview"><iframe title="페이지 영역 나누기 실행 결과" height="400" sandbox="allow-scripts allow-forms" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ko&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;style&gt;body{margin:16px;font:16px/1.7 sans-serif;color:#182b40}*,*::before,*::after{box-sizing:border-box}button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere}:focus-visible{outline:3px solid #a45200;outline-offset:3px}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;header&gt;&lt;strong&gt;AX 학습 기록&lt;/strong&gt;&lt;/header&gt;
+&lt;nav aria-label=&quot;주요 메뉴&quot;&gt;&lt;a href=&quot;#lesson&quot;&gt;오늘의 정리&lt;/a&gt;&lt;/nav&gt;
+&lt;main id=&quot;lesson&quot;&gt;
+  &lt;h1&gt;프론트엔드&lt;/h1&gt;
+  &lt;section&gt;&lt;h2&gt;HTML 구조&lt;/h2&gt;&lt;p&gt;태그의 역할을 정리한다.&lt;/p&gt;&lt;/section&gt;
+  &lt;aside&gt;관련 자료: CSS 선택자&lt;/aside&gt;
+&lt;/main&gt;
+&lt;footer&gt;학습용 예제&lt;/footer&gt;
+&lt;style&gt;
+  header, nav, main, aside, footer { padding: 8px; border: 1px solid #8ca3c1; }
+&lt;/style&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    <details open><summary>주석이 있는 예제 코드</summary>
+      <label for="code-0" class="note">코드를 수정한 뒤 적용할 수 있습니다. 편집 내용은 새로고침하면 사라집니다.</label>
+      <textarea id="code-0" rows="11" spellcheck="false" autocapitalize="off" autocomplete="off">&lt;header&gt;&lt;strong&gt;AX 학습 기록&lt;/strong&gt;&lt;/header&gt;
+&lt;nav aria-label=&quot;주요 메뉴&quot;&gt;&lt;a href=&quot;#lesson&quot;&gt;오늘의 정리&lt;/a&gt;&lt;/nav&gt;
+&lt;main id=&quot;lesson&quot;&gt;
+  &lt;h1&gt;프론트엔드&lt;/h1&gt;
+  &lt;section&gt;&lt;h2&gt;HTML 구조&lt;/h2&gt;&lt;p&gt;태그의 역할을 정리한다.&lt;/p&gt;&lt;/section&gt;
+  &lt;aside&gt;관련 자료: CSS 선택자&lt;/aside&gt;
+&lt;/main&gt;
+&lt;footer&gt;학습용 예제&lt;/footer&gt;
+&lt;style&gt;
+  header, nav, main, aside, footer { padding: 8px; border: 1px solid #8ca3c1; }
+&lt;/style&gt;</textarea>
+      <div class="controls"><button class="primary" type="button" data-apply>코드 적용</button><button type="button" data-reset>초기화</button></div>
+      <p class="status" role="status"></p>
+    </details>
+  </article>
+<article class="example" id="example-2">
+    <h3>2. 독립 카드와 내부 텍스트</h3>
+    <p>카드 하나를 다른 곳에 옮겨도 의미가 유지되면 article이 자연스럽다.</p>
+    <div class="controls"><label for="width-1">미리보기 너비 <output for="width-1">100%</output></label><input data-width id="width-1" type="range" min="35" max="100" value="100"></div>
+    <div class="preview"><iframe title="독립 카드와 내부 텍스트 실행 결과" height="270" sandbox="allow-scripts allow-forms" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ko&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;style&gt;body{margin:16px;font:16px/1.7 sans-serif;color:#182b40}*,*::before,*::after{box-sizing:border-box}button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere}:focus-visible{outline:3px solid #a45200;outline-offset:3px}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;article&gt;
+  &lt;h2&gt;업데이트 소식&lt;/h2&gt;
+  &lt;p&gt;&lt;time datetime=&quot;2026-09-18&quot;&gt;2026년 9월 18일&lt;/time&gt;&lt;/p&gt;
+  &lt;p&gt;새 지역 &lt;span class=&quot;name&quot;&gt;초원&lt;/span&gt;이 열렸다.&lt;/p&gt;
+&lt;/article&gt;
+&lt;style&gt;.name { color: #176543; font-weight: bold; }&lt;/style&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    <details open><summary>주석이 있는 예제 코드</summary>
+      <label for="code-1" class="note">코드를 수정한 뒤 적용할 수 있습니다. 편집 내용은 새로고침하면 사라집니다.</label>
+      <textarea id="code-1" rows="6" spellcheck="false" autocapitalize="off" autocomplete="off">&lt;article&gt;
+  &lt;h2&gt;업데이트 소식&lt;/h2&gt;
+  &lt;p&gt;&lt;time datetime=&quot;2026-09-18&quot;&gt;2026년 9월 18일&lt;/time&gt;&lt;/p&gt;
+  &lt;p&gt;새 지역 &lt;span class=&quot;name&quot;&gt;초원&lt;/span&gt;이 열렸다.&lt;/p&gt;
+&lt;/article&gt;
+&lt;style&gt;.name { color: #176543; font-weight: bold; }&lt;/style&gt;</textarea>
+      <div class="controls"><button class="primary" type="button" data-apply>코드 적용</button><button type="button" data-reset>초기화</button></div>
+      <p class="status" role="status"></p>
+    </details>
+  </article></section>
+    <section id="notes"><h2>헷갈리는 점</h2><ul><li>section을 단순히 여백을 넣는 상자로 남용하지 않는다. 의미 없는 묶음은 div로 충분하다.</li>
+<li>a 안에 button을 넣거나 button 안에 a를 넣는 등 상호작용 요소를 중첩하지 않는다.</li></ul>
+
+    </section>
+    <section><h2>더 찾아보기</h2><p class="note">표준의 모든 태그/속성은 계속 확장됩니다. 이 페이지는 주제별 핵심 참고이며, 세부 문법과 지원 버전은 원문 색인에서 확인할 수 있습니다.</p><ul class="source-list"><li><a href="https://html.spec.whatwg.org/multipage/indices.html" target="_blank" rel="noopener noreferrer">HTML 요소 색인</a></li></ul></section>
+    <nav class="footer-nav" aria-label="이전 다음 주제"><a href="../../html/01-document/index.html">← 문서 구조와 연결</a><a href="../../index.html">전체 목록</a><a href="../../html/03-text-lists/index.html">텍스트와 목록 →</a></nav></main>
+</body>
+</html>

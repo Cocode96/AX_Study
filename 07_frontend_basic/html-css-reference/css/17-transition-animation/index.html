@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>전환과 애니메이션 | HTML / CSS 키워드 참고서</title>
+  <link rel="stylesheet" href="../../assets/reference.css">
+  <script src="../../assets/reference.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#content">본문으로 이동</a>
+  <main id="content">
+    <nav aria-label="상위 탐색"><a href="../../index.html">← 전체 키워드</a><a href="../../index.html#css">CSS</a></nav>
+    <p class="eyebrow">CSS / 25</p>
+    <h1>전환과 애니메이션</h1><p class="lead">transition은 값이 바뀔 때 두 상태를 연결하고, animation은 keyframes로 시간에 따른 상태를 정의한다.</p>
+    <section class="intro"><h2>이 페이지에서 찾기</h2><nav aria-label="페이지 목차"><a href="#keywords">키워드 표</a><a href="#examples">실행 예제</a><a href="#notes">헷갈리는 점</a></nav>
+      <p class="note">예제는 독립된 문서로 실행됩니다. 화면 공통 스타일과 섞이지 않으며, 미리보기 안에서 직접 클릭하거나 입력할 수 있습니다. JavaScript는 코드 적용과 너비 조절을 돕습니다.</p>
+    </section>
+    <section><h2>개별 키워드 백과사전</h2><p>한 항목만 찾아 문법, 값, 예제와 실패 조건을 확인한다.</p><ul class="toc"><li><a href="transition/index.html">transition</a> — 속성값이 바뀔 때의 전환을 축약 지정한다.</li><li><a href="transition-property/index.html">transition-property</a> — 전환할 속성을 정한다.</li><li><a href="transition-duration/index.html">transition-duration</a> — 전환에 걸리는 시간을 정한다.</li><li><a href="transition-delay/index.html">transition-delay</a> — 값이 바뀐 후 전환이 시작될 때까지 기다릴 시간을 정한다.</li><li><a href="transition-timing-function/index.html">transition-timing-function</a> — 시간에 따른 전환 진행 비율을 정한다.</li><li><a href="animation/index.html">animation</a> — keyframes 기반 애니메이션을 축약 지정한다.</li><li><a href="animation-name/index.html">animation-name</a> — 사용할 keyframes 이름을 정한다.</li><li><a href="animation-duration/index.html">animation-duration</a> — 애니메이션 한 주기에 걸리는 시간을 정한다.</li><li><a href="animation-delay/index.html">animation-delay</a> — 애니메이션 시작 지연을 정한다.</li><li><a href="animation-timing-function/index.html">animation-timing-function</a> — 키프레임 구간의 진행 곡선을 정한다.</li><li><a href="animation-iteration-count/index.html">animation-iteration-count</a> — 애니메이션 반복 횟수를 정한다.</li><li><a href="animation-direction/index.html">animation-direction</a> — 각 반복의 진행 방향을 정한다.</li><li><a href="animation-fill-mode/index.html">animation-fill-mode</a> — 재생 전후에 어떤 프레임 스타일을 유지할지 정한다.</li><li><a href="animation-play-state/index.html">animation-play-state</a> — 재생 또는 일시정지를 정한다.</li><li><a href="fn-cubic-bezier/index.html">cubic-bezier()</a> — 전환/애니메이션의 진행 곡선을 제어점으로 정의한다.</li><li><a href="fn-steps/index.html">steps()</a> — 부드러운 변화 대신 일정 단계로 나누어 진행한다.</li><li><a href="at-keyframes/index.html">@keyframes</a> — 시간별 애니메이션 상태를 정의한다.</li></ul></section>
+<section id="keywords"><h2>키워드와 적용 대상</h2><div class="table-wrap"><table><thead><tr><th scope="col">키워드</th><th scope="col">어디에 쓰나</th><th scope="col">역할 / 기준</th></tr></thead><tbody><tr><td><code>transition-property, transition-duration</code></td><td>전환</td><td>변화시킬 속성과 걸리는 시간이다.</td></tr>
+<tr><td><code>transition-delay, transition-timing-function</code></td><td>전환</td><td>시작 지연과 시간에 따른 변화 곡선이다.</td></tr>
+<tr><td><code>@keyframes</code></td><td>프레임 정의</td><td>from/to 또는 %로 중간 상태를 작성한다.</td></tr>
+<tr><td><code>animation-name, animation-duration</code></td><td>애니메이션</td><td>사용할 keyframes 이름과 주기다.</td></tr>
+<tr><td><code>animation-iteration-count, animation-direction</code></td><td>반복</td><td>반복 횟수와 진행/왕복 방향이다.</td></tr>
+<tr><td><code>animation-fill-mode</code></td><td>전후 상태</td><td>재생 전후에 keyframe 값을 적용하는 방식을 정한다.</td></tr>
+<tr><td><code>animation-play-state</code></td><td>상태</td><td>running 또는 paused다.</td></tr>
+<tr><td><code>ease, linear, steps(), cubic-bezier()</code></td><td>보간</td><td>시간별 진행 비율을 정한다.</td></tr>
+<tr><td><code>prefers-reduced-motion</code></td><td>환경 조건</td><td>움직임 줄이기 사용자 설정을 감지한다.</td></tr></tbody></table></div></section>
+    <section id="examples"><h2>실행 예제와 코드</h2><article class="example" id="example-1">
+    <h3>1. 전환할 속성을 명시하기</h3>
+    <p>hover 또는 Tab으로 포커스하면 배경과 이동 값이 바뀐다.</p>
+    <div class="controls"><label for="width-0">미리보기 너비 <output for="width-0">100%</output></label><input data-width id="width-0" type="range" min="35" max="100" value="100"></div>
+    <div class="preview"><iframe title="전환할 속성을 명시하기 실행 결과" height="270" sandbox="allow-scripts allow-forms" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ko&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;style&gt;body{margin:16px;font:16px/1.7 sans-serif;color:#182b40}*,*::before,*::after{box-sizing:border-box}button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere}:focus-visible{outline:3px solid #a45200;outline-offset:3px}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;button class=&quot;action&quot; type=&quot;button&quot;&gt;올리거나 포커스&lt;/button&gt;
+&lt;style&gt;
+  .action { margin: 30px; padding: 20px; background: #dceaff;
+    transition: transform .2s ease, background-color .2s ease; }
+  .action:hover, .action:focus-visible { transform: translateY(-6px); background: #bdd4f5; }
+  @media (prefers-reduced-motion: reduce) { .action { transition: none; } }
+&lt;/style&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    <details open><summary>주석이 있는 예제 코드</summary>
+      <label for="code-0" class="note">코드를 수정한 뒤 적용할 수 있습니다. 편집 내용은 새로고침하면 사라집니다.</label>
+      <textarea id="code-0" rows="7" spellcheck="false" autocapitalize="off" autocomplete="off">&lt;button class=&quot;action&quot; type=&quot;button&quot;&gt;올리거나 포커스&lt;/button&gt;
+&lt;style&gt;
+  .action { margin: 30px; padding: 20px; background: #dceaff;
+    transition: transform .2s ease, background-color .2s ease; }
+  .action:hover, .action:focus-visible { transform: translateY(-6px); background: #bdd4f5; }
+  @media (prefers-reduced-motion: reduce) { .action { transition: none; } }
+&lt;/style&gt;</textarea>
+      <div class="controls"><button class="primary" type="button" data-apply>코드 적용</button><button type="button" data-reset>초기화</button></div>
+      <p class="status" role="status"></p>
+    </details>
+  </article>
+<article class="example" id="example-2">
+    <h3>2. 체크로 재생/정지</h3>
+    <p>기본은 정지 상태다. 체크하면 좌우로 왕복하며, 움직임 줄이기 환경에서는 움직이지 않는다.</p>
+    <div class="controls"><label for="width-1">미리보기 너비 <output for="width-1">100%</output></label><input data-width id="width-1" type="range" min="35" max="100" value="100"></div>
+    <div class="preview"><iframe title="체크로 재생/정지 실행 결과" height="270" sandbox="allow-scripts allow-forms" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ko&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;style&gt;body{margin:16px;font:16px/1.7 sans-serif;color:#182b40}*,*::before,*::after{box-sizing:border-box}button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere}:focus-visible{outline:3px solid #a45200;outline-offset:3px}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;label&gt;&lt;input id=&quot;play&quot; type=&quot;checkbox&quot;&gt;애니메이션 재생&lt;/label&gt;
+&lt;div class=&quot;track&quot;&gt;&lt;div class=&quot;ball&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;style&gt;
+  .track { max-width: 260px; padding: 20px 0; }
+  .ball { width: 40px; height: 40px; border-radius: 50%; background: #2456b8;
+    animation: slide 1.5s ease-in-out infinite alternate; animation-play-state: paused; }
+  body:has(#play:checked) .ball { animation-play-state: running; }
+  @keyframes slide { from { transform: translateX(0); } to { transform: translateX(140px); } }
+  @media (prefers-reduced-motion: reduce) { .ball { animation: none; } }
+&lt;/style&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    <details open><summary>주석이 있는 예제 코드</summary>
+      <label for="code-1" class="note">코드를 수정한 뒤 적용할 수 있습니다. 편집 내용은 새로고침하면 사라집니다.</label>
+      <textarea id="code-1" rows="10" spellcheck="false" autocapitalize="off" autocomplete="off">&lt;label&gt;&lt;input id=&quot;play&quot; type=&quot;checkbox&quot;&gt;애니메이션 재생&lt;/label&gt;
+&lt;div class=&quot;track&quot;&gt;&lt;div class=&quot;ball&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;style&gt;
+  .track { max-width: 260px; padding: 20px 0; }
+  .ball { width: 40px; height: 40px; border-radius: 50%; background: #2456b8;
+    animation: slide 1.5s ease-in-out infinite alternate; animation-play-state: paused; }
+  body:has(#play:checked) .ball { animation-play-state: running; }
+  @keyframes slide { from { transform: translateX(0); } to { transform: translateX(140px); } }
+  @media (prefers-reduced-motion: reduce) { .ball { animation: none; } }
+&lt;/style&gt;</textarea>
+      <div class="controls"><button class="primary" type="button" data-apply>코드 적용</button><button type="button" data-reset>초기화</button></div>
+      <p class="status" role="status"></p>
+    </details>
+  </article></section>
+    <section id="notes"><h2>헷갈리는 점</h2><ul><li>모든 속성이 숫자처럼 연속 보간되는 것은 아니다. display 같은 이산 속성은 별도 조건/기법이 필요하다.</li>
+<li>transform/opacity는 레이아웃 변경을 줄이는 데 유리할 수 있지만 성능을 무조건 보장하지 않는다.</li></ul>
+      <p>기존 상세 예제: <a href="../../../css-animation.html">css-animation.html</a></p>
+    </section>
+    <section><h2>더 찾아보기</h2><p class="note">표준의 모든 태그/속성은 계속 확장됩니다. 이 페이지는 주제별 핵심 참고이며, 세부 문법과 지원 버전은 원문 색인에서 확인할 수 있습니다.</p><ul class="source-list"><li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference" target="_blank" rel="noopener noreferrer">CSS 속성/선택자 색인</a></li></ul></section>
+    <nav class="footer-nav" aria-label="이전 다음 주제"><a href="../../css/16-transform/index.html">← transform과 2D/3D 좌표</a><a href="../../index.html">전체 목록</a><a href="../../css/18-responsive/index.html">반응형, 미디어와 컨테이너 →</a></nav></main>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>@container | HTML / CSS 키워드 참고서</title>
+  <link rel="stylesheet" href="../../../assets/reference.css">
+  <script src="../../../assets/reference.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#content">본문으로 이동</a>
+  <main id="content">
+ <nav aria-label="상위 탐색"><a href="../../../index.html">← 키워드 검색</a><a href="../index.html">같은 주제: 반응형, 미디어와 컨테이너</a></nav>
+ <p class="eyebrow">CSS / at-rule</p><h1><code>@container</code></h1><p class="lead">선택된 조상 컨테이너 조건에 따라 후손 스타일을 바꾼다.</p>
+ <section class="intro"><h2>어디에 쓰나</h2><p>스타일시트 안의 @규칙. 중괄호 또는 세미콜론 구조를 예제대로 작성한다.</p>
+
+ <nav aria-label="항목 목차"><a href="#values">문법과 값</a><a href="#example">실행/수정</a><a href="#troubleshooting">안 될 때</a><a href="#related">관련 항목</a></nav></section>
+ <section id="values"><h2>문법과 값별 차이</h2><div class="table-wrap"><table><thead><tr><th scope="col">값 / 문법</th><th scope="col">무엇이 달라지나</th></tr></thead><tbody><tr><td><code>container-type:inline-size</code></td><td>조상을 크기 쿼리 컨테이너로 지정</td></tr>
+<tr><td><code>(min-width:400px)</code></td><td>그 컨테이너 너비 조건</td></tr></tbody></table></div><p class="note">이 표는 자주 사용하는 값과 비교할 차이를 정리한다. 전체 문법과 세부 지원 버전은 아래 원문 링크에서 확인한다.</p></section>
+ <section id="example"><h2>바로 수정하는 예제</h2><article class="example" id="sample"><h3>@container를 직접 바꾸기</h3><p>아래 HTML과 CSS를 수정한 후 코드 적용을 누른다. 필요한 JavaScript는 예제 안에 함께 표시했다.</p>
+  <div class="controls"><label for="width">미리보기 폭 <output for="width">100%</output></label><input id="width" data-width type="range" min="35" max="100" value="100"></div>
+  <div class="preview"><iframe title="@container 동작 예제" height="320" sandbox="allow-scripts allow-forms" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ko&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;style&gt;body{margin:16px;font:16px/1.7 sans-serif;color:#182b40}*,*::before,*::after{box-sizing:border-box}button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere}:focus-visible{outline:3px solid #a45200;outline-offset:3px}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;host&quot;&gt;&lt;p class=&quot;target&quot;&gt;부모가 400px 이상이면 초록&lt;/p&gt;&lt;/div&gt;&lt;style&gt;.host{container-type:inline-size;width:100%}.target{padding:24px;background:#dceaff}@container(min-width:400px){.target{background:#d9f5e6}}&lt;/style&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+  <label for="code" class="note">주석을 포함한 예제 전체 코드. 변경은 미리보기에만 적용되며 새로고침하면 사라진다.</label>
+  <textarea id="code" rows="18" spellcheck="false" autocapitalize="off" autocomplete="off">&lt;div class=&quot;host&quot;&gt;&lt;p class=&quot;target&quot;&gt;부모가 400px 이상이면 초록&lt;/p&gt;&lt;/div&gt;&lt;style&gt;.host{container-type:inline-size;width:100%}.target{padding:24px;background:#dceaff}@container(min-width:400px){.target{background:#d9f5e6}}&lt;/style&gt;</textarea>
+  <div class="controls"><button data-apply type="button" class="primary">코드 적용</button><button data-reset type="button">초기화</button><button data-copy type="button">코드 복사</button></div><p class="status" role="status"></p></article></section>
+ <section id="troubleshooting"><h2>안 되거나 헷갈릴 때</h2><p>쿼리 대상 컨테이너 자기 자신을 그 크기 조건으로 꾸미는 것이 아니다. 보통 후손을 대상으로 한다.</p></section>
+ <section id="related"><h2>함께 보는 키워드</h2><p><a href="../at-media/index.html">@media</a> / <a href="../at-supports/index.html">@supports</a></p><p><a href="../index.html">반응형, 미디어와 컨테이너의 전체 설명과 추가 예제</a></p></section>
+ <p class="note">더 자세한 문법: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference" target="_blank" rel="noopener noreferrer">CSS 원문 참고</a>. 자료 작성/확인일 2026-09-18. 외부 참고 링크에만 인터넷이 필요하다.</p></main>
+</body>
+</html>

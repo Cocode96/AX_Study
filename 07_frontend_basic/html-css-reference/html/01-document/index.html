@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>문서 구조와 연결 | HTML / CSS 키워드 참고서</title>
+  <link rel="stylesheet" href="../../assets/reference.css">
+  <script src="../../assets/reference.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#content">본문으로 이동</a>
+  <main id="content">
+    <nav aria-label="상위 탐색"><a href="../../index.html">← 전체 키워드</a><a href="../../index.html#html">HTML</a></nav>
+    <p class="eyebrow">HTML / 01</p>
+    <h1>문서 구조와 연결</h1><p class="lead">HTML은 콘텐츠의 의미와 부모/자식 구조를 표현한다. CSS는 그 구조가 화면에 보이는 방식을 정한다.</p>
+    <section class="intro"><h2>이 페이지에서 찾기</h2><nav aria-label="페이지 목차"><a href="#keywords">키워드 표</a><a href="#examples">실행 예제</a><a href="#notes">헷갈리는 점</a></nav>
+      <p class="note">예제는 독립된 문서로 실행됩니다. 화면 공통 스타일과 섞이지 않으며, 미리보기 안에서 직접 클릭하거나 입력할 수 있습니다. JavaScript는 코드 적용과 너비 조절을 돕습니다.</p>
+    </section>
+    <section><h2>개별 키워드 백과사전</h2><p>한 항목만 찾아 문법, 값, 예제와 실패 조건을 확인한다.</p><ul class="toc"><li><a href="html/index.html">html</a> — 문서 루트 요소이며 문서 언어를 함께 지정한다.</li><li><a href="head/index.html">head</a> — 문서 제목과 인코딩, 스타일 연결 등 메타데이터를 담는다.</li><li><a href="body/index.html">body</a> — 문서에서 사용자에게 제공할 콘텐츠를 담는다.</li><li><a href="title/index.html">title</a> — 문서의 이름을 브라우저 탭과 북마크 등에 제공한다.</li><li><a href="meta/index.html">meta</a> — 인코딩, 뷰포트, 설명 등의 문서 메타데이터를 지정한다.</li><li><a href="link/index.html">link</a> — 외부 리소스와 문서의 관계를 선언한다.</li><li><a href="style/index.html">style</a> — HTML 문서 안에 CSS 규칙을 작성한다.</li><li><a href="script/index.html">script</a> — 스크립트를 실행하거나 외부 스크립트를 연결한다.</li><li><a href="noscript/index.html">noscript</a> — 스크립트가 비활성인 환경에서 대체 내용을 제공한다.</li><li><a href="attr-id/index.html">id</a> — 문서 안에서 고유한 식별자를 지정한다.</li><li><a href="attr-class/index.html">class</a> — 여러 요소를 재사용 가능한 이름으로 묶는다.</li><li><a href="attr-lang/index.html">lang</a> — 문서/일부 콘텐츠의 언어를 알린다.</li><li><a href="attr-style-attribute/index.html">style-attribute</a> — 요소 하나에 인라인 CSS 선언을 적용한다.</li></ul></section>
+<section id="keywords"><h2>키워드와 적용 대상</h2><div class="table-wrap"><table><thead><tr><th scope="col">키워드</th><th scope="col">어디에 쓰나</th><th scope="col">역할 / 기준</th></tr></thead><tbody><tr><td><code>&lt;!doctype html&gt;</code></td><td>문서 첫 줄</td><td>표준 모드로 해석하도록 선언한다. HTML 요소는 아니다.</td></tr>
+<tr><td><code>html, lang</code></td><td>문서 루트</td><td>문서 언어를 lang=&quot;ko&quot;처럼 표시한다.</td></tr>
+<tr><td><code>head, body</code></td><td>html의 자식</td><td>head는 메타데이터, body는 화면 콘텐츠를 담는다.</td></tr>
+<tr><td><code>meta charset</code></td><td>head</td><td>UTF-8 문자 인코딩을 선언한다.</td></tr>
+<tr><td><code>meta viewport</code></td><td>head</td><td>모바일에서 장치 너비를 레이아웃 기준으로 사용한다.</td></tr>
+<tr><td><code>title</code></td><td>head</td><td>탭, 북마크에 쓰는 문서 제목이다.</td></tr>
+<tr><td><code>link rel=&quot;stylesheet&quot;</code></td><td>head</td><td>외부 CSS를 연결한다. href는 문서 기준 경로다.</td></tr>
+<tr><td><code>style, script defer</code></td><td>문서</td><td>style은 CSS, defer가 붙은 외부 일반 script는 파싱 후 문서 순서대로 실행한다.</td></tr></tbody></table></div></section>
+    <section id="examples"><h2>실행 예제와 코드</h2><article class="example" id="example-1">
+    <h3>1. 최소 문서</h3>
+    <p>제목은 탭에, h1과 p는 본문에 사용한다. 이 예제는 iframe 안에서 독립 문서로 열린다.</p>
+    <div class="controls"><label for="width-0">미리보기 너비 <output for="width-0">100%</output></label><input data-width id="width-0" type="range" min="35" max="100" value="100"></div>
+    <div class="preview"><iframe title="최소 문서 실행 결과" height="270" sandbox="allow-scripts allow-forms" srcdoc="&lt;!doctype html&gt;
+&lt;html lang=&quot;ko&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;나의 HTML 문서&lt;/title&gt;
+  &lt;style&gt;body { font-family: sans-serif; padding: 16px; }&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;!-- h1과 p는 같은 body를 부모로 가진 형제다. --&gt;
+  &lt;h1&gt;HTML 참고 노트&lt;/h1&gt;
+  &lt;p&gt;내용은 body 내부에 작성한다.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;"></iframe></div>
+    <details open><summary>주석이 있는 예제 코드</summary>
+      <label for="code-0" class="note">코드를 수정한 뒤 적용할 수 있습니다. 편집 내용은 새로고침하면 사라집니다.</label>
+      <textarea id="code-0" rows="14" spellcheck="false" autocapitalize="off" autocomplete="off">&lt;!doctype html&gt;
+&lt;html lang=&quot;ko&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;나의 HTML 문서&lt;/title&gt;
+  &lt;style&gt;body { font-family: sans-serif; padding: 16px; }&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;!-- h1과 p는 같은 body를 부모로 가진 형제다. --&gt;
+  &lt;h1&gt;HTML 참고 노트&lt;/h1&gt;
+  &lt;p&gt;내용은 body 내부에 작성한다.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</textarea>
+      <div class="controls"><button class="primary" type="button" data-apply>코드 적용</button><button type="button" data-reset>초기화</button></div>
+      <p class="status" role="status"></p>
+    </details>
+  </article>
+<article class="example" id="example-2">
+    <h3>2. 중첩과 속성</h3>
+    <p>class는 여러 요소에서 재사용하고, id는 문서 내에서 고유하게 지정한다.</p>
+    <div class="controls"><label for="width-1">미리보기 너비 <output for="width-1">100%</output></label><input data-width id="width-1" type="range" min="35" max="100" value="100"></div>
+    <div class="preview"><iframe title="중첩과 속성 실행 결과" height="270" sandbox="allow-scripts allow-forms" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ko&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;style&gt;body{margin:16px;font:16px/1.7 sans-serif;color:#182b40}*,*::before,*::after{box-sizing:border-box}button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere}:focus-visible{outline:3px solid #a45200;outline-offset:3px}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;article id=&quot;profile&quot; class=&quot;card highlighted&quot;&gt;
+  &lt;!-- article의 직계 자식: h2, p. strong은 p의 자식이다. --&gt;
+  &lt;h2&gt;플레이어&lt;/h2&gt;
+  &lt;p&gt;직업: &lt;strong&gt;검사&lt;/strong&gt;&lt;/p&gt;
+&lt;/article&gt;
+&lt;style&gt;
+  .card { border: 2px solid #2456b8; padding: 16px; }
+  .highlighted { background: #edf4ff; }
+&lt;/style&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    <details open><summary>주석이 있는 예제 코드</summary>
+      <label for="code-1" class="note">코드를 수정한 뒤 적용할 수 있습니다. 편집 내용은 새로고침하면 사라집니다.</label>
+      <textarea id="code-1" rows="9" spellcheck="false" autocapitalize="off" autocomplete="off">&lt;article id=&quot;profile&quot; class=&quot;card highlighted&quot;&gt;
+  &lt;!-- article의 직계 자식: h2, p. strong은 p의 자식이다. --&gt;
+  &lt;h2&gt;플레이어&lt;/h2&gt;
+  &lt;p&gt;직업: &lt;strong&gt;검사&lt;/strong&gt;&lt;/p&gt;
+&lt;/article&gt;
+&lt;style&gt;
+  .card { border: 2px solid #2456b8; padding: 16px; }
+  .highlighted { background: #edf4ff; }
+&lt;/style&gt;</textarea>
+      <div class="controls"><button class="primary" type="button" data-apply>코드 적용</button><button type="button" data-reset>초기화</button></div>
+      <p class="status" role="status"></p>
+    </details>
+  </article></section>
+    <section id="notes"><h2>헷갈리는 점</h2><ul><li>태그 이름과 속성 이름은 다른 역할이다. class=&quot;card&quot;에서 class는 속성, card는 값이다.</li>
+<li>img, input, meta, link, br 같은 void 요소는 닫는 태그를 쓰지 않는다.</li>
+<li>외부 파일 연결 예: &lt;link rel=&quot;stylesheet&quot; href=&quot;./style.css&quot;&gt;. 이 자료는 공통 화면 CSS만 assets에 공유한다.</li></ul>
+
+    </section>
+    <section><h2>더 찾아보기</h2><p class="note">표준의 모든 태그/속성은 계속 확장됩니다. 이 페이지는 주제별 핵심 참고이며, 세부 문법과 지원 버전은 원문 색인에서 확인할 수 있습니다.</p><ul class="source-list"><li><a href="https://html.spec.whatwg.org/multipage/indices.html" target="_blank" rel="noopener noreferrer">HTML 요소 색인</a></li></ul></section>
+    <nav class="footer-nav" aria-label="이전 다음 주제"><span></span><a href="../../index.html">전체 목록</a><a href="../../html/02-semantics/index.html">시맨틱 구조 →</a></nav></main>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>표와 데이터 구조 | HTML / CSS 키워드 참고서</title>
+  <link rel="stylesheet" href="../../assets/reference.css">
+  <script src="../../assets/reference.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#content">본문으로 이동</a>
+  <main id="content">
+    <nav aria-label="상위 탐색"><a href="../../index.html">← 전체 키워드</a><a href="../../index.html#html">HTML</a></nav>
+    <p class="eyebrow">HTML / 06</p>
+    <h1>표와 데이터 구조</h1><p class="lead">표는 행과 열 사이의 관계를 표현한다. 화면 전체 배치를 위해 table을 사용하지 않는다.</p>
+    <section class="intro"><h2>이 페이지에서 찾기</h2><nav aria-label="페이지 목차"><a href="#keywords">키워드 표</a><a href="#examples">실행 예제</a><a href="#notes">헷갈리는 점</a></nav>
+      <p class="note">예제는 독립된 문서로 실행됩니다. 화면 공통 스타일과 섞이지 않으며, 미리보기 안에서 직접 클릭하거나 입력할 수 있습니다. JavaScript는 코드 적용과 너비 조절을 돕습니다.</p>
+    </section>
+    <section><h2>개별 키워드 백과사전</h2><p>한 항목만 찾아 문법, 값, 예제와 실패 조건을 확인한다.</p><ul class="toc"><li><a href="table/index.html">table</a> — 행과 열 사이의 데이터 관계를 표현한다.</li><li><a href="caption/index.html">caption</a> — 표의 제목/설명을 제공한다.</li><li><a href="thead/index.html">thead</a> — 표의 열 제목 행들을 묶는다.</li><li><a href="tbody/index.html">tbody</a> — 표의 본문 행들을 묶는다.</li><li><a href="tfoot/index.html">tfoot</a> — 표의 합계나 요약 행을 묶는다.</li><li><a href="tr/index.html">tr</a> — 표의 한 행을 만든다.</li><li><a href="th/index.html">th</a> — 행/열 제목 셀을 만든다.</li><li><a href="td/index.html">td</a> — 표의 데이터 셀을 만든다.</li></ul></section>
+<section id="keywords"><h2>키워드와 적용 대상</h2><div class="table-wrap"><table><thead><tr><th scope="col">키워드</th><th scope="col">어디에 쓰나</th><th scope="col">역할 / 기준</th></tr></thead><tbody><tr><td><code>table, caption</code></td><td>표와 제목</td><td>caption은 표 내용을 설명한다.</td></tr>
+<tr><td><code>thead, tbody, tfoot</code></td><td>행 그룹</td><td>열 제목, 본문, 합계 등의 행을 묶는다.</td></tr>
+<tr><td><code>tr</code></td><td>행</td><td>th와 td를 자식으로 가진다.</td></tr>
+<tr><td><code>th, scope</code></td><td>제목 셀</td><td>scope=&quot;col&quot; 또는 &quot;row&quot;로 관련 셀 방향을 알린다.</td></tr>
+<tr><td><code>td</code></td><td>데이터 셀</td><td>실제 데이터를 담는다.</td></tr>
+<tr><td><code>rowspan, colspan</code></td><td>셀 병합</td><td>행 또는 열을 몇 칸 차지할지 지정한다.</td></tr>
+<tr><td><code>colgroup, col</code></td><td>열 묶음</td><td>열 단위 스타일 등에 사용한다.</td></tr>
+<tr><td><code>border-collapse</code></td><td>CSS / table</td><td>인접 셀 테두리를 합칠지 분리할지 정한다.</td></tr></tbody></table></div></section>
+    <section id="examples"><h2>실행 예제와 코드</h2><article class="example" id="example-1">
+    <h3>1. 열 제목과 행 제목</h3>
+    <p>thead 안에 th가 있는 것만으로 모든 관계를 설명할 수 있는 것은 아니다. 단순 표에서는 scope를 명시하면 읽기 쉽다.</p>
+    <div class="controls"><label for="width-0">미리보기 너비 <output for="width-0">100%</output></label><input data-width id="width-0" type="range" min="35" max="100" value="100"></div>
+    <div class="preview"><iframe title="열 제목과 행 제목 실행 결과" height="270" sandbox="allow-scripts allow-forms" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ko&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;style&gt;body{margin:16px;font:16px/1.7 sans-serif;color:#182b40}*,*::before,*::after{box-sizing:border-box}button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere}:focus-visible{outline:3px solid #a45200;outline-offset:3px}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;table&gt;
+  &lt;caption&gt;직업별 기본 능력치&lt;/caption&gt;
+  &lt;thead&gt;&lt;tr&gt;&lt;th scope=&quot;col&quot;&gt;직업&lt;/th&gt;&lt;th scope=&quot;col&quot;&gt;체력&lt;/th&gt;&lt;th scope=&quot;col&quot;&gt;마나&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;&lt;th scope=&quot;row&quot;&gt;검사&lt;/th&gt;&lt;td&gt;120&lt;/td&gt;&lt;td&gt;30&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;th scope=&quot;row&quot;&gt;마법사&lt;/th&gt;&lt;td&gt;70&lt;/td&gt;&lt;td&gt;110&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;style&gt;
+  table { border-collapse: collapse; width: 100%; }
+  th, td { border: 1px solid #8ca3c1; padding: 10px; text-align: left; }
+&lt;/style&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    <details open><summary>주석이 있는 예제 코드</summary>
+      <label for="code-0" class="note">코드를 수정한 뒤 적용할 수 있습니다. 편집 내용은 새로고침하면 사라집니다.</label>
+      <textarea id="code-0" rows="12" spellcheck="false" autocapitalize="off" autocomplete="off">&lt;table&gt;
+  &lt;caption&gt;직업별 기본 능력치&lt;/caption&gt;
+  &lt;thead&gt;&lt;tr&gt;&lt;th scope=&quot;col&quot;&gt;직업&lt;/th&gt;&lt;th scope=&quot;col&quot;&gt;체력&lt;/th&gt;&lt;th scope=&quot;col&quot;&gt;마나&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;&lt;th scope=&quot;row&quot;&gt;검사&lt;/th&gt;&lt;td&gt;120&lt;/td&gt;&lt;td&gt;30&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;th scope=&quot;row&quot;&gt;마법사&lt;/th&gt;&lt;td&gt;70&lt;/td&gt;&lt;td&gt;110&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;style&gt;
+  table { border-collapse: collapse; width: 100%; }
+  th, td { border: 1px solid #8ca3c1; padding: 10px; text-align: left; }
+&lt;/style&gt;</textarea>
+      <div class="controls"><button class="primary" type="button" data-apply>코드 적용</button><button type="button" data-reset>초기화</button></div>
+      <p class="status" role="status"></p>
+    </details>
+  </article>
+<article class="example" id="example-2">
+    <h3>2. 두 열을 합치는 colspan</h3>
+    <p>병합한 셀이 차지하는 열 수를 포함해 각 행의 열 수를 맞춘다.</p>
+    <div class="controls"><label for="width-1">미리보기 너비 <output for="width-1">100%</output></label><input data-width id="width-1" type="range" min="35" max="100" value="100"></div>
+    <div class="preview"><iframe title="두 열을 합치는 colspan 실행 결과" height="270" sandbox="allow-scripts allow-forms" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;ko&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;style&gt;body{margin:16px;font:16px/1.7 sans-serif;color:#182b40}*,*::before,*::after{box-sizing:border-box}button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere}:focus-visible{outline:3px solid #a45200;outline-offset:3px}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;table&gt;
+  &lt;caption&gt;항목별 개수&lt;/caption&gt;
+  &lt;tr&gt;&lt;th scope=&quot;col&quot;&gt;항목&lt;/th&gt;&lt;th scope=&quot;col&quot;&gt;개수&lt;/th&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;포션&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td colspan=&quot;2&quot;&gt;두 열 전체를 차지하는 안내&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;style&gt;th, td { border: 1px solid #8ca3c1; padding: 12px; }&lt;/style&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+    <details open><summary>주석이 있는 예제 코드</summary>
+      <label for="code-1" class="note">코드를 수정한 뒤 적용할 수 있습니다. 편집 내용은 새로고침하면 사라집니다.</label>
+      <textarea id="code-1" rows="7" spellcheck="false" autocapitalize="off" autocomplete="off">&lt;table&gt;
+  &lt;caption&gt;항목별 개수&lt;/caption&gt;
+  &lt;tr&gt;&lt;th scope=&quot;col&quot;&gt;항목&lt;/th&gt;&lt;th scope=&quot;col&quot;&gt;개수&lt;/th&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;포션&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td colspan=&quot;2&quot;&gt;두 열 전체를 차지하는 안내&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;style&gt;th, td { border: 1px solid #8ca3c1; padding: 12px; }&lt;/style&gt;</textarea>
+      <div class="controls"><button class="primary" type="button" data-apply>코드 적용</button><button type="button" data-reset>초기화</button></div>
+      <p class="status" role="status"></p>
+    </details>
+  </article></section>
+    <section id="notes"><h2>헷갈리는 점</h2><ul><li>모바일에서는 표 바깥 div에 overflow-x:auto를 적용해 표 영역만 스크롤하게 만들 수 있다.</li>
+<li>복잡한 병합 표는 headers와 id로 셀 관계를 명시하는 방식도 검토한다.</li></ul>
+
+    </section>
+    <section><h2>더 찾아보기</h2><p class="note">표준의 모든 태그/속성은 계속 확장됩니다. 이 페이지는 주제별 핵심 참고이며, 세부 문법과 지원 버전은 원문 색인에서 확인할 수 있습니다.</p><ul class="source-list"><li><a href="https://html.spec.whatwg.org/multipage/indices.html" target="_blank" rel="noopener noreferrer">HTML 요소 색인</a></li></ul></section>
+    <nav class="footer-nav" aria-label="이전 다음 주제"><a href="../../html/05-images-media/index.html">← 이미지와 미디어</a><a href="../../index.html">전체 목록</a><a href="../../html/07-forms/index.html">폼과 입력 검증 →</a></nav></main>
+</body>
+</html>
