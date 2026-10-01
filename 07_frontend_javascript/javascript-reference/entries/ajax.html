@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ko">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="JavaScript 기초부터 DOM과 이벤트까지, 키워드 설명과 비교 가능한 실행 예제"><title>AJAX / 부분 갱신 | JavaScript 참고서</title><link rel="stylesheet" href="../assets/reference.css"><script defer src="../assets/reference.js"></script></head>
+<body><a class="skip" href="#content">본문으로 이동</a>
+<header class="site-header"><a class="brand" href="../index.html"><span class="brand-icon" aria-hidden="true">JS</span><span>JavaScript <strong>참고서</strong></span></a><nav aria-label="참고 자료"><a href="../index.html">키워드 찾기</a><a href="../README.md">사용 안내</a><a href="../../../07_frontend_basic/html-css-reference/index.html">HTML / CSS ↗</a></nav></header>
+<div class="layout"><aside class="sidebar"><a class="back-link" href="../index.html">← 전체 키워드</a><p class="side-label">AJAX와 비동기 데이터 갱신</p><nav class="entry-toc" aria-label="이 페이지 목차"><a href="#overview">01 핵심 이해</a><a href="#syntax">02 문법과 값</a><a href="#playground">03 실행과 비교</a><a href="#pitfalls">04 자주 헷갈리는 점</a><a href="#related">05 연결해서 보기</a></nav><div class="side-note"><span class="status-dot"></span>브라우저 API<p>DOM과 이벤트는 브라우저가 제공하는 기능이다.</p></div></aside><main id="content"><nav class="breadcrumbs" aria-label="현재 위치"><a href="../index.html">JavaScript</a><span aria-hidden="true">/</span><a href="../index.html#group-9">AJAX와 비동기 데이터 갱신</a></nav>
+<header class="entry-heading"><p class="eyebrow">BROWSER API / 68</p><h1>AJAX / 부분 갱신</h1><p class="lead">페이지 전체를 새로고침하지 않고 데이터를 읽어 필요한 DOM만 갱신한다.</p><div class="tags"><span>주석 있는 예제</span><span>기본 / 비교 2가지</span><a href="https://developer.mozilla.org/en-US/docs/Glossary/AJAX" target="_blank" rel="noopener">MDN 원문 ↗</a></div></header>
+<section id="overview" class="overview"><div class="overview-primary"><p class="eyebrow">이럴 때 사용한다</p><h2>목록, 검색 결과와 상태를 페이지 이동 없이 갱신할 때</h2><p>AJAX는 Asynchronous JavaScript and XML의 약자지만 XML만 사용해야 하는 것은 아니다. JSON을 비롯한 여러 형식을 사용할 수 있다. 보통 fetch나 XMLHttpRequest로 요청하며 AJAX는 별도의 JavaScript 문법이 아니다.</p></div><div class="overview-secondary"><p class="eyebrow">먼저 구분할 것</p><p>AJAX가 화면을 자동으로 바꿔주는 것은 아니다. 응답을 읽고 어떤 DOM을 갱신할지 개발자가 작성한다. 기본 예제는 브라우저 내부 data URL을 읽는 오프라인 데모이며 실제 서버 통신이 아니다.</p></div></section>
+<section id="syntax" class="doc-section"><div class="section-heading"><div><p class="eyebrow">01 / SYNTAX</p><h2>문법과 값의 흐름</h2></div></div><pre class="syntax"><code>사용자 조작 → 비동기 요청 → 응답 읽기 → DOM 갱신</code></pre><dl class="contract"><div><dt>입력 / 조건</dt><dd>사용자 이벤트와 데이터 URL, 응답 데이터</dd></div><div><dt>결과 / 반환값</dt><dd>응답을 읽은 뒤 목록의 자식 DOM만 교체한다.</dd></div><div><dt>원본 / 상태 변경</dt><dd>페이지 문서 전체를 바꾸지 않고 필요한 DOM만 갱신한다.</dd></div></dl></section>
+<section id="playground" class="example doc-section"><div class="section-heading"><div><p class="eyebrow">02 / PLAYGROUND</p><h2>코드와 결과를 함께 보기</h2></div><span class="live-pill"><span class="status-dot"></span>브라우저 실행</span></div><div class="sample-bar"><label for="preset">예제 선택</label><select id="preset" data-preset><option value="0" data-code="// 목록, 검색 결과와 상태를 페이지 이동 없이 갱신할 때
+const url = 'data:application/json,' + encodeURIComponent(JSON.stringify([
+  { id: 1, name: 'HTML' }, { id: 2, name: 'JavaScript' }
+]));
+const button = document.querySelector('#load');
+button.addEventListener('click', async () =&gt; {
+  button.disabled = true;
+  document.querySelector('#status').textContent = '불러오는 중...';
+  try {
+    const response = await fetch(url); // 브라우저 안의 JSON 데이터
+    if (!response.ok) throw new Error('응답 상태: ' + response.status);
+    const items = await response.json();
+    const nodes = items.map(item =&gt; {
+      const li = document.createElement('li');
+      li.textContent = item.name;
+      return li;
+    });
+    document.querySelector('#list').replaceChildren(...nodes);
+    document.querySelector('#status').textContent = '목록 갱신 완료';
+    console.log('문서 이동 없이', items.length, '개 표시');
+  } catch (error) {
+    document.querySelector('#status').textContent = error.message;
+  } finally {
+    button.disabled = false;
+  }
+});" data-html="&lt;p&gt;페이지 전체를 이동하지 않고 아래 목록만 갱신한다.&lt;/p&gt;&lt;button id=&quot;load&quot; type=&quot;button&quot;&gt;목록 불러오기&lt;/button&gt;&lt;p id=&quot;status&quot; role=&quot;status&quot;&gt;대기 중&lt;/p&gt;&lt;ul id=&quot;list&quot;&gt;&lt;/ul&gt;" data-expected="목록 불러오기를 누르면 HTML, JavaScript 항목이 나타나고 페이지는 이동하지 않는다.">기본 예제</option><option value="1" data-code="// 갱신 중에도 입력한 글은 유지
+const url = 'data:application/json,' + encodeURIComponent(JSON.stringify([
+  { id: 1, name: 'HTML' }, { id: 2, name: 'JavaScript' }
+]));
+document.querySelector('#load').addEventListener('click', async () =&gt; {
+  try {
+    const response = await fetch(url);
+    const items = await response.json();
+    document.querySelector('#result').textContent = items.map(item =&gt; item.name).join(', ');
+    console.log('부분 갱신 완료');
+  } catch (error) { console.error(error.message); }
+});" data-html="&lt;label&gt;유지할 입력 &lt;input id=&quot;keep&quot; placeholder=&quot;글을 적고 불러오기&quot;&gt;&lt;/label&gt;&lt;button id=&quot;load&quot; type=&quot;button&quot;&gt;부분 갱신&lt;/button&gt;&lt;p id=&quot;result&quot;&gt;&lt;/p&gt;" data-expected="입력한 글은 유지되고 결과 문구만 HTML, JavaScript로 바뀐다.">갱신 중에도 입력한 글은 유지</option></select><span class="sample-note">비교 예제에서 경계 조건과 차이를 확인한다.</span></div>
+<div class="playground-grid"><div class="editor-column"><div class="pane-header"><div class="editor-tabs" role="group" aria-label="편집할 코드"><button type="button" data-tab="js" aria-pressed="true">JavaScript</button><button type="button" data-tab="html" aria-pressed="false">HTML / CSS</button></div><span data-dirty class="dirty-badge">원본</span></div><div class="editor-panel" data-editor="js"><label class="sr-only" for="javascript">JavaScript</label><div class="code-editor"><pre class="line-numbers" aria-hidden="true" data-lines="js">1</pre><textarea id="javascript" data-js spellcheck="false" wrap="off" rows="14">// 목록, 검색 결과와 상태를 페이지 이동 없이 갱신할 때
+const url = 'data:application/json,' + encodeURIComponent(JSON.stringify([
+  { id: 1, name: 'HTML' }, { id: 2, name: 'JavaScript' }
+]));
+const button = document.querySelector('#load');
+button.addEventListener('click', async () =&gt; {
+  button.disabled = true;
+  document.querySelector('#status').textContent = '불러오는 중...';
+  try {
+    const response = await fetch(url); // 브라우저 안의 JSON 데이터
+    if (!response.ok) throw new Error('응답 상태: ' + response.status);
+    const items = await response.json();
+    const nodes = items.map(item =&gt; {
+      const li = document.createElement('li');
+      li.textContent = item.name;
+      return li;
+    });
+    document.querySelector('#list').replaceChildren(...nodes);
+    document.querySelector('#status').textContent = '목록 갱신 완료';
+    console.log('문서 이동 없이', items.length, '개 표시');
+  } catch (error) {
+    document.querySelector('#status').textContent = error.message;
+  } finally {
+    button.disabled = false;
+  }
+});</textarea></div></div><div class="editor-panel" data-editor="html"><label class="sr-only" for="html">HTML / CSS</label><div class="code-editor"><pre class="line-numbers" aria-hidden="true" data-lines="html">1</pre><textarea id="html" data-html spellcheck="false" wrap="off" rows="14">&lt;p&gt;페이지 전체를 이동하지 않고 아래 목록만 갱신한다.&lt;/p&gt;&lt;button id=&quot;load&quot; type=&quot;button&quot;&gt;목록 불러오기&lt;/button&gt;&lt;p id=&quot;status&quot; role=&quot;status&quot;&gt;대기 중&lt;/p&gt;&lt;ul id=&quot;list&quot;&gt;&lt;/ul&gt;</textarea></div></div><div class="editor-toolbar"><button type="button" class="button primary" data-run>▶ 실행 <kbd>Ctrl ↵</kbd></button><button type="button" class="button subtle" data-reset>원본으로 초기화</button><button type="button" class="button subtle" data-copy>전체 예제 복사</button></div></div><div class="result-column"><div class="pane-header"><h3>실행 결과</h3><label class="width-control" for="width">폭 <select id="width" data-width><option value="100%">자동</option><option value="360px">360px</option></select></label></div><div class="frame-wrap"><iframe title="AJAX / 부분 갱신 실행 결과" sandbox="allow-scripts allow-forms"></iframe></div></div></div>
+<p class="status" role="status"></p><div class="expected"><strong>기대 결과</strong><p data-expected>목록 불러오기를 누르면 HTML, JavaScript 항목이 나타나고 페이지는 이동하지 않는다.</p></div><p class="playground-help">버튼, 입력 등은 오른쪽 미리보기에서 직접 조작한다. 수정 후 실행하거나 Ctrl+Enter를 누른다. 수정 내용은 파일에 자동 저장되지 않는다.</p><noscript>아래 비교 예제 코드는 JavaScript를 켜지 않아도 읽을 수 있다.</noscript><details class="alternate-source"><summary>비교 예제 원문: 갱신 중에도 입력한 글은 유지</summary><h3>HTML / CSS</h3><pre><code>&lt;label&gt;유지할 입력 &lt;input id=&quot;keep&quot; placeholder=&quot;글을 적고 불러오기&quot;&gt;&lt;/label&gt;&lt;button id=&quot;load&quot; type=&quot;button&quot;&gt;부분 갱신&lt;/button&gt;&lt;p id=&quot;result&quot;&gt;&lt;/p&gt;</code></pre><h3>JavaScript</h3><pre><code>// 갱신 중에도 입력한 글은 유지
+const url = 'data:application/json,' + encodeURIComponent(JSON.stringify([
+  { id: 1, name: 'HTML' }, { id: 2, name: 'JavaScript' }
+]));
+document.querySelector('#load').addEventListener('click', async () =&gt; {
+  try {
+    const response = await fetch(url);
+    const items = await response.json();
+    document.querySelector('#result').textContent = items.map(item =&gt; item.name).join(', ');
+    console.log('부분 갱신 완료');
+  } catch (error) { console.error(error.message); }
+});</code></pre><p>기대 결과: 입력한 글은 유지되고 결과 문구만 HTML, JavaScript로 바뀐다.</p></details></section>
+<section class="doc-section"><p class="eyebrow">실제 서버에 연결할 때</p><h2>같은 흐름에서 요청 URL을 바꾼다</h2><p class="network-note">위 기본 예제의 data URL은 브라우저 내부 데이터다. 실제 서버 요청은 HTTP로 열린 페이지에서 아래처럼 API URL을 사용한다. 아래 코드는 서버 연결용 참고 코드이며 자동 실행하지 않는다. API는 [{"name":"HTML"}, {"name":"JavaScript"}] 형태의 JSON 배열을 반환한다고 가정한다.</p><pre class="syntax"><code>async function loadFromServer() {
+  const response = await fetch('/api/items');
+  if (!response.ok) throw new Error('HTTP ' + response.status);
+  const items = await response.json();
+  const nodes = items.map(item =&gt; {
+    const li = document.createElement('li');
+    li.textContent = item.name;
+    return li;
+  });
+  document.querySelector('#list').replaceChildren(...nodes);
+}
+loadFromServer().catch(error =&gt; {
+  document.querySelector('#status').textContent = error.message;
+});</code></pre><p class="network-note">실제 API 주소와 응답 구조를 확인해 맞춘다. 다른 출처의 서버에는 서버 측 CORS 허용이 필요하다. mode: 'no-cors'로 JSON을 읽을 수 있게 되는 것은 아니다.</p></section><section id="pitfalls" class="doc-section pitfall-section"><p class="eyebrow">03 / TROUBLESHOOTING</p><h2>이 항목에서 자주 헷갈리는 점</h2><p>AJAX가 화면을 자동으로 바꿔주는 것은 아니다. 응답을 읽고 어떤 DOM을 갱신할지 개발자가 작성한다. 기본 예제는 브라우저 내부 data URL을 읽는 오프라인 데모이며 실제 서버 통신이 아니다.</p><details><summary>오류 메시지로 확인할 위치</summary><dl class="error-guide"><div><dt>ReferenceError</dt><dd>이름 오타, 선언 위치와 선언 전 접근을 확인한다.</dd></div><div><dt>TypeError</dt><dd>null이나 undefined인지, 해당 타입에서 호출 가능한 메서드인지 확인한다.</dd></div><div><dt>SyntaxError</dt><dd>괄호, 따옴표, 쉼표와 문법을 확인한다. 구문 오류는 예제 실행 전에 표시된다.</dd></div></dl></details></section>
+<section id="related" class="doc-section"><p class="eyebrow">04 / CONNECTIONS</p><h2>연결해서 보기</h2><div class="related-grid"><a class="related-card" href="fetch.html"><strong>fetch / Request / Response</strong><span>URL을 요청하고 응답의 상태와 본문을 단계별로 읽는다.</span><span aria-hidden="true">→</span></a><a class="related-card" href="async-await.html"><strong>async / await</strong><span>Promise 완료를 기다리는 코드를 순서대로 읽기 쉽게 표현한다.</span><span aria-hidden="true">→</span></a><a class="related-card" href="request-state.html"><strong>로딩 상태 / 중복 요청 / 최신 결과</strong><span>비동기 응답의 순서와 중복 조작을 고려해 화면을 갱신한다.</span><span aria-hidden="true">→</span></a><a class="related-card" href="http-errors.html"><strong>HTTP 오류 / response.ok / status</strong><span>통신 실패, HTTP 실패와 본문 파싱 실패를 구분해 처리한다.</span><span aria-hidden="true">→</span></a></div></section><nav class="page-turn" aria-label="앞뒤 키워드"><a href="timer.html"><small>이전 키워드</small><strong>← setTimeout / setInterval / clearInterval</strong></a><a href="promise.html"><small>다음 키워드</small><strong>Promise / then / catch / finally →</strong></a></nav><footer class="site-footer"><span>AX STUDY / JavaScript Reference</span><span>설치 없이 읽고, 수정하고, 실행하기</span></footer></main></div>
+</body></html>

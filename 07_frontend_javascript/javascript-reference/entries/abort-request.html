@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ko">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="JavaScript 기초부터 DOM과 이벤트까지, 키워드 설명과 비교 가능한 실행 예제"><title>AbortController / 요청 취소 | JavaScript 참고서</title><link rel="stylesheet" href="../assets/reference.css"><script defer src="../assets/reference.js"></script></head>
+<body><a class="skip" href="#content">본문으로 이동</a>
+<header class="site-header"><a class="brand" href="../index.html"><span class="brand-icon" aria-hidden="true">JS</span><span>JavaScript <strong>참고서</strong></span></a><nav aria-label="참고 자료"><a href="../index.html">키워드 찾기</a><a href="../README.md">사용 안내</a><a href="../../../07_frontend_basic/html-css-reference/index.html">HTML / CSS ↗</a></nav></header>
+<div class="layout"><aside class="sidebar"><a class="back-link" href="../index.html">← 전체 키워드</a><p class="side-label">AJAX와 비동기 데이터 갱신</p><nav class="entry-toc" aria-label="이 페이지 목차"><a href="#overview">01 핵심 이해</a><a href="#syntax">02 문법과 값</a><a href="#playground">03 실행과 비교</a><a href="#pitfalls">04 자주 헷갈리는 점</a><a href="#related">05 연결해서 보기</a></nav><div class="side-note"><span class="status-dot"></span>브라우저 API<p>DOM과 이벤트는 브라우저가 제공하는 기능이다.</p></div></aside><main id="content"><nav class="breadcrumbs" aria-label="현재 위치"><a href="../index.html">JavaScript</a><span aria-hidden="true">/</span><a href="../index.html#group-9">AJAX와 비동기 데이터 갱신</a></nav>
+<header class="entry-heading"><p class="eyebrow">BROWSER API / 75</p><h1>AbortController / 요청 취소</h1><p class="lead">진행 중 요청을 취소하고 취소를 일반 오류와 구분한다.</p><div class="tags"><span>주석 있는 예제</span><span>기본 / 비교 2가지</span><a href="https://developer.mozilla.org/en-US/docs/Web/API/AbortController" target="_blank" rel="noopener">MDN 원문 ↗</a></div></header>
+<section id="overview" class="overview"><div class="overview-primary"><p class="eyebrow">이럴 때 사용한다</p><h2>검색어가 바뀌거나 화면을 떠날 때 이전 요청을 취소할 때</h2><p>AbortController의 signal을 fetch에 전달하면 abort로 해당 작업을 취소할 수 있다. 취소한 signal은 다시 사용할 수 없다. 새로운 요청에는 새 컨트롤러가 필요하다. 기본 예제는 이미 취소된 signal로 fetch를 시작한다.</p></div><div class="overview-secondary"><p class="eyebrow">먼저 구분할 것</p><p>취소는 서버 변경 작업의 롤백이 아니다. 취소 뒤에는 새 컨트롤러를 사용하고 signal.aborted 또는 오류 종류로 일반 실패와 구분한다.</p></div></section>
+<section id="syntax" class="doc-section"><div class="section-heading"><div><p class="eyebrow">01 / SYNTAX</p><h2>문법과 값의 흐름</h2></div></div><pre class="syntax"><code>fetch(url, { signal: controller.signal }); controller.abort();</code></pre><dl class="contract"><div><dt>입력 / 조건</dt><dd>AbortController와 signal</dd></div><div><dt>결과 / 반환값</dt><dd>기본 취소 사유는 AbortError 형태로 처리할 수 있다.</dd></div><div><dt>원본 / 상태 변경</dt><dd>클라이언트의 대기를 취소한다. 이미 실행된 서버 작업을 되돌리는 보장은 없다.</dd></div></dl></section>
+<section id="playground" class="example doc-section"><div class="section-heading"><div><p class="eyebrow">02 / PLAYGROUND</p><h2>코드와 결과를 함께 보기</h2></div><span class="live-pill"><span class="status-dot"></span>브라우저 실행</span></div><div class="sample-bar"><label for="preset">예제 선택</label><select id="preset" data-preset><option value="0" data-code="// 검색어가 바뀌거나 화면을 떠날 때 이전 요청을 취소할 때
+async function load() {
+  const controller = new AbortController();
+  controller.abort(); // 취소 상태를 확실하게 재현한다.
+  try {
+    await fetch('data:text/plain,hello', { signal: controller.signal });
+  } catch (error) {
+    if (controller.signal.aborted) console.log('요청 취소됨:', error.name);
+    else console.error(error.message);
+  }
+}
+load();" data-html="" data-expected="요청 취소됨: AbortError">기본 예제</option><option value="1" data-code="// 취소한 signal은 다시 쓰지 않는다
+const previous = new AbortController();
+previous.abort();
+const next = new AbortController();
+console.log('이전 signal:', previous.signal.aborted);
+console.log('새 signal:', next.signal.aborted);" data-html="" data-expected="이전 signal: true → 새 signal: false">취소한 signal은 다시 쓰지 않는다</option></select><span class="sample-note">비교 예제에서 경계 조건과 차이를 확인한다.</span></div>
+<div class="playground-grid"><div class="editor-column"><div class="pane-header"><div class="editor-tabs" role="group" aria-label="편집할 코드"><button type="button" data-tab="js" aria-pressed="true">JavaScript</button><button type="button" data-tab="html" aria-pressed="false">HTML / CSS</button></div><span data-dirty class="dirty-badge">원본</span></div><div class="editor-panel" data-editor="js"><label class="sr-only" for="javascript">JavaScript</label><div class="code-editor"><pre class="line-numbers" aria-hidden="true" data-lines="js">1</pre><textarea id="javascript" data-js spellcheck="false" wrap="off" rows="14">// 검색어가 바뀌거나 화면을 떠날 때 이전 요청을 취소할 때
+async function load() {
+  const controller = new AbortController();
+  controller.abort(); // 취소 상태를 확실하게 재현한다.
+  try {
+    await fetch('data:text/plain,hello', { signal: controller.signal });
+  } catch (error) {
+    if (controller.signal.aborted) console.log('요청 취소됨:', error.name);
+    else console.error(error.message);
+  }
+}
+load();</textarea></div></div><div class="editor-panel" data-editor="html"><label class="sr-only" for="html">HTML / CSS</label><div class="code-editor"><pre class="line-numbers" aria-hidden="true" data-lines="html">1</pre><textarea id="html" data-html spellcheck="false" wrap="off" rows="14"></textarea></div></div><div class="editor-toolbar"><button type="button" class="button primary" data-run>▶ 실행 <kbd>Ctrl ↵</kbd></button><button type="button" class="button subtle" data-reset>원본으로 초기화</button><button type="button" class="button subtle" data-copy>전체 예제 복사</button></div></div><div class="result-column"><div class="pane-header"><h3>실행 결과</h3><label class="width-control" for="width">폭 <select id="width" data-width><option value="100%">자동</option><option value="360px">360px</option></select></label></div><div class="frame-wrap"><iframe title="AbortController / 요청 취소 실행 결과" sandbox="allow-scripts allow-forms"></iframe></div></div></div>
+<p class="status" role="status"></p><div class="expected"><strong>기대 결과</strong><p data-expected>요청 취소됨: AbortError</p></div><p class="playground-help">console 출력은 오른쪽 결과 창에 표시된다. 수정 후 실행하거나 Ctrl+Enter를 누른다. 수정 내용은 파일에 자동 저장되지 않는다.</p><noscript>아래 비교 예제 코드는 JavaScript를 켜지 않아도 읽을 수 있다.</noscript><details class="alternate-source"><summary>비교 예제 원문: 취소한 signal은 다시 쓰지 않는다</summary><h3>JavaScript</h3><pre><code>// 취소한 signal은 다시 쓰지 않는다
+const previous = new AbortController();
+previous.abort();
+const next = new AbortController();
+console.log('이전 signal:', previous.signal.aborted);
+console.log('새 signal:', next.signal.aborted);</code></pre><p>기대 결과: 이전 signal: true → 새 signal: false</p></details></section>
+<section id="pitfalls" class="doc-section pitfall-section"><p class="eyebrow">03 / TROUBLESHOOTING</p><h2>이 항목에서 자주 헷갈리는 점</h2><p>취소는 서버 변경 작업의 롤백이 아니다. 취소 뒤에는 새 컨트롤러를 사용하고 signal.aborted 또는 오류 종류로 일반 실패와 구분한다.</p><details><summary>오류 메시지로 확인할 위치</summary><dl class="error-guide"><div><dt>ReferenceError</dt><dd>이름 오타, 선언 위치와 선언 전 접근을 확인한다.</dd></div><div><dt>TypeError</dt><dd>null이나 undefined인지, 해당 타입에서 호출 가능한 메서드인지 확인한다.</dd></div><div><dt>SyntaxError</dt><dd>괄호, 따옴표, 쉼표와 문법을 확인한다. 구문 오류는 예제 실행 전에 표시된다.</dd></div></dl></details></section>
+<section id="related" class="doc-section"><p class="eyebrow">04 / CONNECTIONS</p><h2>연결해서 보기</h2><div class="related-grid"><a class="related-card" href="request-state.html"><strong>로딩 상태 / 중복 요청 / 최신 결과</strong><span>비동기 응답의 순서와 중복 조작을 고려해 화면을 갱신한다.</span><span aria-hidden="true">→</span></a><a class="related-card" href="fetch.html"><strong>fetch / Request / Response</strong><span>URL을 요청하고 응답의 상태와 본문을 단계별로 읽는다.</span><span aria-hidden="true">→</span></a><a class="related-card" href="listener-options.html"><strong>once / capture / passive / signal</strong><span>이벤트 등록 옵션으로 실행 횟수, 전파 단계, 취소와 해제를 제어한다.</span><span aria-hidden="true">→</span></a></div></section><nav class="page-turn" aria-label="앞뒤 키워드"><a href="http-errors.html"><small>이전 키워드</small><strong>← HTTP 오류 / response.ok / status</strong></a><a href="request-state.html"><small>다음 키워드</small><strong>로딩 상태 / 중복 요청 / 최신 결과 →</strong></a></nav><footer class="site-footer"><span>AX STUDY / JavaScript Reference</span><span>설치 없이 읽고, 수정하고, 실행하기</span></footer></main></div>
+</body></html>
