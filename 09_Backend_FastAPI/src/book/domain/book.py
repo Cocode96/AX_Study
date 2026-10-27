@@ -8,11 +8,16 @@
 
 import datetime
 
+
 class Book:
-    def __init__(self, book_id: int, title: str, author: str, status: str = "AVAILABLE"):
+    def __init__(
+        self, book_id: int, title: str, author: str, status: str = "AVAILABLE"
+    ):
         # 도서의 대여 상태값 유효성 검사
         if status not in ["AVAILABLE", "RENTED"]:
-            raise ValueError("허용되지 않은 도서 상태입니다. ('AVAILABLE' 또는 'RENTED'만 유효)")
+            raise ValueError(
+                "허용되지 않은 도서 상태입니다. ('AVAILABLE' 또는 'RENTED'만 유효)"
+            )
 
         # 제목이나 저자 이름이 공백인 경우를 차단
         if not title or not title.strip():
@@ -25,6 +30,21 @@ class Book:
         self.author = author.strip()
         self.status = status
         self.created_at = datetime.datetime.now()
+
+    @classmethod
+    def create(
+        cls,
+        book_id: int,
+        title: str,
+        author: str,
+        status: str = "AVAILABLE",
+    ) -> "Book":
+        return cls(
+            book_id=book_id,
+            title=title,
+            author=author,
+            status=status,
+        )
 
     def update_details(self, title: str, author: str, status: str) -> None:
         """
@@ -50,5 +70,5 @@ class Book:
             "title": self.title,
             "author": self.author,
             "status": self.status,
-            "created_at": self.created_at.isoformat()
+            "created_at": self.created_at.isoformat(),
         }
